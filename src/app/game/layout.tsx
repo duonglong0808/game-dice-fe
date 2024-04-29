@@ -12,9 +12,5 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <GameLayout>
-      <StoreProvider>{children}</StoreProvider>
-    </GameLayout>
-  );
+  return <GameLayout>{children}</GameLayout>;
 }

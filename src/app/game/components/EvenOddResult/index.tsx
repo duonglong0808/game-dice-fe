@@ -11,58 +11,42 @@ export function EvenOddResult(): JSX.Element {
           <tr className={cx('table__tr')}>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATred_bigT')}>L</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '#3377f2' }}>
-                  C
-                </div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td')}></td>

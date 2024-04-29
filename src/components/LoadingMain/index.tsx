@@ -4,19 +4,25 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
-import { redirect } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
+import { handleLoginGame } from './ulti/handleLoading';
+import { useAppDispatch } from '@/lib';
 
 const cx = classNames.bind(styles);
 
 export default function LoadingScreen() {
   // const isResponsive = useIsResponsive();
   const isResponsive = true;
+  const searchParams = useSearchParams();
+  const refresh_token = searchParams.get('refresh_token');
+  const access_token = searchParams.get('access_token');
+  const dispatch = useAppDispatch();
 
   const [numberLoading, setNumberLoading] = useState(0);
 
   useEffect(() => {
     if (numberLoading >= 100) {
-      redirect('/game');
+      setNumberLoading(99);
     } else {
       setTimeout(() => {
         setNumberLoading((pre) => {
@@ -24,6 +30,23 @@ export default function LoadingScreen() {
         });
       }, 200);
     }
+
+    async function fetchData() {
+      if (numberLoading == 99) {
+        if (access_token && refresh_token) {
+          const check = await handleLoginGame(access_token, refresh_token, dispatch);
+          if (check) redirect('/game');
+          else {
+            console.log('ooj');
+            redirect('/error');
+          }
+        } else {
+          console.log('oojdsfbdjhm');
+          redirect('/error');
+        }
+      }
+    }
+    fetchData();
   }, [numberLoading]);
 
   return (

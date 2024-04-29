@@ -26,7 +26,6 @@ export function XocDiaItem({
   valueC: number;
   onClick: () => void;
 }): JSX.Element {
-  console.log('🚀 ~ nation:', nation);
   let imageNational = '';
   switch (nation.toLowerCase()) {
     case 'vn':
@@ -38,7 +37,6 @@ export function XocDiaItem({
     default:
       break;
   }
-  console.log('🚀 ~ imageNational:', imageNational);
 
   return (
     <div className={cx('wrapper')} onClick={onClick}>

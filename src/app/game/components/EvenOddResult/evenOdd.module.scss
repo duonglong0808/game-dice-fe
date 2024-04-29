@@ -1,32 +1,32 @@
 .wrapper {
   //   margin: 0 2px;
-  height: 100%;
-  width: 100%;
+  // height: 100%;
+  // width: 100%;
 }
 
 .CD_dataInput {
   float: left;
-  width: 178px;
-  height: 105.2px;
+  width: 182px;
+  height: 107px;
   table-layout: fixed;
-  max-height: 100%;
 }
 
 .table__body {
-  height: 100%;
+  // height: 100%;
 }
 
 .table__tr {
-  height: 16.6667%;
-  width: 100%;
+  // height: 16.6667%;
+  // width: 100%;
 }
 
 .table__td {
-  width: 11.1111%;
   position: relative;
   background-color: #484848;
   border-bottom: 1px solid #535353;
   border-right: 1px solid #535353;
+  width: 18px;
+  height: 16px;
 }
 
 .ba_AT_box {
@@ -36,10 +36,11 @@
   overflow: hidden;
 }
 
+.ba_ATred_bigT,
 .ba_ATBall_bigT {
   font-size: 15px;
   text-align: center;
-  //   line-height: 17px;
+  font-weight: bold;
 
   &::after {
     content: '';
@@ -48,4 +49,12 @@
     clear: both;
     visibility: hidden;
   }
+}
+
+.ba_ATred_bigT {
+  color: #ee4238;
+}
+
+.ba_ATBall_bigT {
+  color: #3377f2;
 }
