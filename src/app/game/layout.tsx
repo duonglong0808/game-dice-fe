@@ -1,9 +1,10 @@
-import GameLayout from "@/layouts/game/layout";
-import type { Metadata } from "next";
+import GameLayout from '@/layouts/game/layout';
+import type { Metadata } from 'next';
+import StoreProvider from '../StoreProvider';
 
 export const metadata: Metadata = {
-  title: "KU Trò chơi Casino",
-  description: "KU Trò chơi Casino top 1 ",
+  title: 'KU Trò chơi Casino',
+  description: 'KU Trò chơi Casino top 1 ',
 };
 
 export default function Layout({
@@ -11,5 +12,9 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <GameLayout>{children}</GameLayout>;
+  return (
+    <GameLayout>
+      <StoreProvider>{children}</StoreProvider>
+    </GameLayout>
+  );
 }
