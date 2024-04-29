@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --text-primary: #0f679a;
+  --background-color-1: #e0ebf982;
+  --background-color-2: #91caea;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,21 +20,37 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+    --text-primary: #0f679a;
+    --background-color-1: #e0ebf982;
+    --background-color-2: #91caea;
   }
+}
+
+@font-face {
+  font-family: Microsoft JhengHei;
+  src: url('/font/microsoft_jhenghei.ttf');
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: Arial, Microsoft JhengHei, Helvetica, sans-serif;
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  margin: 0;
 }
+
+
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.container-custom {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.box-active-default {
+  display: block;
 }
