@@ -4,7 +4,7 @@ import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { handleLoginGame } from './ulti/handleLoading';
 import { useAppDispatch } from '@/lib';
 
@@ -13,9 +13,13 @@ const cx = classNames.bind(styles);
 export default function LoadingScreen() {
   // const isResponsive = useIsResponsive();
   const isResponsive = true;
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const refresh_token = searchParams.get('refresh_token');
-  const access_token = searchParams.get('access_token');
+  // const refresh_token = searchParams.get('refresh_token');
+  // const access_token = searchParams.get('access_token');
+
+  const refresh_token = searchParams.get('refresh_token') || localStorage.getItem('refresh_token');
+  const access_token = searchParams.get('access_token') || localStorage.getItem('access_token');
   const dispatch = useAppDispatch();
 
   const [numberLoading, setNumberLoading] = useState(0);
@@ -35,14 +39,14 @@ export default function LoadingScreen() {
       if (numberLoading == 99) {
         if (access_token && refresh_token) {
           const check = await handleLoginGame(access_token, refresh_token, dispatch);
-          if (check) redirect('/game');
+          if (check) router.replace('/game');
           else {
             console.log('ooj');
-            redirect('/error');
+            router.replace('/error');
           }
         } else {
           console.log('oojdsfbdjhm');
-          redirect('/error');
+          router.replace('/error');
         }
       }
     }

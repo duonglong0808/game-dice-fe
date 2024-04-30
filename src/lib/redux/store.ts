@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import settingAppReduce from './system/settingSys';
 import userCurrentReduce from './app/userCurrent.slice';
+import diceGameReduce from './app/diceGame.slice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
       settingApp: settingAppReduce,
       userCurrent: userCurrentReduce,
+      diceGame: diceGameReduce,
     },
   });
 };

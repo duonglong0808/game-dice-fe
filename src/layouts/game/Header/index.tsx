@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import classNames from "classnames/bind";
-import styles from "./styles.module.scss";
-import { useEffect, useRef, useState } from "react";
+import classNames from 'classnames/bind';
+import styles from './styles.module.scss';
+import { useEffect, useRef, useState } from 'react';
 
 function formatNumber(number: number): string {
   number = +number.toFixed(1);
   const numberString = number.toString();
 
   // Tách phần nguyên và phần thập phân (nếu có)
-  const [integerPart, decimalPart] = numberString.split(".");
+  const [integerPart, decimalPart] = numberString.split('.');
 
   // Thêm dấu chấm sau mỗi ba chữ số trong phần nguyên
-  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
   // Nếu có phần thập phân, kết hợp phần nguyên và phần thập phân với dấu phẩy
   if (decimalPart) {
@@ -43,158 +43,87 @@ export function HeaderGame(): JSX.Element {
 
   return (
     <header>
-      <div className={cx("header__wrapper")}>
+      <div className={cx('header__wrapper')}>
         <div className="flex flex-row items-center h-full">
-          <div className={cx("header__logo")}></div>
-          <div className={cx("header__content", "h-full")}>
-            <h3 className={cx("header__game")}>Xóc đĩa A</h3>
-            <p className={cx("header__room")}>143</p>
-            <p className={cx("header__bet")}>Mức cược:</p>
-            <p className={cx("header__bet--value")}>10 - 50k</p>
+          <div className={cx('header__logo')}></div>
+          <div className={cx('header__content', 'h-full')}>
+            <h3 className={cx('header__game')}>Xóc đĩa A</h3>
+            <p className={cx('header__room')}>143</p>
+            <p className={cx('header__bet')}>Mức cược:</p>
+            <p className={cx('header__bet--value')}>10 - 50k</p>
           </div>
-          <div className={cx("header-jackpot", "flex-1 justify-center")}>
+          <div className={cx('header-jackpot', 'flex-1 justify-center')}>
             <div
-              className={cx("header-jackpot__image")}
+              className={cx('header-jackpot__image')}
               style={{
-                background:
-                  "url(/Content/Images/vn/img_bac_jackpot.png) no-repeat center;",
-              }}
-            ></div>
-            <div className={cx("header-jackpot__number")}>
-              {formatNumber(numberBac.current)}
-            </div>
-            <div className={cx("header-jackpot__image--center")}>
-              <div className={cx("header-jackpot__crown")}></div>
-              <div className={cx("header-jackpot__light")}></div>
+                backgroundImage: 'url(/Content/Images/vn/img_bac_jackpot.png)',
+              }}></div>
+            <div className={cx('header-jackpot__number')}>{formatNumber(numberBac.current)}</div>
+            <div className={cx('header-jackpot__image--center')}>
+              <div className={cx('header-jackpot__crown')}></div>
+              <div className={cx('header-jackpot__light')}></div>
             </div>
             <div
-              className={cx("header-jackpot__image")}
+              className={cx('header-jackpot__image')}
               style={{
-                background:
-                  "url(/Content/Images/vn/img_cd_jackpot.png) no-repeat center;",
-              }}
-            ></div>
-            <div className={cx("header-jackpot__number")}>
-              {formatNumber(numberCd.current)}
-            </div>
+                backgroundImage: 'url(/Content/Images/vn/img_cd_jackpot.png)',
+              }}></div>
+            <div className={cx('header-jackpot__number')}>{formatNumber(numberCd.current)}</div>
           </div>
-          <div className={cx("header-control")}>
-            <div className={cx("header-control__menu", "header-control__item")}>
-              <div
-                className={cx(
-                  "header-control__menu-box",
-                  "flex flex-row flex-wrap"
-                )}
-              >
+          <div className={cx('header-control')}>
+            <div className={cx('header-control__menu', 'header-control__item')}>
+              <div className={cx('header-control__menu-box', 'flex flex-row flex-wrap')}>
                 <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--tranfer",
-                    "basis-1/3"
-                  )}
-                >
+                  className={cx('header--menu__item', 'header--menu__item--tranfer', 'basis-1/3')}>
                   <span>Chuyển khoản nhanh</span>
                 </div>
                 <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--history",
-                    "basis-1/3"
-                  )}
-                >
+                  className={cx('header--menu__item', 'header--menu__item--history', 'basis-1/3')}>
                   <span>Lịch sử đặt cược</span>
                 </div>
                 <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--support",
-                    "basis-1/3"
-                  )}
-                >
+                  className={cx('header--menu__item', 'header--menu__item--support', 'basis-1/3')}>
                   <span>Hỗ trợ</span>
                 </div>
-                <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--help",
-                    "basis-1/3"
-                  )}
-                >
+                <div className={cx('header--menu__item', 'header--menu__item--help', 'basis-1/3')}>
                   <span>Hướng dẫn trò chơi</span>
                 </div>
                 <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--volume",
-                    "basis-1/3"
-                  )}
-                >
+                  className={cx('header--menu__item', 'header--menu__item--volume', 'basis-1/3')}>
                   <span>Cài đặt âm lượng</span>
                 </div>
-                <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--road",
-                    "basis-1/3"
-                  )}
-                >
+                <div className={cx('header--menu__item', 'header--menu__item--road', 'basis-1/3')}>
                   <span>Cài đặt Good Road</span>
                 </div>
-                <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--love",
-                    "basis-1/3"
-                  )}
-                >
+                <div className={cx('header--menu__item', 'header--menu__item--love', 'basis-1/3')}>
                   <span>Danh sách yêu thích</span>
                 </div>
-                <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--mc",
-                    "basis-1/3"
-                  )}
-                >
+                <div className={cx('header--menu__item', 'header--menu__item--mc', 'basis-1/3')}>
                   <span>Xếp hạng MC</span>
                 </div>
-                <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--rank",
-                    "basis-1/3"
-                  )}
-                >
+                <div className={cx('header--menu__item', 'header--menu__item--rank', 'basis-1/3')}>
                   <span>Xép hạng % thắng</span>
                 </div>
-                <div
-                  className={cx(
-                    "header--menu__item",
-                    "header--menu__item--chart",
-                    "basis-1/3"
-                  )}
-                >
+                <div className={cx('header--menu__item', 'header--menu__item--chart', 'basis-1/3')}>
                   <span>Thống kê</span>
                 </div>
                 <div
                   className={cx(
-                    "header--menu__item",
-                    "header--menu__item--background",
-                    "basis-1/3"
-                  )}
-                >
+                    'header--menu__item',
+                    'header--menu__item--background',
+                    'basis-1/3'
+                  )}>
                   <span>Phông nền Road</span>
                 </div>
               </div>
             </div>
-            <div className={cx("header-control__zoom", "header-control__item")}>
-              <span className={cx("header-control__item--text")}>Phóng to</span>
+            <div className={cx('header-control__zoom', 'header-control__item')}>
+              <span className={cx('header-control__item--text')}>Phóng to</span>
             </div>
             <div
-              className={cx("header-control__logout", "header-control__item")}
-              onClick={() => window.history.back()}
-            >
-              <span className={cx("header-control__item--text")}>Thoát</span>
+              className={cx('header-control__logout', 'header-control__item')}
+              onClick={() => window.history.back()}>
+              <span className={cx('header-control__item--text')}>Thoát</span>
             </div>
           </div>
         </div>

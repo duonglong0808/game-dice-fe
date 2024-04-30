@@ -4,6 +4,8 @@ interface UserCurrentSlice {
   userName: string;
   userId: string;
   name: string;
+  mainPoint: number;
+  gamePoint: number;
 }
 
 const userCurrentSlice = createSlice({
@@ -12,12 +14,16 @@ const userCurrentSlice = createSlice({
     userName: '',
     userId: '',
     name: '',
+    gamePoint: 0,
+    mainPoint: 0,
   } as UserCurrentSlice,
   reducers: {
     setDataUserLogin(state, action) {
       state.name = action.payload.name;
       state.userId = action.payload.id;
       state.userName = action.payload.username;
+      state.gamePoint = action.payload.gamePoint;
+      state.mainPoint = action.payload.mainPoint;
     },
     logOutUser(state) {
       state.userName = '';

@@ -2,32 +2,35 @@ import classNames from 'classnames/bind';
 import styles from './diceItem.module.scss';
 import Image from 'next/image';
 import { EvenOddResult } from '../EvenOddResult';
+import { TypeGameDice } from '@/constants';
 
 const cx = classNames.bind(styles);
 
 export function XocDiaItem({
-  nameGame,
+  name,
   status,
-  valueStatus,
+  type,
+  typeText,
   image,
-  nation,
+  national,
   nameAuthor,
   valueL,
   valueC,
   onClick,
 }: {
-  nameGame: string;
+  name: string;
   status?: string;
-  valueStatus: string;
+  type: string;
+  typeText: string;
   image: string;
-  nation: string;
+  national: string;
   nameAuthor: string;
   valueL: number;
   valueC: number;
   onClick: () => void;
 }): JSX.Element {
   let imageNational = '';
-  switch (nation.toLowerCase()) {
+  switch (national?.toLowerCase()) {
     case 'vn':
       imageNational = "url('/Content/Images/bg_anchor_04.png')";
       break;
@@ -41,8 +44,16 @@ export function XocDiaItem({
   return (
     <div className={cx('wrapper')} onClick={onClick}>
       <div className={cx('header')}>
-        <span className={cx('header__name')}>{nameGame}</span>
-        <span className={cx('header__value')}>{valueStatus}</span>
+        <div className="flex items-center">
+          <span
+            className={cx('header__type', {
+              'header__type--blockChain': TypeGameDice.Blockchain == type,
+            })}>
+            {typeText}
+          </span>
+          <span className={cx('header__name')}>{name}</span>
+        </div>
+        <span className={cx('header__value')}>{9}</span>
       </div>
       <div className={cx('game-body')}>
         <div
@@ -58,12 +69,15 @@ export function XocDiaItem({
             className={cx('game-body__image')}
             width={97}
             height={107}
+            loading="lazy"
           />
-          <div
-            className={cx('game-body__nation')}
-            style={{ background: `${imageNational} no-repeat` }}>
-            <span>{nameAuthor}</span>
-          </div>
+          {imageNational && (
+            <div
+              className={cx('game-body__nation')}
+              style={{ background: `${imageNational} no-repeat` }}>
+              <span>{nameAuthor}</span>
+            </div>
+          )}
         </div>
         <div className={cx('list-result')}>
           <div

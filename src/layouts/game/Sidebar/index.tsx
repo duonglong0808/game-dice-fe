@@ -4,10 +4,17 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useAppSelector } from '@/lib';
+import { redirect } from 'next/navigation';
 
 const cx = classNames.bind(styles);
 
 export function SliderBarGame(): JSX.Element {
+  const { name, userName, gamePoint } = useAppSelector((state) => state.userCurrent);
+
+  // TODO: unable  wwith prod
+  // if (!userName) redirect('error');
+
   const clickAutoConfirm = (e: any) => {
     const element = e.target as HTMLElement;
     element.classList.toggle(cx('auto-confirm__check'));
@@ -25,14 +32,14 @@ export function SliderBarGame(): JSX.Element {
           height={21}
         />
         <div className={cx('account-info__body')}>
-          <p className={cx('account-info__name')}>CPU2023</p>
+          <p className={cx('account-info__name')}>{userName}</p>
           <p className={cx('account-info__username')}>PU</p>
         </div>
       </div>
       <div className={cx('balance-gift')}>
         <div className={cx('balance-gift__balance')}>
           <p className={cx('balance-gift__title')}>$</p>
-          <p className={cx('balance-gift__value')}>0</p>
+          <p className={cx('balance-gift__value')}>{gamePoint}</p>
         </div>
         <div className={cx('balance-gift__gift')}>
           <Image
