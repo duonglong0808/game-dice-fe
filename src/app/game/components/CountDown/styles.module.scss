@@ -1,0 +1,55 @@
+.wrapper {
+  position: absolute;
+  top: 200px;
+  right: 138px;
+  width: 103px;
+  height: 103px;
+  z-index: 2;
+  will-change: transform;
+  display: block;
+}
+
+.countDNum {
+  position: absolute;
+  width: 103px;
+  height: 103px;
+  line-height: 103px;
+  text-align: center;
+  font-size: 48px;
+  font-family: Arial;
+  font-weight: bold;
+}
+
+.icon_message_line {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 103px;
+  height: 103px;
+  background-image: url(/Content/Images/icon_message_line.png);
+  animation: 1.5s linear 0s normal none infinite rotate;
+  -webkit-animation: 1.5s linear 0s normal none infinite rotate;
+}
+
+.sec10 .icon_message_line {
+  background-image: url(/Content/Images/icon_message_line_red.png);
+}
+
+.sec10 .countDNum {
+  color: #f00;
+}
+
+.loadingImg {
+  width: 103px;
+  height: 103px;
+  background-image: url(/Content/Images/icon_message_start.png);
+}
+
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}

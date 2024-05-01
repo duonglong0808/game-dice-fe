@@ -16,7 +16,6 @@ export function XocDiaItem({
   nameAuthor,
   valueL,
   valueC,
-  onClick,
 }: {
   name: string;
   status?: string;
@@ -27,7 +26,6 @@ export function XocDiaItem({
   nameAuthor: string;
   valueL: number;
   valueC: number;
-  onClick: () => void;
 }): JSX.Element {
   let imageNational = '';
   switch (national?.toLowerCase()) {
@@ -42,7 +40,7 @@ export function XocDiaItem({
   }
 
   return (
-    <div className={cx('wrapper')} onClick={onClick}>
+    <div className={cx('wrapper')}>
       <div className={cx('header')}>
         <div className="flex items-center">
           <span
@@ -70,6 +68,7 @@ export function XocDiaItem({
             width={97}
             height={107}
             loading="lazy"
+            unoptimized={true}
           />
           {imageNational && (
             <div

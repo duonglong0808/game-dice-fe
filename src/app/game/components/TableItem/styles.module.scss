@@ -1,0 +1,105 @@
+.dots {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: center;
+
+  &__item {
+    background: url('/Content/Images/img_PlateW.png') no-repeat;
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #000;
+  }
+  &__item--red {
+    @extend .dots__item;
+    background: url('/Content/Images/img_PlateR.png') no-repeat;
+    background-size: cover;
+    color: #fff;
+  }
+
+  &__item--multi {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.table__item {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  // padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 15px;
+  align-items: center;
+  color: #fff;
+  flex-shrink: 1;
+  // width: 250px;
+  &__points {
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    gap: 5px;
+  }
+
+  &__name {
+    font-size: 30px;
+    color: #f9f9fa;
+  }
+
+  &__ratio {
+    font-size: 14px;
+    color: #a2aed1;
+    line-height: 14px;
+  }
+
+  &:hover {
+    background-color: #c5bfbf6b;
+    cursor: pointer;
+  }
+
+  &__tool_tip {
+    position: absolute;
+    // left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    // border-right: 30px solid transparent;
+    border-top: 40px solid #c5bfbf6b;
+    &--show {
+      position: static;
+    }
+    &:hover {
+      // border-right: 30px solid transparent;
+      border-top: 40px solid #22b3b5;
+    }
+    button {
+      position: absolute;
+      top: -40px;
+      left: -5px;
+      width: 30px;
+      height: 30px;
+      color: white;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
+
+.table__item__points--icon {
+  background-image: url(/Content/Images/vn/json/bettingButtons.png);
+  background-repeat: no-repeat;
+  background-position: 10px 0;
+  width: 28px;
+  height: 19px;
+  background-size: cover;
+  position: relative;
+  right: 8px;
+}

@@ -15,6 +15,7 @@ export interface TransactionItem {
 interface DiceGameSlice {
   isInitData: boolean;
   diceGame: TransactionItem[];
+  gameDeiceId: number | undefined;
 }
 
 const DiceGameSlice = createSlice({
@@ -22,6 +23,7 @@ const DiceGameSlice = createSlice({
   initialState: {
     isInitData: false,
     diceGame: [],
+    gameDeiceId: undefined,
   } as DiceGameSlice,
   reducers: {
     setDataDiceGame: (state, action) => {
@@ -34,9 +36,12 @@ const DiceGameSlice = createSlice({
       state.isInitData = false;
       state.diceGame = [];
     },
+    setGameDiceId(state, action) {
+      state.gameDeiceId = action.payload.id;
+    },
   },
 });
 
-export const { setDataDiceGame, resetDataDiceGame } = DiceGameSlice.actions;
+export const { setDataDiceGame, resetDataDiceGame, setGameDiceId } = DiceGameSlice.actions;
 
 export default DiceGameSlice.reducer;

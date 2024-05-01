@@ -3,6 +3,8 @@
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useEffect, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/lib';
+import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
 
 function formatNumber(number: number): string {
   number = +number.toFixed(1);
@@ -28,6 +30,8 @@ export function HeaderGame(): JSX.Element {
   const numberBac = useRef(1934321.5);
   const numberCd = useRef(1534321.5);
   const [render, setRender] = useState(true);
+  const { gameDeiceId } = useAppSelector((state) => state.diceGame);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const countNumber = setTimeout(() => {
@@ -122,7 +126,14 @@ export function HeaderGame(): JSX.Element {
             </div>
             <div
               className={cx('header-control__logout', 'header-control__item')}
-              onClick={() => window.history.back()}>
+              onClick={() => {
+                if (gameDeiceId) {
+                  dispatch(setGameDiceId({ id: undefined }));
+                } else {
+                  console.log('tắt');
+                  window.close();
+                }
+              }}>
               <span className={cx('header-control__item--text')}>Thoát</span>
             </div>
           </div>

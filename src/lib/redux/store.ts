@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import settingAppReduce from './system/settingSys';
 import userCurrentReduce from './app/userCurrent.slice';
 import diceGameReduce from './app/diceGame.slice';
+import diceDetailReduce from './app/diceDetail.slice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
       settingApp: settingAppReduce,
       userCurrent: userCurrentReduce,
       diceGame: diceGameReduce,
+      diceDetail: diceDetailReduce,
     },
   });
 };

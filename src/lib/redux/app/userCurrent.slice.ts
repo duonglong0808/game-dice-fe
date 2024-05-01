@@ -25,6 +25,9 @@ const userCurrentSlice = createSlice({
       state.gamePoint = action.payload.gamePoint;
       state.mainPoint = action.payload.mainPoint;
     },
+    updatePointUser(state, action) {
+      state.gamePoint = state.gamePoint + action.payload.gamePoint;
+    },
     logOutUser(state) {
       state.userName = '';
       state.name = '';
@@ -33,6 +36,6 @@ const userCurrentSlice = createSlice({
   },
 });
 
-export const { setDataUserLogin, logOutUser } = userCurrentSlice.actions;
+export const { setDataUserLogin, logOutUser, updatePointUser } = userCurrentSlice.actions;
 
 export default userCurrentSlice.reducer;
