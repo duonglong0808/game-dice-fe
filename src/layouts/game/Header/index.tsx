@@ -30,7 +30,7 @@ export function HeaderGame(): JSX.Element {
   const numberBac = useRef(1934321.5);
   const numberCd = useRef(1534321.5);
   const [render, setRender] = useState(true);
-  const { gameDeiceId } = useAppSelector((state) => state.diceGame);
+  const { gameDiceId } = useAppSelector((state) => state.diceGame);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export function HeaderGame(): JSX.Element {
             <div
               className={cx('header-control__logout', 'header-control__item')}
               onClick={() => {
-                if (gameDeiceId) {
+                if (gameDiceId) {
                   dispatch(setGameDiceId({ id: undefined }));
                 } else {
                   console.log('tắt');

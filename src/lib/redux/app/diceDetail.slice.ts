@@ -2,8 +2,8 @@ import { StatusDiceDetail } from '@/constants';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface DiceDetailDto {
-  gameDeiceId: number;
-  status: string;
+  gameDiceId: number;
+  status: string | number;
   totalRed: number;
   transaction: number;
   diceDetailId: number;
@@ -13,7 +13,7 @@ interface DiceDetailSlice {
   indexChips: number[];
   dataDiceDetail: DiceDetailDto[];
   dataDiceDetailHistory: {
-    gameDeiceId: {
+    gameDiceId: {
       transaction: number;
       totalRed: number;
     }[];
@@ -35,12 +35,11 @@ const DiceDetailSlice = createSlice({
       state.dataDiceDetail = action.payload.dataDiceDetail;
     },
     updateOrAddDataDiceDetail: (state, action: { payload: DiceDetailDto }) => {
-      const checkExit = state.dataDiceDetail.find(
-        (d) => d.gameDeiceId === action.payload.gameDeiceId
-      );
+      const checkExit = state.dataDiceDetail.find((d) => d.gameDiceId == action.payload.gameDiceId);
       if (checkExit) {
+        console.log('Cos data');
         state.dataDiceDetail = state.dataDiceDetail.map((item) => {
-          if (item.gameDeiceId == action.payload.gameDeiceId) return { ...item, ...action.payload };
+          if (item.gameDiceId == action.payload.gameDiceId) return { ...item, ...action.payload };
           else return item;
         });
       } else {

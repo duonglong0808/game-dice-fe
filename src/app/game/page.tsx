@@ -17,7 +17,7 @@ import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
 export default function GamePage(): JSX.Element {
   const { data } = useDiceGame();
-  const { gameDeiceId } = useAppSelector((state) => state.diceGame);
+  const { gameDiceId } = useAppSelector((state) => state.diceGame);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -93,8 +93,8 @@ export default function GamePage(): JSX.Element {
 
   return (
     <div className="w-full">
-      {gameDeiceId ? (
-        <XocDiaDetailsView gameDeiceId={gameDeiceId} />
+      {gameDiceId ? (
+        <XocDiaDetailsView gameDiceId={gameDiceId} />
       ) : (
         <>
           <XocDiaSlider />

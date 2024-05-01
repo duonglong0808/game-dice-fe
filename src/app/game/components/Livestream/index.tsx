@@ -17,7 +17,7 @@ import CountDownBet from '../CountDown';
 
 const cx = classNames.bind(styles);
 
-export default function LiveStream({ src, gameDeiceId }: { src: string; gameDeiceId: number }) {
+export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceId: number }) {
   const indexChipsRedux = useAppSelector((state) => state.diceDetail.indexChips);
   const [indexChips, setIndexChips] = useState<number[]>(indexChipsRedux);
   const [openListPhinh, setOpenListPhinh] = useState(false);
@@ -31,19 +31,25 @@ export default function LiveStream({ src, gameDeiceId }: { src: string; gameDeic
   const [curChip, setCurChip] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
-  let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDeiceId == gameDeiceId);
-  const dataStatusDice = dataDiceDetailById?.status?.split(':') || [];
-  console.log('🚀 ~ LiveStream ~ dataStatusDice:', dataStatusDice);
+  let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
+  console.log('🚀 ~ LiveStream ~ dataDiceDetailById:', dataDiceDetailById);
+  const dataStatusDice =
+    typeof dataDiceDetailById?.status == 'string'
+      ? dataDiceDetailById?.status?.split(':')
+      : [dataDiceDetailById?.status];
   const statsDiceDetail = dataStatusDice[0];
-  const timeStartBet = dataStatusDice[1];
-  const countDown = timeStartBet ? (new Date().getTime() - Number(timeStartBet)) / 1000 : 0;
+  const timeStartBet = Number(dataStatusDice[1]);
+  const timeStamp = new Date().getTime();
+  console.log('🚀 ~ LiveStream ~ timeStartBet:', timeStartBet, timeStamp);
+  const countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
+  console.log('🚀 ~ LiveStream ~ countDown:', countDown);
   const result = dataDiceDetailById?.totalRed;
 
   const chooseBet = async (position: number) => {
     const axios = new BaseAxios(process.env.API_URL_DICE);
 
     const transaction = dataDiceDetailById?.transaction;
-    const gameDiceId = dataDiceDetailById?.gameDeiceId;
+    const gameDiceId = dataDiceDetailById?.gameDiceId;
     const diceDetailId = dataDiceDetailById?.diceDetailId;
 
     if (transaction && gameDiceId && Number(statsDiceDetail) == StatusDiceDetail.bet) {

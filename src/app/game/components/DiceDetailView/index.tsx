@@ -8,12 +8,12 @@ import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 type Props = {
-  gameDeiceId: number;
+  gameDiceId: number;
 };
 
-export default function XocDiaDetailsView({ gameDeiceId }: Props) {
+export default function XocDiaDetailsView({ gameDiceId }: Props) {
   const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
-  let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDeiceId == gameDeiceId);
+  let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
 
   const elementTest = useRef<HTMLElement>(null);
 
@@ -24,7 +24,7 @@ export default function XocDiaDetailsView({ gameDeiceId }: Props) {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('controller')}>
-        <LiveStream src="https:live.vk169.net/hls/test1.m3u8" gameDeiceId={gameDeiceId} />
+        <LiveStream src="https:live.vk169.net/hls/test1.m3u8" gameDiceId={gameDiceId} />
       </div>
       {/* <XocDiaResultsChat /> */}
     </div>
