@@ -7,6 +7,7 @@ interface DiceDetailDto {
   totalRed: number;
   transaction: number;
   diceDetailId: number;
+  arrBetActive: string[];
 }
 
 interface DiceDetailSlice {

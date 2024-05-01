@@ -12,6 +12,7 @@ import ChipsList from '../ChipList/index.';
 import Image from 'next/image';
 import { setIndexChipsRedux } from '@/lib/redux/app/diceDetail.slice';
 import CountDownBet from '../CountDown';
+import { ShowResultDice } from '../ShowResultDice';
 // import ToolTipGame from '../tool-tip-game';
 // import { ChipsList } from '../chips-list';
 
@@ -32,7 +33,6 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const videoRef = useRef<HTMLVideoElement>(null);
   const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
   let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
-  console.log('🚀 ~ LiveStream ~ dataDiceDetailById:', dataDiceDetailById);
   const dataStatusDice =
     typeof dataDiceDetailById?.status == 'string'
       ? dataDiceDetailById?.status?.split(':')
@@ -40,10 +40,9 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const statsDiceDetail = dataStatusDice[0];
   const timeStartBet = Number(dataStatusDice[1]);
   const timeStamp = new Date().getTime();
-  console.log('🚀 ~ LiveStream ~ timeStartBet:', timeStartBet, timeStamp);
   const countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
-  console.log('🚀 ~ LiveStream ~ countDown:', countDown);
-  const result = dataDiceDetailById?.totalRed;
+  const arrBetActive = dataDiceDetailById?.arrBetActive;
+  const totalRed = dataDiceDetailById?.totalRed;
 
   const chooseBet = async (position: number) => {
     const axios = new BaseAxios(process.env.API_URL_DICE);
@@ -108,6 +107,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
         className={cx('live_container')}
         src="https://www.youtube.com/embed/tgbNymZ7vqY"
       /> */}
+      {totalRed && <ShowResultDice totalRed={totalRed} />}
       {countDown && <CountDownBet initCount={countDown} />}
       <div className={cx('live_action')}>
         <div className={cx('d3')}>
@@ -118,7 +118,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               ratio={14}
               onClick={() => {
                 chooseBet(1);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_0'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
             <TableItem
@@ -127,7 +128,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               ratio={2.8}
               onClick={() => {
                 chooseBet(2);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_1'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
             <TableItem
@@ -136,7 +138,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               ratio={1.5}
               onClick={() => {
                 chooseBet(3);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_2'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
           </div>
@@ -148,7 +151,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               name={'Chẵn'}
               onClick={() => {
                 chooseBet(4);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_chan'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
             <TableItem
@@ -159,7 +163,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onHover={setHoverData}
               onClick={() => {
                 chooseBet(5);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_xiu'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
           </div>
@@ -171,7 +176,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               name={'Lẻ'}
               onClick={() => {
                 chooseBet(6);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_le'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
             <TableItem
@@ -183,7 +189,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onHover={setHoverData}
               onClick={() => {
                 chooseBet(7);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_tai'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
           </div>
@@ -194,7 +201,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               ratio={14}
               onClick={() => {
                 chooseBet(8);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_4'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
             <TableItem
@@ -203,7 +211,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               ratio={2.8}
               onClick={() => {
                 chooseBet(9);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_3'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
             <TableItem
@@ -212,7 +221,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               ratio={6.5}
               onClick={() => {
                 chooseBet(10);
-              }}>
+              }}
+              isHighlight={Boolean(arrBetActive?.includes('p_-1'))}>
               <p className={cx('col__row--counter')}>11</p>
             </TableItem>
           </div>

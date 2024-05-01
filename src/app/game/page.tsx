@@ -31,34 +31,34 @@ export default function GamePage(): JSX.Element {
       const type = data?.typeEmit;
       switch (type) {
         case TypeEmitMessage.updateStatusDice:
-          dispatch(updateOrAddDataDiceDetail({ ...data }));
-          // switch (data.status) {
-          //   case StatusDiceDetail.shake:
-          //     break;
-          //   case StatusDiceDetail.bet:
-          //     console.log(data);
-          //     sessionStorage.setItem('gameDiceId', data.gameDiceId);
-          //     sessionStorage.setItem('transaction', data.transaction);
-          //     sessionStorage.setItem('diceDetailId', data.diceDetailId);
+          if (typeof data.totalRed == 'number') {
+            const result = data.totalRed;
+            const arrBetActive = [];
+            arrBetActive.push(`p_${result}`);
+            switch (result) {
+              case 0:
+              case 4:
+                arrBetActive.push(`p_${-1}`);
+                break;
+              default:
+                break;
+            }
 
-          //     alert('Thời gian đặt cược');
-          //     break;
-          //   case StatusDiceDetail.waitOpen:
-          //     sessionStorage.removeItem('gameDiceId');
-          //     sessionStorage.removeItem('transaction');
-          //     sessionStorage.removeItem('diceDetailId');
-          //     alert('Hết thời gian đặt cược, chờ mở bát');
-          //     break;
-          //   case StatusDiceDetail.check:
-          //     alert('Kiểm tra kết quả');
-          //     break;
-          //   case StatusDiceDetail.check:
-          //     alert('Kết thúc ván');
-          //     break;
+            if (result % 2 == 0) {
+              arrBetActive.push(`p_chan`);
+            } else {
+              arrBetActive.push(`p_le`);
+            }
+            if (result > 2) {
+              arrBetActive.push(`p_tai`);
+            } else {
+              arrBetActive.push(`p_xiu`);
+            }
 
-          //   default:
-          //     break;
-          // }
+            dispatch(updateOrAddDataDiceDetail({ ...data, arrBetActive }));
+          } else {
+            dispatch(updateOrAddDataDiceDetail({ ...data, arrBetActive: [] }));
+          }
           break;
         case TypeEmitMessage.join:
           dispatch(updateListDataDiceDetail({ dataDiceDetail: data?.dataDiceDetail || [] }));

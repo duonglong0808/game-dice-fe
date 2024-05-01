@@ -1,26 +1,16 @@
 'use client';
 
-import React, { forwardRef, HTMLAttributes, useCallback, useState } from 'react';
+import React, { forwardRef, HTMLAttributes, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
-import type { SVGProps } from 'react';
-import { ICheckHover } from '@/constants';
+import { ICheckHover, StatusDiceDetail } from '@/constants';
+import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
-
-export function StreamlineBall(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 14 14" {...props}>
-      <g fill="none" stroke="#ffe66b" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 13.5a6.5 6.5 0 1 0 0-13a6.5 6.5 0 0 0 0 13m0-13v13"></path>
-        <path d="M2.1 11.27a5 5 0 0 0 0-8.54m9.8 0a5 5 0 0 0 0 8.54"></path>
-      </g>
-    </svg>
-  );
-}
 interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement;
   ratio: number;
+  isHighlight: boolean;
   onHover?: (iCheckHover: ICheckHover) => void;
   points?: number;
   name?: string;
@@ -29,7 +19,18 @@ interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
-  ({ children, name, className, points, ratio, onHover, isLeft, ...otherProps }, ref) => {
+  (
+    { children, name, className, points, ratio, onHover, isLeft, isHighlight, ...otherProps },
+    ref
+  ) => {
+    const { gameDiceId } = useAppSelector((state) => state.diceGame);
+    const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
+    let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
+    const statusDice =
+      typeof dataDiceDetailById?.status == 'string'
+        ? dataDiceDetailById?.status?.split(':')[0]
+        : dataDiceDetailById?.status;
+
     const handleHover = useCallback(
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         onHover &&
@@ -58,7 +59,13 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     );
 
     return (
-      <div className={`${className} ${cx('table__item')}`} ref={ref} {...otherProps}>
+      <div
+        className={`${className} ${cx('table__item', {
+          'table__item--active': statusDice == StatusDiceDetail.bet,
+          'table__item--correct': isHighlight,
+        })}`}
+        ref={ref}
+        {...otherProps}>
         {name === undefined && points !== undefined ? (
           <div className={cx('dots')}>
             {points !== -1 ? (

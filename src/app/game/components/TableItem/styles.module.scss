@@ -60,9 +60,40 @@
     line-height: 14px;
   }
 
-  &:hover {
-    background-color: #c5bfbf6b;
+  &--active:hover {
+    background-color: #2e545feb;
     cursor: pointer;
+  }
+
+  &--correct {
+    animation: flicker ease-in var(--time-check-result);
+
+    @keyframes flicker {
+      0% {
+        background-color: transparent;
+      }
+      10% {
+        background-color: #2e545feb;
+      }
+      20% {
+        background-color: transparent;
+      }
+      30% {
+        background-color: #2e545feb;
+      }
+      40% {
+        background-color: transparent;
+      }
+      50% {
+        background-color: #2e545feb;
+      }
+      90% {
+        background-color: #2e545feb;
+      }
+      100% {
+        background-color: transparent;
+      }
+    }
   }
 
   &__tool_tip {

@@ -13,6 +13,7 @@
   --text-primary: #0f679a;
   --background-color-1: #e0ebf982;
   --background-color-2: #91caea;
+  --time-check-result: 5s
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +24,7 @@
     --text-primary: #0f679a;
     --background-color-1: #e0ebf982;
     --background-color-2: #91caea;
+    --time-check-result: 5s
   }
 }
 
