@@ -13,6 +13,7 @@ import Image from 'next/image';
 import { setIndexChipsRedux } from '@/lib/redux/app/diceDetail.slice';
 import CountDownBet from '../CountDown';
 import { ShowResultDice } from '../ShowResultDice';
+import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 // import ToolTipGame from '../tool-tip-game';
 // import { ChipsList } from '../chips-list';
 
@@ -25,27 +26,56 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const dispatch = useAppDispatch();
 
   //
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const messageRef = useRef<HTMLDivElement>(null);
+
+  //
   const [hoverData, setHoverData] = useState<ICheckHover>({
     isHover: false,
     position: { x: 0, y: 0 },
   });
   const [curChip, setCurChip] = useState<number>(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
+  const { diceGame } = useAppSelector((state) => state.diceGame);
+  const diceGameById = diceGame.find((d) => d.id === gameDiceId);
   let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
   const dataStatusDice =
     typeof dataDiceDetailById?.status == 'string'
       ? dataDiceDetailById?.status?.split(':')
       : [dataDiceDetailById?.status];
-  const statsDiceDetail = dataStatusDice[0];
+  const statsDiceDetail = Number(dataStatusDice[0]);
   const timeStartBet = Number(dataStatusDice[1]);
   const timeStamp = new Date().getTime();
   const countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
   const arrBetActive = dataDiceDetailById?.arrBetActive;
   const totalRed = dataDiceDetailById?.totalRed;
 
+  // Handle Message
+  let message = '';
+  switch (statsDiceDetail) {
+    case StatusDiceDetail.bet:
+      message = 'Đã bắt đầu vui lòng đặt cược';
+      break;
+    case StatusDiceDetail.waitOpen:
+      message = 'Chờ mở thưởng';
+      break;
+    default:
+      message = '';
+      break;
+  }
+  useEffect(() => {
+    if ([StatusDiceDetail.bet, StatusDiceDetail.waitOpen].includes(statsDiceDetail)) {
+      messageRef.current?.classList.add(cx('message__box--jump'));
+
+      setTimeout(() => {
+        messageRef.current?.classList.remove(cx('message__box--jump'));
+      }, 3000);
+    }
+  }, [statsDiceDetail]);
+
   const chooseBet = async (position: number) => {
-    const axios = new BaseAxios(process.env.API_URL_DICE);
+    console.log(position);
+    const axios = new BaseAxios(process.env.API_GAME_DICE);
 
     const transaction = dataDiceDetailById?.transaction;
     const gameDiceId = dataDiceDetailById?.gameDiceId;
@@ -61,54 +91,84 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             point: curChip,
             answer: position,
           });
+          if (requestBet?.data) {
+            dispatch(updatePointUser({ gamePoint: -curChip }));
+          }
         }
-        alert('Đặt cược thành công');
       } catch (error: any) {
         alert(error.message);
       }
     }
   };
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+  // useEffect(() => {
+  //   const video = videoRef.current;
+  //   if (!video) return;
 
-    if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // PlaybackRateController
-      // This will run in safari, where HLS is supported natively
-      video.src = src;
-      video.controls = true;
-    } else if (Hls.isSupported()) {
-      // This will run in all other modern browsers
-      const hls = new Hls({ maxLiveSyncPlaybackRate: 0 });
-      hls.loadSource(src);
-      // const player = new Plyr(video, defaultOptions);
-      hls.attachMedia(video);
+  //   if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  //     // PlaybackRateController
+  //     // This will run in safari, where HLS is supported natively
+  //     video.src = src;
+  //     video.controls = true;
+  //   } else if (Hls.isSupported()) {
+  //     // This will run in all other modern browsers
+  //     const hls = new Hls({ maxLiveSyncPlaybackRate: 0 });
+  //     hls.loadSource(src);
+  //     // const player = new Plyr(video, defaultOptions);
+  //     hls.attachMedia(video);
 
-      // Bắt đầu phát video ngay khi có tín hiệu
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play().catch((error) => {
-          console.error('Error starting playback:', error);
-        });
-      });
-    } else {
-      console.error(
-        'This is an old browser that does not support MSE https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API'
-      );
-    }
-  }, [videoRef]);
+  //     // Bắt đầu phát video ngay khi có tín hiệu
+  //     hls.on(Hls.Events.MANIFEST_PARSED, () => {
+  //       video.play().catch((error) => {
+  //         console.error('Error starting playback:', error);
+  //       });
+  //     });
+  //   } else {
+  //     console.error(
+  //       'This is an old browser that does not support MSE https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API'
+  //     );
+  //   }
+  // }, [videoRef]);
 
   return (
     <div className={cx('live_wrapper')}>
-      <video className={cx('live_container')} id="video" ref={videoRef} autoFocus></video>
-      {/* <iframe
+      <iframe
+        _ngcontent-qpb-c33=""
         width="100%"
-        height="100%"
-        className={cx('live_container')}
-        src="https://www.youtube.com/embed/tgbNymZ7vqY"
-      /> */}
+        height="855"
+        src={diceGameById?.idLive}
+        className={cx('iframe_container')}>
+        <head>
+          <link rel="stylesheet" href="https://tkuwebxdl101.vnskuvideo.com/style-mobile.css" />
+          <style>
+            {`
+              body {
+                overflow: hidden !important;
+              }
+            `}
+          </style>
+        </head>
+      </iframe>
+      {/* <video className={cx('live_container')} id="video" ref={videoRef} autoFocus></video> */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}></div>
       {totalRed && <ShowResultDice totalRed={totalRed} />}
       {countDown && <CountDownBet initCount={countDown} />}
+      {message ? (
+        <div className={cx('message__box')} ref={messageRef}>
+          <div className={cx('message__box--body')}>
+            <span className={cx('message__box--text')}>{message}</span>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className={cx('live_action')}>
         <div className={cx('d3')}>
           <div className={cx('d3__col')}>

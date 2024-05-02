@@ -1,0 +1,73 @@
+.wrapper {
+}
+
+.wrapper-table {
+  background-color: #484848;
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  height: 166px;
+  width: 207px;
+  // float: left;
+
+  &__tbody {
+  }
+
+  &__tr {
+  }
+  &__td {
+    border-right: 1px solid #535353;
+    border-bottom: 1px solid #535353;
+    width: 30px;
+    height: 28px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &--CD_ballBox {
+      position: relative;
+      cursor: pointer;
+    }
+  }
+}
+
+.CD_yellow_ball,
+.CD_green_ball,
+.CD_orange_ball,
+.CD_White_ball,
+.CD_blue_ball {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  text-align: center;
+  line-height: 20px;
+  font-size: 17px;
+  float: left;
+  font-weight: bold;
+  position: relative;
+  margin-top: 2px;
+  margin-left: 3px;
+  cursor: pointer;
+}
+
+.CD_yellow_ball {
+  background-color: #eade54;
+  color: #000;
+}
+
+.CD_blue_ball {
+  background-color: #4382c7;
+}
+
+.CD_green_ball {
+  background-color: #7bce40;
+  color: #000;
+}
+
+.CD_yellow_ball {
+  background-color: #eade54;
+  color: #000;
+}
+.CD_orange_ball {
+  background-color: #e64d2e;
+}

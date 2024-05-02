@@ -27,7 +27,7 @@ export function ShowResultDice({ totalRed }: { totalRed: number }): JSX.Element 
               key={index}
               alt="plate"
               src={
-                index < totalRed - 1
+                index < totalRed
                   ? '/Content/Images/img_PlateR.png'
                   : '/Content/Images/img_PlateW.png'
               }

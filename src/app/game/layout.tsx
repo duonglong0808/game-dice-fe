@@ -1,6 +1,7 @@
 import GameLayout from '@/layouts/game/layout';
 import type { Metadata } from 'next';
 import StoreProvider from '../StoreProvider';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'KU Trò chơi Casino',
@@ -12,5 +13,9 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <GameLayout>{children}</GameLayout>;
+  return (
+    <GameLayout>
+      <Suspense>{children}</Suspense>
+    </GameLayout>
+  );
 }

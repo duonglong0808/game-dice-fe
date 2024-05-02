@@ -15,11 +15,11 @@ export default function LoadingScreen() {
   const isResponsive = true;
   const router = useRouter();
   const searchParams = useSearchParams();
-  // const refresh_token = searchParams.get('refresh_token');
-  // const access_token = searchParams.get('access_token');
+  const refresh_token = searchParams.get('refresh_token');
+  const access_token = searchParams.get('access_token');
 
-  const refresh_token = searchParams.get('refresh_token') || localStorage.getItem('refresh_token');
-  const access_token = searchParams.get('access_token') || localStorage.getItem('access_token');
+  // const refresh_token = searchParams.get('refresh_token') || localStorage.getItem('refresh_token');
+  // const access_token = searchParams.get('access_token') || localStorage.getItem('access_token');
   const dispatch = useAppDispatch();
 
   const [numberLoading, setNumberLoading] = useState(0);

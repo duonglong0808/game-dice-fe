@@ -16,7 +16,13 @@ export default function ChipsList({
   curChip: number;
   setChips: (num: number) => void;
 }) {
-  const { indexChips, statusDice } = useAppSelector((state) => state.diceDetail);
+  const { indexChips, dataDiceDetail } = useAppSelector((state) => state.diceDetail);
+  const { gameDiceId } = useAppSelector((state) => state.diceGame);
+  let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
+  const statusDice =
+    typeof dataDiceDetailById?.status == 'string'
+      ? dataDiceDetailById?.status?.split(':')[0]
+      : dataDiceDetailById?.status;
   const chips = dataListChipsStatistics.filter((chip, index) => indexChips.includes(index));
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(5);

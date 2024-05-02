@@ -13,7 +13,7 @@ export function SliderBarGame(): JSX.Element {
   const { name, userName, gamePoint } = useAppSelector((state) => state.userCurrent);
 
   // TODO: unable  wwith prod
-  // if (!userName) redirect('error');
+  if (!userName) redirect('error');
 
   const clickAutoConfirm = (e: any) => {
     const element = e.target as HTMLElement;
