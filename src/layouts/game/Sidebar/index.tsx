@@ -27,7 +27,7 @@ export function SliderBarGame(): JSX.Element {
         <Image
           className={cx('account-info__avatar')}
           alt="Avatar"
-          src={'/Content/Images/vn/icon_level1.png'}
+          src={'/Content/images/vn/icon_level1.png'}
           width={21}
           height={21}
         />
@@ -44,7 +44,7 @@ export function SliderBarGame(): JSX.Element {
         <div className={cx('balance-gift__gift')}>
           <Image
             alt="Gift"
-            src={'/Content/Images/icon_gift.svg'}
+            src={'/Content/images/icon_gift.svg'}
             className={cx('balance-gift__title')}
             width={16}
             height={16}

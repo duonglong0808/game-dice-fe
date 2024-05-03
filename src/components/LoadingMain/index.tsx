@@ -57,7 +57,7 @@ export default function LoadingScreen() {
     <div className={cx('wrapper', 'relative')}>
       <div className={cx('loading__box')}>
         <Image
-          src={'/Content/Images/vn/img_LD_model.png'}
+          src={'/Content/images/vn/img_LD_model.png'}
           alt="img_LD_model"
           priority
           width={1420}
@@ -65,7 +65,7 @@ export default function LoadingScreen() {
           className={cx('image__model')}
         />
         <Image
-          src={'/Content/Images/vn/img_txt.png'}
+          src={'/Content/images/vn/img_txt.png'}
           alt="img_LD_text"
           width={1150}
           height={289}

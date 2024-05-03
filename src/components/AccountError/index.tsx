@@ -12,7 +12,7 @@ export function AccountError(): JSX.Element {
           <div className={cx('error__box--left')}>
             <Image
               alt="error box"
-              src={'/Content/Images/icon_error.svg'}
+              src={'/Content/images/icon_error.svg'}
               width={264}
               height={245}
             />

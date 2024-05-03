@@ -30,10 +30,10 @@ export function XocDiaItem({
   let imageNational = '';
   switch (national?.toLowerCase()) {
     case 'vn':
-      imageNational = "url('/Content/Images/bg_anchor_04.png')";
+      imageNational = "url('/Content/images/bg_anchor_04.png')";
       break;
     case 'phl':
-      imageNational = "url('/Content/Images/bg_anchor_03.png')";
+      imageNational = "url('/Content/images/bg_anchor_03.png')";
       break;
     default:
       break;

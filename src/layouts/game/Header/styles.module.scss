@@ -9,7 +9,7 @@
   width: 97px;
   height: 27px;
   margin-top: 3px;
-  background: url('/Content/Images/vn/KU_logo.svg') no-repeat;
+  background: url('/Content/images/vn/KU_logo.svg') no-repeat;
   cursor: pointer;
   margin-left: 20px;
 }
@@ -79,7 +79,7 @@
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/Content/Images/img_jackpotLight.png');
+  background-image: url('/Content/images/img_jackpotLight.png');
   pointer-events: none;
   height: 50px;
   width: 180px;
@@ -91,7 +91,7 @@
 .header-jackpot__crown {
   width: 94px;
   height: 30px;
-  background: url('/Content/Images/img_jackpotCrown.png') no-repeat center;
+  background: url('/Content/images/img_jackpotCrown.png') no-repeat center;
   background-size: auto 100%;
   margin-top: 2px;
   position: relative;
@@ -122,7 +122,7 @@
 
 .header-control__menu {
   position: relative;
-  background: url('/Content/Images/btn_menu.svg') no-repeat;
+  background: url('/Content/images/btn_menu.svg') no-repeat;
   z-index: 10;
 
   &:hover .header-control__menu-box {
@@ -131,7 +131,7 @@
 }
 
 .header-control__zoom {
-  background: url('/Content/Images/btn_enlarge.svg') no-repeat;
+  background: url('/Content/images/btn_enlarge.svg') no-repeat;
 
   &:hover .header-control__item--text {
     display: block;
@@ -139,7 +139,7 @@
 }
 
 .header-control__logout {
-  background: url('/Content/Images/btn_switch.svg') no-repeat;
+  background: url('/Content/images/btn_switch.svg') no-repeat;
 
   &:hover .header-control__item--text {
     display: block;

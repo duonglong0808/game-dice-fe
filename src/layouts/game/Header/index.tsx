@@ -60,7 +60,7 @@ export function HeaderGame(): JSX.Element {
             <div
               className={cx('header-jackpot__image')}
               style={{
-                backgroundImage: 'url(/Content/Images/vn/img_bac_jackpot.png)',
+                backgroundImage: 'url(/Content/images/vn/img_bac_jackpot.png)',
               }}></div>
             <div className={cx('header-jackpot__number')}>{formatNumber(numberBac.current)}</div>
             <div className={cx('header-jackpot__image--center')}>
@@ -70,7 +70,7 @@ export function HeaderGame(): JSX.Element {
             <div
               className={cx('header-jackpot__image')}
               style={{
-                backgroundImage: 'url(/Content/Images/vn/img_cd_jackpot.png)',
+                backgroundImage: 'url(/Content/images/vn/img_cd_jackpot.png)',
               }}></div>
             <div className={cx('header-jackpot__number')}>{formatNumber(numberCd.current)}</div>
           </div>

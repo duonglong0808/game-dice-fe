@@ -28,8 +28,8 @@ export function ShowResultDice({ totalRed }: { totalRed: number }): JSX.Element 
               alt="plate"
               src={
                 index < totalRed
-                  ? '/Content/Images/img_PlateR.png'
-                  : '/Content/Images/img_PlateW.png'
+                  ? '/Content/images/img_PlateR.png'
+                  : '/Content/images/img_PlateW.png'
               }
               height={36}
               width={36}

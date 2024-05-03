@@ -11,7 +11,7 @@ export default function GameLayout({ children }: Props) {
   return (
     <div
       style={{
-        background: ' url(/content/images/bg_body.jpg) rgb(40, 40, 40)',
+        background: ' url(/Content/images/bg_body.jpg) rgb(40, 40, 40)',
         margin: '0px auto',
         height: '100vh',
         overflow: 'hidden',

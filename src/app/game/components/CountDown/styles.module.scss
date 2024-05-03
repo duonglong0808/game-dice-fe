@@ -26,13 +26,13 @@
   right: 0px;
   width: 103px;
   height: 103px;
-  background-image: url(/Content/Images/icon_message_line.png);
+  background-image: url(/Content/images/icon_message_line.png);
   animation: 1.5s linear 0s normal none infinite rotate;
   -webkit-animation: 1.5s linear 0s normal none infinite rotate;
 }
 
 .sec10 .icon_message_line {
-  background-image: url(/Content/Images/icon_message_line_red.png);
+  background-image: url(/Content/images/icon_message_line_red.png);
 }
 
 .sec10 .countDNum {
@@ -42,7 +42,7 @@
 .loadingImg {
   width: 103px;
   height: 103px;
-  background-image: url(/Content/Images/icon_message_start.png);
+  background-image: url(/Content/images/icon_message_start.png);
 }
 
 @keyframes rotate {
