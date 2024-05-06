@@ -13,7 +13,7 @@ export function SliderBarGame(): JSX.Element {
   const { name, userName, gamePoint } = useAppSelector((state) => state.userCurrent);
 
   // TODO: unable  wwith prod
-  if (!userName) redirect('error');
+  // if (!userName) redirect('error');
 
   const clickAutoConfirm = (e: any) => {
     const element = e.target as HTMLElement;
@@ -39,7 +39,7 @@ export function SliderBarGame(): JSX.Element {
       <div className={cx('balance-gift')}>
         <div className={cx('balance-gift__balance')}>
           <p className={cx('balance-gift__title')}>$</p>
-          <p className={cx('balance-gift__value')}>{gamePoint}</p>
+          <p className={cx('balance-gift__value')}>{Math.floor(gamePoint)}</p>
         </div>
         <div className={cx('balance-gift__gift')}>
           <Image

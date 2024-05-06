@@ -87,7 +87,7 @@ export function HistoryDiceGameDetail(): JSX.Element {
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}>
-              <div className="btn_CDlatticeSwitch"></div>
+              <div className={cx('btn_CDlatticeSwitch', 'on')}></div>
             </td>
           </tr>
         </tbody>

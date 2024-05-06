@@ -25,8 +25,9 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const [openListPhinh, setOpenListPhinh] = useState(false);
   const dispatch = useAppDispatch();
 
-  //
+  // Ref
   const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 
   //
@@ -63,6 +64,17 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
       message = '';
       break;
   }
+
+  // useEffect(() => {
+  //   if(iframeRef.current) {
+  //     var head = iframeRef.current.loading;
+  //     var script = iframe.contentWindow.document.createElement('script');
+  //     script.innerText = document.getElementById('iframejs').innerText;
+  //     script.type = 'text/javascript';
+  //     head.appendChild(script);
+  //   }
+  // })
+
   useEffect(() => {
     if ([StatusDiceDetail.bet, StatusDiceDetail.waitOpen].includes(statsDiceDetail)) {
       messageRef.current?.classList.add(cx('message__box--jump'));
@@ -137,18 +149,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
         width="100%"
         height="855"
         src={diceGameById?.idLive}
-        className={cx('iframe_container')}>
-        <head>
-          <link rel="stylesheet" href="https://tkuwebxdl101.vnskuvideo.com/style-mobile.css" />
-          <style>
-            {`
-              body {
-                overflow: hidden !important;
-              }
-            `}
-          </style>
-        </head>
-      </iframe>
+        className={cx('iframe_container')}
+        ref={iframeRef}></iframe>
       {/* <video className={cx('live_container')} id="video" ref={videoRef} autoFocus></video> */}
       <div
         style={{

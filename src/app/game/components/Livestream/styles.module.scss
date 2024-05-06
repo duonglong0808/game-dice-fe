@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 75vh;
+  height: calc(75vh - 4px);
 }
 
 .live_container {

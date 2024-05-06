@@ -7,6 +7,10 @@ import LiveStream from '../Livestream';
 import { HistoryDiceGameDetail } from '../HistoryDiceGameDetail';
 import { HistoryDiceGame } from '../HistoryDiceGame';
 import Image from 'next/image';
+import { EvenOddResultLive } from '../EvenOddResultLive';
+import { DiceResultTX } from '../DiceResultTX';
+import { GoodRoad } from '../GoodRoad';
+import { ChatLive } from '../ChatLive';
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -28,20 +32,10 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
       <div className="flex">
         <HistoryDiceGameDetail />
         <HistoryDiceGame />
-        <div className="flex-1 float-right">
-          <Image
-            alt="Image demo"
-            src={
-              'https://storage.googleapis.com/game-k-89a6b.appspot.com/image/1714668368729-Screenshot%202024-05-02%20234448.png?GoogleAccessId=firebase-adminsdk-a60i3%40game-k-89a6b.iam.gserviceaccount.com&Expires=16446992400&Signature=mwHIrSoGs5Hx75vGxtpM0xSwlUOBy3EC9g0myzjInpyAoVFhZ4iih9A63JzL0zSmAQSf2yYpDC96XJZ8WJ9PpMEOOsNPK%2B6sRCxJXLu0CfeAuzGLOYxZoAcuiGyZyrRZMSLdeq%2FYtWyj8xx3h5k4qwF4gi%2BNJkfahZAg19uwYXz2Sydh%2B39wojh9OVyQv06200OiI0LIbJLxiQIb92V0%2Fd3j0VrpSkPBaWP5%2FcofYpckXea184hgqnlhXvChRgJRUtd1BOlSiqLknOU8Slq7TyOg7ePibJn5ifPUKHUtEaxd8eYv%2FUnJVS5xYloksKy9mKFZqxTKSqmlbgPxaN3H8Q%3D%3D'
-            }
-            width={1146}
-            height={163}
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-          />
-        </div>
+        <EvenOddResultLive />
+        <DiceResultTX />
+        <GoodRoad />
+        <ChatLive />
       </div>
     </div>
   );
