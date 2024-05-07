@@ -22,9 +22,9 @@
 
 .table__td {
   position: relative;
-  background-color: #484848;
-  border-bottom: 1px solid #535353;
-  border-right: 1px solid #535353;
+  background-color: var(--background-cell-table);
+  border-bottom: 1px solid var(--background-cell-table-border);
+  border-right: 1px solid var(--background-cell-table-border);
   width: 18px;
   height: 16px;
 }

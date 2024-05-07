@@ -2,7 +2,7 @@
 }
 
 .wrapper-table {
-  background-color: #484848;
+  background-color: var(--background-cell-table);
   table-layout: auto;
   border-collapse: separate;
   border-spacing: 0;
@@ -16,8 +16,8 @@
   &__tr {
   }
   &__td {
-    border-right: 1px solid #535353;
-    border-bottom: 1px solid #535353;
+    border-bottom: 1px solid var(--background-cell-table-border);
+    border-right: 1px solid var(--background-cell-table-border);
     width: 30px;
     height: 28px;
     box-sizing: border-box;

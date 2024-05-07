@@ -14,6 +14,7 @@ import { setIndexChipsRedux } from '@/lib/redux/app/diceDetail.slice';
 import CountDownBet from '../CountDown';
 import { ShowResultDice } from '../ShowResultDice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
+import { ShowMessageLive } from '../ShowMessageLive';
 // import ToolTipGame from '../tool-tip-game';
 // import { ChipsList } from '../chips-list';
 
@@ -21,12 +22,15 @@ const cx = classNames.bind(styles);
 
 export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceId: number }) {
   const indexChipsRedux = useAppSelector((state) => state.diceDetail.indexChips);
+  const { gamePoint } = useAppSelector((state) => state.userCurrent);
+  const gamePointRef = useRef(gamePoint);
+  // const totalPointBet = useRef(0);
   const [indexChips, setIndexChips] = useState<number[]>(indexChipsRedux);
   const [openListPhinh, setOpenListPhinh] = useState(false);
   const dispatch = useAppDispatch();
 
   // Ref
-  const videoRef = useRef<HTMLVideoElement>(null);
+  // const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 
@@ -60,9 +64,22 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
     case StatusDiceDetail.waitOpen:
       message = 'Chờ mở thưởng';
       break;
+    case StatusDiceDetail.end:
+      console.log(
+        '🚀 ~ LiveStream ~ gamePoint - gamePointRef.current:',
+        gamePoint,
+        gamePointRef.current
+      );
+      if (gamePoint - gamePointRef.current != 0) {
+        message = String(gamePoint - gamePointRef.current);
+      }
+      console.log('🚀 ~ LiveStream ~ message:', message);
+      break;
     default:
       message = '';
       break;
+  }
+  if (gamePointRef.current != gamePoint) {
   }
 
   // useEffect(() => {
@@ -76,17 +93,23 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   // })
 
   useEffect(() => {
-    if ([StatusDiceDetail.bet, StatusDiceDetail.waitOpen].includes(statsDiceDetail)) {
+    if (
+      [StatusDiceDetail.bet, StatusDiceDetail.waitOpen, StatusDiceDetail.end].includes(
+        statsDiceDetail
+      )
+    ) {
+      gamePointRef.current = gamePoint;
       messageRef.current?.classList.add(cx('message__box--jump'));
 
       setTimeout(() => {
         messageRef.current?.classList.remove(cx('message__box--jump'));
+        message = '';
       }, 3000);
     }
   }, [statsDiceDetail]);
 
   const chooseBet = async (position: number) => {
-    console.log(position);
+    // console.log(position);
     const axios = new BaseAxios(process.env.API_GAME_DICE);
 
     const transaction = dataDiceDetailById?.transaction;
@@ -104,6 +127,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             answer: position,
           });
           if (requestBet?.data) {
+            // totalPointBet.current = totalPointBet.current + curChip;
             dispatch(updatePointUser({ gamePoint: -curChip }));
           }
         }
@@ -171,6 +195,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
       ) : (
         <></>
       )}
+
+      {/* <ShowMessageLive message={message} /> */}
       <div className={cx('live_action')}>
         <div className={cx('d3')}>
           <div className={cx('d3__col')}>

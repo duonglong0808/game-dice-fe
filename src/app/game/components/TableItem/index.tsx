@@ -61,6 +61,7 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     return (
       <div
         className={`${className} ${cx('table__item', {
+          // 'table__item--active': true,
           'table__item--active': statusDice == StatusDiceDetail.bet,
           'table__item--correct': isHighlight,
         })}`}
@@ -92,12 +93,15 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
         ) : (
           <p className={cx('table__item__name')}>{name}</p>
         )}
-        <div className={cx('table__item__ratio')}>{`1:${ratio}`}</div>
-        {/* {children} */}
+        <div className={cx('table__item__ratio')}>
+          1<span>:</span>
+          {ratio}
+        </div>
         <div className={cx('table__item__points')}>
           <div className={cx('table__item__points--icon')}></div>
           {children}
         </div>
+        <div className={cx('total__point-bet')}></div>
         {onHover &&
           (isLeft ? (
             <div

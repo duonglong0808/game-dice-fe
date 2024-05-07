@@ -44,6 +44,7 @@
 }
 
 .header__type {
+  color: #fff;
 }
 
 .header__type--blockChain {
@@ -143,6 +144,7 @@
   border-radius: 50%;
   font-size: 15px;
   text-align: center;
+  color: white;
 }
 
 .total__play__L .total__play--text {
@@ -156,6 +158,7 @@
 .total__play--value {
   margin-left: 4px;
   font-size: 14px;
+  color: white;
 }
 
 .play__game {
@@ -171,6 +174,7 @@
   margin-top: 2px;
   margin-right: 10px;
   cursor: pointer;
+  color: white;
 
   &:hover {
     background-color: #006ec3;

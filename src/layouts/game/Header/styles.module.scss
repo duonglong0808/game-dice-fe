@@ -109,6 +109,8 @@
 
 .header-control {
   display: flex;
+  height: 100%;
+  align-items: center;
 }
 
 .header-control__item {
@@ -124,6 +126,8 @@
   position: relative;
   background: url('/Content/images/btn_menu.svg') no-repeat;
   z-index: 10;
+  height: 100%;
+  background-position: center;
 
   &:hover .header-control__menu-box {
     display: grid;
@@ -179,6 +183,10 @@
   grid-gap: 2px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
   z-index: 99;
+
+  &:hover {
+    display: grid;
+  }
 }
 
 .header--menu__item {
@@ -259,5 +267,9 @@
   background: url('/Content/images/btn_pieChart_B.svg') no-repeat center bottom;
 }
 .header--menu__item--background::before {
+  background: url('/Content/images/bg_brightColor_B.svg') no-repeat center bottom;
+}
+
+.header--menu__item--background--light::before {
   background: url('/Content/images/bg_brightColor_Y.svg') no-repeat center bottom;
 }

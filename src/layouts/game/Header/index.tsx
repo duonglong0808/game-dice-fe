@@ -33,7 +33,17 @@ export function HeaderGame(): JSX.Element {
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
   const dispatch = useAppDispatch();
 
+  const mood = useRef('');
+
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      mood.current =
+        localStorage.theme === 'dark' ||
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          ? 'dark'
+          : 'light';
+    }
+
     const countNumber = setTimeout(() => {
       numberBac.current = +numberBac.current + Math.random() * 4;
       numberCd.current = +numberCd.current + Math.random() * 4;
@@ -112,9 +122,35 @@ export function HeaderGame(): JSX.Element {
                   <span>Thống kê</span>
                 </div>
                 <div
+                  onClick={(e) => {
+                    const element = e.target as HTMLElement;
+                    console.log(
+                      "window.matchMedia('(prefers-color-scheme: dark)')",
+                      window.matchMedia('(prefers-color-scheme: dark)')
+                    );
+                    console.log(
+                      "window.matchMedia('(prefers-color-scheme: light)')",
+                      window.matchMedia('(prefers-color-scheme: light)')
+                    );
+                    if (
+                      localStorage.theme === 'dark' ||
+                      (!('theme' in localStorage) &&
+                        window.matchMedia('(prefers-color-scheme: dark)').matches)
+                    ) {
+                      console.log('Tối');
+                      localStorage.theme = 'light';
+                      localStorage.setItem('prefers-color-scheme', 'light');
+                      element.classList.add(cx('header--menu__item--background--light'));
+                    } else {
+                      localStorage.theme = 'dark';
+                      localStorage.removeItem('prefers-color-scheme');
+                      element.classList.remove(cx('header--menu__item--background--light'));
+                    }
+                  }}
                   className={cx(
                     'header--menu__item',
                     'header--menu__item--background',
+                    { 'header--menu__item--background--light': mood.current == 'light' },
                     'basis-1/3'
                   )}>
                   <span>Phông nền Road</span>

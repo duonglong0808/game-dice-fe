@@ -3,7 +3,7 @@
 
 .wrapper-table {
   background-color: #2a2a2a;
-  border-right: 1px solid #3a3a3a;
+  border-right: 1px solid var(--background-cell-table-border);
   table-layout: auto;
   border-collapse: separate;
   border-spacing: 0;
@@ -22,8 +22,8 @@
   & tr,
   & td,
   & th {
-    background-color: #2a2a2a;
-    border-bottom: 1px solid #3a3a3a;
+    background-color: var(--background-dice-history);
+    border-top: 1px solid var(--background-cell-table-border);
     font-weight: normal;
     vertical-align: middle;
     height: 28px;
@@ -58,7 +58,7 @@
   }
 
   .CD_nameGray {
-    color: #bdbdbd;
+    color: var(--text-dice-history);
     margin-left: 2px;
     margin-left: 2px;
   }
@@ -90,7 +90,7 @@
   }
 
   .CD_Num.SD_CD_Num {
-    color: #bdbdbd;
+    color: var(--text-dice-history);
   }
 
   .CD_yellow_ball,
@@ -151,6 +151,6 @@
   .CD_Num.CD_alter {
     width: 89px !important;
     float: left;
-    color: #fff;
+    color: var(--text-dice-history);
   }
 }

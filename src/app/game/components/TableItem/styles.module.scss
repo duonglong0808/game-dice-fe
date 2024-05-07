@@ -51,17 +51,23 @@
 
   &__name {
     font-size: 30px;
-    color: #f9f9fa;
+    color: white;
+    font-family: sans-serif;
   }
 
   &__ratio {
-    font-size: 14px;
+    font-size: 16px;
     color: #a2aed1;
-    line-height: 14px;
+    line-height: 16px;
+    font-family: sans-serif;
+
+    & span {
+      font-size: 22px;
+    }
   }
 
   &--active:hover {
-    background-color: #75b6d9;
+    background-color: #75b6d987;
     cursor: pointer;
   }
 
@@ -73,22 +79,22 @@
         background-color: transparent;
       }
       10% {
-        background-color: #2e545feb;
+        background-color: #75b6d987;
       }
       20% {
         background-color: transparent;
       }
       30% {
-        background-color: #2e545feb;
+        background-color: #75b6d987;
       }
       40% {
         background-color: transparent;
       }
       50% {
-        background-color: #2e545feb;
+        background-color: #75b6d987;
       }
       90% {
-        background-color: #2e545feb;
+        background-color: #75b6d987;
       }
       100% {
         background-color: transparent;
@@ -109,7 +115,7 @@
     }
     &:hover {
       // border-right: 30px solid transparent;
-      border-top: 40px solid #22b3b5;
+      border-top: 40px solid rgba(117, 128, 217, 0.2);
     }
     button {
       position: absolute;
@@ -133,4 +139,13 @@
   background-size: cover;
   position: relative;
   right: 8px;
+}
+
+.total__point-bet {
+  background: url('/Content/images/chips/ReChips.png') no-repeat scroll;
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  bottom: 0;
 }
