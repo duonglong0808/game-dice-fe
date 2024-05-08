@@ -25,11 +25,11 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
   }
 
   return (
-    <div className={cx('wrapper')}>
+    <div className={cx('wrapper', 'relative')}>
       <div className={cx('controller')}>
         <LiveStream src="https:live.vk169.net/hls/test1.m3u8" gameDiceId={gameDiceId} />
       </div>
-      <div className="flex">
+      <div className={cx('result__list', 'flex')}>
         <HistoryDiceGameDetail />
         <HistoryDiceGame />
         <EvenOddResultLive />

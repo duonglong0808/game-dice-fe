@@ -1,16 +1,20 @@
 'use client';
 
-import React, { forwardRef, HTMLAttributes, useCallback } from 'react';
+import React, { forwardRef, HTMLAttributes, useCallback, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
 import { ICheckHover, StatusDiceDetail } from '@/constants';
-import { useAppSelector } from '@/lib';
+import { BaseAxios, useAppDispatch, useAppSelector } from '@/lib';
+import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
 const cx = classNames.bind(styles);
 interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement;
   ratio: number;
   isHighlight: boolean;
+  curChip: number;
+  positionAnswer: number;
+  onBetSuccess: () => void;
   onHover?: (iCheckHover: ICheckHover) => void;
   points?: number;
   name?: string;
@@ -20,12 +24,27 @@ interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
 
 const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
   (
-    { children, name, className, points, ratio, onHover, isLeft, isHighlight, ...otherProps },
+    {
+      children,
+      name,
+      className,
+      points,
+      ratio,
+      onHover,
+      isLeft,
+      isHighlight,
+      curChip,
+      onBetSuccess,
+      positionAnswer,
+      ...otherProps
+    },
     ref
   ) => {
     const { gameDiceId } = useAppSelector((state) => state.diceGame);
     const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
     let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
+    const [pointBetPosition, setPointBetPosition] = useState(1000);
+    console.log('🚀 ~ pointBetPosition:', pointBetPosition);
     const statusDice =
       typeof dataDiceDetailById?.status == 'string'
         ? dataDiceDetailById?.status?.split(':')[0]
@@ -58,6 +77,41 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
       [onHover]
     );
 
+    useEffect(() => {
+      if (pointBetPosition > 0) setPointBetPosition(0);
+    }, [statusDice]);
+
+    const dispatch = useAppDispatch();
+    const chooseBet = async () => {
+      // console.log(position);
+      const axios = new BaseAxios(process.env.API_GAME_DICE);
+
+      const transaction = dataDiceDetailById?.transaction;
+      const gameDiceId = dataDiceDetailById?.gameDiceId;
+      const diceDetailId = dataDiceDetailById?.diceDetailId;
+
+      if (transaction && gameDiceId && Number(statusDice) == StatusDiceDetail.bet) {
+        try {
+          if (curChip) {
+            const requestBet = await axios.post('/history-play', {
+              transaction,
+              gameDiceId,
+              diceDetailId,
+              point: curChip,
+              answer: positionAnswer,
+            });
+            if (requestBet?.data) {
+              onBetSuccess();
+              dispatch(updatePointUser({ gamePoint: -curChip }));
+              setPointBetPosition((pre) => pre + curChip);
+            }
+          }
+        } catch (error: any) {
+          alert(error.message);
+        }
+      }
+    };
+
     return (
       <div
         className={`${className} ${cx('table__item', {
@@ -66,6 +120,11 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
           'table__item--correct': isHighlight,
         })}`}
         ref={ref}
+        onClick={() => {
+          if (statusDice == StatusDiceDetail.bet) {
+            chooseBet();
+          }
+        }}
         {...otherProps}>
         {name === undefined && points !== undefined ? (
           <div className={cx('dots')}>
@@ -101,7 +160,23 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
           <div className={cx('table__item__points--icon')}></div>
           {children}
         </div>
-        <div className={cx('total__point-bet')}></div>
+        {pointBetPosition ? (
+          <div className={cx('total__point-bet')}>
+            {' '}
+            <span className={cx({ 'total__point-bet__long': pointBetPosition >= 1000 })}>
+              {pointBetPosition < 1000
+                ? pointBetPosition
+                : `${(pointBetPosition / 1000).toFixed(2)}K`}
+            </span>
+          </div>
+        ) : (
+          <></>
+        )}
+        {/* <div className={cx('total__point-bet')}>
+          <span className={cx({ 'total__point-bet__long': true })}>{`${(1230 / 1000).toFixed(
+            2
+          )}K`}</span>
+        </div> */}
         {onHover &&
           (isLeft ? (
             <div

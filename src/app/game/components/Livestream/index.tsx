@@ -49,6 +49,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
       ? dataDiceDetailById?.status?.split(':')
       : [dataDiceDetailById?.status];
   const statsDiceDetail = Number(dataStatusDice[0]);
+  const statsDiceDetailRef = useRef(statsDiceDetail);
   const timeStartBet = Number(dataStatusDice[1]);
   const timeStamp = new Date().getTime();
   const countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
@@ -56,41 +57,39 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const totalRed = dataDiceDetailById?.totalRed;
 
   // Handle Message
-  let message = '';
-  switch (statsDiceDetail) {
-    case StatusDiceDetail.bet:
-      message = 'Đã bắt đầu vui lòng đặt cược';
-      break;
-    case StatusDiceDetail.waitOpen:
-      message = 'Chờ mở thưởng';
-      break;
-    case StatusDiceDetail.end:
-      console.log(
-        '🚀 ~ LiveStream ~ gamePoint - gamePointRef.current:',
-        gamePoint,
-        gamePointRef.current
-      );
-      if (gamePoint - gamePointRef.current != 0) {
-        message = String(gamePoint - gamePointRef.current);
-      }
-      console.log('🚀 ~ LiveStream ~ message:', message);
-      break;
-    default:
-      message = '';
-      break;
-  }
-  if (gamePointRef.current != gamePoint) {
-  }
+  const [message, setMessage] = useState('');
+  const [totalPointBet, setTotalBet] = useState(0);
+  useEffect(() => {
+    if (statsDiceDetail != statsDiceDetailRef.current) {
+      statsDiceDetailRef.current = statsDiceDetail;
+      switch (statsDiceDetail) {
+        case StatusDiceDetail.bet:
+          setMessage('Đã bắt đầu vui lòng đặt cược');
+          break;
+        case StatusDiceDetail.waitOpen:
+          setMessage('Chờ mở thưởng');
+          break;
+        case StatusDiceDetail.end:
+          console.log(
+            '🚀 ~ LiveStream ~ gamePoint - gamePointRef.current:',
+            gamePoint,
+            gamePointRef.current
+          );
+          if (totalPointBet != 0) {
+            // console.log('🚀 ~ useEffect ~ gamePoint - gamePointRef.current:');
+            if (gamePoint > gamePointRef.current)
+              setMessage(String(`+${Math.ceil(gamePoint - gamePointRef.current + totalPointBet)}`));
+            else setMessage(String(gamePoint - gamePointRef.current));
+            gamePointRef.current = gamePoint;
 
-  // useEffect(() => {
-  //   if(iframeRef.current) {
-  //     var head = iframeRef.current.loading;
-  //     var script = iframe.contentWindow.document.createElement('script');
-  //     script.innerText = document.getElementById('iframejs').innerText;
-  //     script.type = 'text/javascript';
-  //     head.appendChild(script);
-  //   }
-  // })
+            setTotalBet(0);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [statsDiceDetail]);
 
   useEffect(() => {
     if (
@@ -98,44 +97,13 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
         statsDiceDetail
       )
     ) {
-      gamePointRef.current = gamePoint;
       messageRef.current?.classList.add(cx('message__box--jump'));
 
       setTimeout(() => {
         messageRef.current?.classList.remove(cx('message__box--jump'));
-        message = '';
       }, 3000);
     }
-  }, [statsDiceDetail]);
-
-  const chooseBet = async (position: number) => {
-    // console.log(position);
-    const axios = new BaseAxios(process.env.API_GAME_DICE);
-
-    const transaction = dataDiceDetailById?.transaction;
-    const gameDiceId = dataDiceDetailById?.gameDiceId;
-    const diceDetailId = dataDiceDetailById?.diceDetailId;
-
-    if (transaction && gameDiceId && Number(statsDiceDetail) == StatusDiceDetail.bet) {
-      try {
-        if (curChip) {
-          const requestBet = await axios.post('/history-play', {
-            transaction,
-            gameDiceId,
-            diceDetailId,
-            point: curChip,
-            answer: position,
-          });
-          if (requestBet?.data) {
-            // totalPointBet.current = totalPointBet.current + curChip;
-            dispatch(updatePointUser({ gamePoint: -curChip }));
-          }
-        }
-      } catch (error: any) {
-        alert(error.message);
-      }
-    }
-  };
+  }, [message]);
 
   // useEffect(() => {
   //   const video = videoRef.current;
@@ -203,9 +171,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--1')}
               points={0}
+              positionAnswer={1}
+              curChip={curChip}
               ratio={14}
-              onClick={() => {
-                chooseBet(1);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_0'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -213,9 +183,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--1')}
               points={1}
+              positionAnswer={2}
+              curChip={curChip}
               ratio={2.8}
-              onClick={() => {
-                chooseBet(2);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_1'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -223,9 +195,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--1')}
               points={2}
+              positionAnswer={3}
+              curChip={curChip}
               ratio={1.5}
-              onClick={() => {
-                chooseBet(3);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_2'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -233,12 +207,14 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           </div>
           <div className={cx('d3__col')}>
             <TableItem
+              positionAnswer={4}
               className={cx('d3__col__row--2')}
               points={0}
+              curChip={curChip}
               ratio={0.96}
               name={'Chẵn'}
-              onClick={() => {
-                chooseBet(4);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_chan'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -246,11 +222,13 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--2')}
               points={0}
+              curChip={curChip}
+              positionAnswer={5}
               ratio={0.96}
               name={'Xỉu'}
               onHover={setHoverData}
-              onClick={() => {
-                chooseBet(5);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_xiu'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -260,10 +238,12 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--2')}
               points={0}
+              curChip={curChip}
+              positionAnswer={6}
               ratio={0.96}
               name={'Lẻ'}
-              onClick={() => {
-                chooseBet(6);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_le'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -271,12 +251,14 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--2')}
               points={0}
+              curChip={curChip}
+              positionAnswer={7}
               ratio={0.96}
               name={'Tài'}
               isLeft={true}
               onHover={setHoverData}
-              onClick={() => {
-                chooseBet(7);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_tai'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -286,9 +268,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--1')}
               points={4}
+              curChip={curChip}
+              positionAnswer={8}
               ratio={14}
-              onClick={() => {
-                chooseBet(8);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_4'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -296,9 +280,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--1')}
               points={3}
+              curChip={curChip}
+              positionAnswer={9}
               ratio={2.8}
-              onClick={() => {
-                chooseBet(9);
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_3'))}>
               <p className={cx('col__row--counter')}>11</p>
@@ -306,9 +292,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <TableItem
               className={cx('d3__col__row--1')}
               points={-1}
+              positionAnswer={10}
               ratio={6.5}
-              onClick={() => {
-                chooseBet(10);
+              curChip={curChip}
+              onBetSuccess={() => {
+                setTotalBet((pre) => pre + curChip);
               }}
               isHighlight={Boolean(arrBetActive?.includes('p_-1'))}>
               <p className={cx('col__row--counter')}>11</p>

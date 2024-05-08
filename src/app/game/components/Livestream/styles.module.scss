@@ -21,7 +21,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: calc(75vh - 4px);
+  // height: calc(75vh - 4px);
+  height: 100%;
 }
 
 .live_container {
@@ -32,7 +33,7 @@
 .live_action {
   position: absolute;
   width: 100%;
-  height: 250px;
+  height: 344px;
   bottom: 0;
   left: 0;
   perspective: 3000px;
@@ -83,18 +84,15 @@
 }
 .d3 {
   margin: 1px auto;
-  margin-bottom: -65px;
-  // border-spacing: 0px;
-  width: 84%;
+  margin-bottom: -48px;
+  width: 86%;
   box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.1);
-  // border-radius: 10px;
-  border: 1px solid #ffffff73;
-  // overflow: hidden;
-
+  border: 1px solid rgba(255, 255, 255, 0.4509803922);
   transition: all 0.5s;
-  transform: rotateX(60deg);
+  transform: rotateX(50deg);
   transform-style: flat;
   display: flex;
+  height: 69%;
 
   &__col {
     display: flex;
