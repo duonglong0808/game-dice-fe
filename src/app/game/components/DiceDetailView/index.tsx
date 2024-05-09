@@ -11,6 +11,7 @@ import { EvenOddResultLive } from '../EvenOddResultLive';
 import { DiceResultTX } from '../DiceResultTX';
 import { GoodRoad } from '../GoodRoad';
 import { ChatLive } from '../ChatLive';
+import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -18,11 +19,8 @@ type Props = {
 };
 
 export default function XocDiaDetailsView({ gameDiceId }: Props) {
-  const elementTest = useRef<HTMLElement>(null);
-
-  if (elementTest.current) {
-    elementTest.current.click();
-  }
+  const { diceGame } = useAppSelector((state) => state.diceGame);
+  const diceGameById = diceGame.find((d) => d.id === gameDiceId);
 
   return (
     <div className={cx('wrapper', 'relative')}>
@@ -35,7 +33,9 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
         <EvenOddResultLive />
         <DiceResultTX />
         <GoodRoad />
-        <ChatLive />
+        <div className="flex-1">
+          <iframe src={diceGameById?.idChat} className="h-full w-full"></iframe>
+        </div>
       </div>
     </div>
   );
