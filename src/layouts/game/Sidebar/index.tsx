@@ -39,7 +39,9 @@ export function SliderBarGame(): JSX.Element {
       <div className={cx('balance-gift')}>
         <div className={cx('balance-gift__balance')}>
           <p className={cx('balance-gift__title')}>$</p>
-          <p className={cx('balance-gift__value')}>{Math.ceil(gamePoint)}</p>
+          <p className={cx('balance-gift__value')}>
+            {Math.ceil(gamePoint)?.toLocaleString('vi-VN')}
+          </p>
         </div>
         <div className={cx('balance-gift__gift')}>
           <Image

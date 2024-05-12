@@ -166,7 +166,7 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
             <span className={cx({ 'total__point-bet__long': pointBetPosition >= 1000 })}>
               {pointBetPosition < 1000
                 ? pointBetPosition
-                : `${(pointBetPosition / 1000).toFixed(2)}K`}
+                : `${(pointBetPosition / 1000).toFixed(2)}`}
             </span>
           </div>
         ) : (

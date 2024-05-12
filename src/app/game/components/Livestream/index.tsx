@@ -52,7 +52,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const statsDiceDetailRef = useRef(statsDiceDetail);
   const timeStartBet = Number(dataStatusDice[1]);
   const timeStamp = new Date().getTime();
-  const countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
+  let countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
+  if (typeof countDown == 'number' && countDown > 14) countDown = 14;
   const arrBetActive = dataDiceDetailById?.arrBetActive;
   const totalRed = dataDiceDetailById?.totalRed;
 
