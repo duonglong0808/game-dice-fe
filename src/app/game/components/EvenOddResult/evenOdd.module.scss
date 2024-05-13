@@ -2,6 +2,7 @@
   //   margin: 0 2px;
   // height: 100%;
   // width: 100%;
+  font-family: ReviseText, Arial;
 }
 
 .CD_dataInput {
@@ -38,9 +39,10 @@
 
 .ba_ATred_bigT,
 .ba_ATBall_bigT {
-  font-size: 15px;
+  font-size: 12px;
   text-align: center;
-  font-weight: bold;
+  font-weight: 800;
+  line-height: 16px;
 
   &::after {
     content: '';

@@ -73,7 +73,93 @@ export function EvenOddResult(): JSX.Element {
           <tr className={cx('table__tr')}>
             <td className={cx('table__td', 'dark:table__td--dark')}>
               <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATred_bigT')}>L</div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
                 <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}></td>
+          </tr>
+          <tr className={cx('table__tr')}>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATred_bigT')}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+              </div>
+            </td>
+            <td className={cx('table__td', 'dark:table__td--dark')}></td>
+          </tr>
+          <tr className={cx('table__tr')}>
+            <td className={cx('table__td', 'dark:table__td--dark')}>
+              <div className={cx('ba_AT_box')}>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td', 'dark:table__td--dark')}>
@@ -116,7 +202,7 @@ export function EvenOddResult(): JSX.Element {
           <tr className={cx('table__tr')}>
             <td className={cx('table__td', 'dark:table__td--dark')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td', 'dark:table__td--dark')}>
@@ -159,146 +245,17 @@ export function EvenOddResult(): JSX.Element {
           <tr className={cx('table__tr')}>
             <td className={cx('table__td', 'dark:table__td--dark')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td', 'dark:table__td--dark')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td', 'dark:table__td--dark')}>
               <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}></td>
-          </tr>
-          <tr className={cx('table__tr')}>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}></td>
-          </tr>
-          <tr className={cx('table__tr')}>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}></td>
-          </tr>
-          <tr className={cx('table__tr')}>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
-              </div>
-            </td>
-            <td className={cx('table__td', 'dark:table__td--dark')}>
-              <div className={cx('ba_AT_box')}>
-                <div className={cx('ba_ATBall_bigT')} style={{ color: '' }}></div>
+                <div className={cx('ba_ATBall_bigT')}>C</div>
               </div>
             </td>
             <td className={cx('table__td', 'dark:table__td--dark')}>

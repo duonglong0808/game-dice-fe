@@ -100,22 +100,10 @@ export function EvenOddResultLive(): JSX.Element {
           </tr>
           <tr className={cx('table__tr')}>
             <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
-          </tr>
-          <tr className={cx('table__tr')}>
-            <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
@@ -130,7 +118,10 @@ export function EvenOddResultLive(): JSX.Element {
           </tr>
           <tr className={cx('table__tr')}>
             <td className={cx('table__td')}></td>
-            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
@@ -145,10 +136,40 @@ export function EvenOddResultLive(): JSX.Element {
           </tr>
           <tr className={cx('table__tr')}>
             <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}></td>
+          </tr>
+          <tr className={cx('table__tr')}>
+            <td className={cx('table__td')}></td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
+            <td className={cx('table__td')}>
+              <div className={cx('CD_blue_T')}>C</div>
+              <div className={cx('CD_linkBox')}></div>
+            </td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>
             <td className={cx('table__td')}></td>

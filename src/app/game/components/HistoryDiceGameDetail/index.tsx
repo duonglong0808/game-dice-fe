@@ -44,10 +44,48 @@ export function HistoryDiceGameDetail(): JSX.Element {
             <td className={cx('wrapper-table__td')}> </td>
           </tr>
           <tr className={cx('wrapper-table__tr')}>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}>
+                <div className={cx('CD_yellow_ball')}>3</div>
+              </div>
+            </td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}>
+                <div className={cx('CD_green_ball')}>2</div>
+              </div>
+            </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
+          </tr>
+          <tr className={cx('wrapper-table__tr')}>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}>
+                <div className={cx('CD_yellow_ball')}>3</div>
+              </div>
+            </td>
             <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}>
+                <div className={cx('CD_green_ball')}>2</div>
+              </div>
+            </td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}> </td>
+          </tr>
+          <tr className={cx('wrapper-table__tr')}>
+            <td className={cx('wrapper-table__td')}></td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}>
+                <div className={cx('CD_green_ball')}>2</div>
+              </div>
+            </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
@@ -56,16 +94,11 @@ export function HistoryDiceGameDetail(): JSX.Element {
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-          </tr>
-          <tr className={cx('wrapper-table__tr')}>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}>
+                <div className={cx('CD_green_ball')}>2</div>
+              </div>
+            </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
@@ -74,16 +107,9 @@ export function HistoryDiceGameDetail(): JSX.Element {
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-          </tr>
-          <tr className={cx('wrapper-table__tr')}>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
-            <td className={cx('wrapper-table__td')}> </td>
+            <td className={cx('wrapper-table__td')}>
+              <div className={cx('wrapper-table__td--CD_ballBox')}></div>
+            </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}> </td>
             <td className={cx('wrapper-table__td')}>
