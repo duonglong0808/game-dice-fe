@@ -17,11 +17,27 @@ export default function CountDownBet({ initCount }: { initCount?: number }) {
   }, [count]);
 
   return count ? (
-    <div className={cx('wrapper', { sec10: count <= 10 })}>
-      <div className={cx('countDNum')}>{count}</div>
-      <div className={cx('icon_message_line')}></div>
-      <div className={cx('loadingImg')}></div>
-    </div>
+    <>
+      <div className={cx('wrapper', { sec10: count <= 10 })}>
+        <div className={cx('countDNum')}>{count}</div>
+        <div className={cx('icon_message_line')}></div>
+        <div className={cx('loadingImg')}></div>
+      </div>
+      <div className={cx('wrapper-control')}>
+        <div className={cx('wrapper-control__box')}>
+          <div className={cx('wrapper-control__box--bg')}></div>
+          <div className={cx('wrapper-control__item', 'wrapper-control__rollback')}></div>
+        </div>
+        <div className={cx('wrapper-control__box')}>
+          <div className={cx('wrapper-control__box--bg')}></div>
+          <div className={cx('wrapper-control__item', 'wrapper-control__swapper')}></div>
+        </div>
+        <div className={cx('wrapper-control__box')}>
+          <div className={cx('wrapper-control__box--bg')}></div>
+          <div className={cx('wrapper-control__item', 'wrapper-control__check')}></div>
+        </div>
+      </div>
+    </>
   ) : (
     <></>
   );

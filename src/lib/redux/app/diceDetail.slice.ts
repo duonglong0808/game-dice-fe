@@ -1,11 +1,12 @@
 import { StatusDiceDetail } from '@/constants';
 import { createSlice } from '@reduxjs/toolkit';
 
-interface DiceDetailDto {
+export interface DiceDetailDto {
   gameDiceId: number;
   status: string | number;
   totalRed: number;
   transaction: number;
+  mainTransaction: number;
   diceDetailId: number;
   arrBetActive: string[];
 }

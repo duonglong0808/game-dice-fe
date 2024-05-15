@@ -54,3 +54,58 @@
     -webkit-transform: rotate(360deg);
   }
 }
+
+.wrapper-control {
+  position: absolute;
+  top: 79%;
+  right: 46%;
+  z-index: 2;
+  will-change: transform;
+  display: flex;
+
+  &__box {
+    width: 48px;
+    height: 44px;
+    margin: 0 10px;
+    position: relative;
+
+    &--bg {
+      position: absolute;
+      top: 0;
+      left: 0px;
+      right: 0px;
+      bottom: 0;
+      background: url(/Content/images/vn/json/bettingButtons.png) no-repeat;
+      background-size: 226%;
+      background-position: -49px -274px;
+      margin: 0 0px 0 0;
+    }
+  }
+
+  &__item {
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    right: 0px;
+    bottom: 0px;
+    background: url(/Content/images/vn/json/bettingButtons.png) no-repeat;
+    width: 60%;
+    height: 70%;
+    /* margin-right: 8px; */
+    background-size: 330%;
+    z-index: 20;
+  }
+
+  &__rollback {
+    background-position: -66px -30px;
+  }
+
+  &__swapper {
+    background-position: -62px -125px;
+    background-size: 340%;
+  }
+
+  &__check {
+    background-position: -66px -59px;
+  }
+}

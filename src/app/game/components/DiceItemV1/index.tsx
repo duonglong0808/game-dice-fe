@@ -16,7 +16,9 @@ export function XocDiaItem({
   nameAuthor,
   valueL,
   valueC,
+  id,
 }: {
+  id: number;
   name: string;
   status?: string;
   type: string;
@@ -85,9 +87,9 @@ export function XocDiaItem({
               //   width: '162px',
               //   height: '100%',
             }}>
-            <EvenOddResult />
+            <EvenOddResult gameDiceId={id} />
           </div>
-          <EvenOddResult />
+          <EvenOddResult gameDiceId={id} />
         </div>
       </div>
       <div className={cx('game-footer')}>
