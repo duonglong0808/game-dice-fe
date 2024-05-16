@@ -8,10 +8,10 @@ import { HistoryDiceGameDetail } from '../HistoryDiceGameDetail';
 import { HistoryDiceGame } from '../HistoryDiceGame';
 import Image from 'next/image';
 import { EvenOddResultLive } from '../EvenOddResultLive';
-import { DiceResultTX } from '../DiceResultTX';
 import { GoodRoad } from '../GoodRoad';
 import { ChatLive } from '../ChatLive';
 import { useAppSelector } from '@/lib';
+import { DiceResultTXLive } from '../DiceResultTXLive';
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -31,7 +31,7 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
         <HistoryDiceGameDetail />
         <HistoryDiceGame />
         <EvenOddResultLive />
-        <DiceResultTX />
+        <DiceResultTXLive />
         <GoodRoad />
         <div className="flex-1">
           <iframe src={diceGameById?.idChat} className="h-full w-full"></iframe>

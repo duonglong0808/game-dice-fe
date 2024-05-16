@@ -3,6 +3,7 @@ import styles from './diceItem.module.scss';
 import Image from 'next/image';
 import { EvenOddResult } from '../EvenOddResult';
 import { TypeGameDice } from '@/constants';
+import { DiceResultTX } from '../DiceResultTX';
 
 const cx = classNames.bind(styles);
 
@@ -89,6 +90,7 @@ export function XocDiaItem({
             }}>
             <EvenOddResult gameDiceId={id} />
           </div>
+          <DiceResultTX gameDiceId={id} />
           {/* <EvenOddResult gameDiceId={id} /> */}
         </div>
       </div>

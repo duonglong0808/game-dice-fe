@@ -213,30 +213,19 @@ interface DiceDetailDto {
 // ];
 
 export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Element {
-  // const row = useRef(6);
-  // const col = useRef(8);
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [
     ...dataRaw.filter((i) => i.gameDiceId == gameDiceId && typeof i.totalRed === 'number'),
   ].sort((a, b) => b.diceDetailId - a.diceDetailId);
-  console.log(
-    '🚀 ~ EvenOddResult ~ dataRaw:',
-    lengthDataRowOld.current,
-    dataSort.length,
-    gameDiceId
-  );
+
   // const dataPosition = useRef<any>({});
   const [dataPosition, setDataPosition] = useState<any>({});
-  console.log('🚀 ~ EvenOddResult ~ dataPosition:', dataPosition.current, gameDiceId);
-  const [isHandleData, setIsHandleData] = useState(true);
 
   useEffect(() => {
-    if (lengthDataRowOld.current != dataSort.length && gameDiceId == 2) {
+    if (lengthDataRowOld.current != dataSort.length) {
       const dataPositionCalc: any = {};
 
-      // dataPosition.current = {};
-      // console.log('🚀 ~ dataSort.forEach ~ dataSort:', dataSort);
       let indexCurrent = 0;
       let col = 8;
       let row = 6;
@@ -266,12 +255,10 @@ export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Eleme
                   const element = lisTypeEquals[i];
                   indexCurrent++;
                   if (lisTypeEquals.length - i > 6) {
-                    console.log('Lặp', colTg);
                     const position = `${colTg}6`;
                     dataPositionCalc[position] = { ...element, value: type };
                     colTg = colTg - 1;
                   } else {
-                    console.log('Dọc', colTg);
                     const position = `${colTg}${lisTypeEquals.length - i}`;
                     dataPositionCalc[position] = { ...element, value: type };
                   }
@@ -298,17 +285,8 @@ export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Eleme
         }
       });
 
-      // if (JSON.stringify(dataPosition.current) == '{}') {
-      //   console.log('🚀 ~ useEffect ~ dataPositionCalc:', dataPositionCalc, gameDiceId);
-      //   dataPosition.current = dataPositionCalc;
-      // }
-
-      // row.current = 6;
-      // col.current = 8;
       lengthDataRowOld.current = dataSort.length;
       setDataPosition(dataPositionCalc);
-      // setIsHandleData(false);
-      // setDataPosition((pre: any) => dataPositionCalc);
     }
   }, [dataSort]);
 
@@ -329,11 +307,6 @@ export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Eleme
                           ? cx('ba_ATred_bigT')
                           : cx('ba_ATBall_bigT')
                       }>
-                      {/* {dataPosition.current[`${colIndex}${rowIndex}`]?.totalRed
-                        ? dataPosition.current[`${colIndex}${rowIndex}`]?.totalRed % 2 == 0
-                          ? 'C'
-                          : 'L'
-                        : ''} */}
                       {dataPosition[`${colIndex}${rowIndex}`]?.value || ''}
                     </div>
                   </div>
