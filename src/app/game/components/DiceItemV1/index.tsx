@@ -89,7 +89,7 @@ export function XocDiaItem({
             }}>
             <EvenOddResult gameDiceId={id} />
           </div>
-          <EvenOddResult gameDiceId={id} />
+          {/* <EvenOddResult gameDiceId={id} /> */}
         </div>
       </div>
       <div className={cx('game-footer')}>

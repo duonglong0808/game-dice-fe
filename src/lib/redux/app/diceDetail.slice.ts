@@ -14,12 +14,12 @@ export interface DiceDetailDto {
 interface DiceDetailSlice {
   indexChips: number[];
   dataDiceDetail: DiceDetailDto[];
-  dataDiceDetailHistory: {
-    gameDiceId: {
-      transaction: number;
-      totalRed: number;
-    }[];
-  }[];
+  // dataDiceDetailHistory: {
+  //   gameDiceId: {
+  //     transaction: number;
+  //     totalRed: number;
+  //   }[];
+  // }[];
 }
 
 const DiceDetailSlice = createSlice({
@@ -27,31 +27,47 @@ const DiceDetailSlice = createSlice({
   initialState: {
     indexChips: [4, 5, 6, 7, 8],
     dataDiceDetail: [],
-    dataDiceDetailHistory: [],
+    // dataDiceDetailHistory: [],
+    refreshDataDiceDetail: true,
   } as DiceDetailSlice,
   reducers: {
     setIndexChipsRedux: (state, action) => {
       state.indexChips = action.payload.indexChips;
     },
+    setDataDiceInitiated: (state, action) => {
+      if (!state.dataDiceDetail.length) {
+        state.dataDiceDetail = action.payload.dataDiceDetail;
+      }
+    },
     updateListDataDiceDetail: (state, action) => {
-      state.dataDiceDetail = action.payload.dataDiceDetail;
+      // console.log('🚀 ~ action.payload.dataDiceDetail:', action.payload.dataDiceDetail);
+      state.dataDiceDetail = [...action.payload.dataDiceDetail, ...state.dataDiceDetail];
     },
     updateOrAddDataDiceDetail: (state, action: { payload: DiceDetailDto }) => {
-      const checkExit = state.dataDiceDetail.find((d) => d.gameDiceId == action.payload.gameDiceId);
-      if (checkExit) {
-        console.log('Cos data');
-        state.dataDiceDetail = state.dataDiceDetail.map((item) => {
-          if (item.gameDiceId == action.payload.gameDiceId) return { ...item, ...action.payload };
-          else return item;
-        });
-      } else {
-        state.dataDiceDetail = [...state.dataDiceDetail, action.payload];
+      // console.log('🚀 ~ action.payload:', action.payload);
+      if (action.payload.status == StatusDiceDetail.end) {
+        const checkExit = state.dataDiceDetail.findIndex(
+          (d) => d.gameDiceId === +action.payload.gameDiceId
+        );
+        if (checkExit) {
+          state.dataDiceDetail = state.dataDiceDetail.map((item) => {
+            if (item.diceDetailId == action.payload.diceDetailId)
+              return { ...item, ...action.payload };
+            else return item;
+          });
+        } else {
+          state.dataDiceDetail = [...state.dataDiceDetail, action.payload];
+        }
       }
     },
   },
 });
 
-export const { setIndexChipsRedux, updateOrAddDataDiceDetail, updateListDataDiceDetail } =
-  DiceDetailSlice.actions;
+export const {
+  setIndexChipsRedux,
+  updateOrAddDataDiceDetail,
+  updateListDataDiceDetail,
+  setDataDiceInitiated,
+} = DiceDetailSlice.actions;
 
 export default DiceDetailSlice.reducer;

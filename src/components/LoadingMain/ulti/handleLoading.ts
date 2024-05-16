@@ -1,6 +1,7 @@
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { getPointGameKuAndMain, getUserInfo } from './api';
+import { getHistoryDiceGame, getPointGameKuAndMain, getUserInfo } from './api';
 import { setDataUserLogin } from '@/lib/redux/app/userCurrent.slice';
+import { setDataDiceInitiated, updateListDataDiceDetail } from '@/lib/redux/app/diceDetail.slice';
 
 export const handleLoginGame = async (
   access_token: string,
@@ -16,7 +17,16 @@ export const handleLoginGame = async (
   const userInfo = await getUserInfo();
   if (userInfo) {
     const dataPoint = await getPointGameKuAndMain();
+    const dataDice = await getHistoryDiceGame();
+    // console.log('🚀 ~ dataDice?.data?.dataHistory:', dataDice?.data?.dataHistory);
 
+    const dataDiceDetail = dataDice?.data?.dataHistory?.map((item: any) => {
+      return {
+        ...item,
+        diceDetailId: item?.id,
+      };
+    });
+    dispatch(setDataDiceInitiated({ dataDiceDetail: dataDiceDetail || [] }));
     dispatch(setDataUserLogin({ ...userInfo?.data, ...dataPoint.data }));
     return true;
   } else {

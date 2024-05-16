@@ -9,3 +9,8 @@ export const getPointGameKuAndMain = async () => {
   const axios = new BaseAxios();
   return axios.get(`/user-point/game/ku-casino`);
 };
+
+export const getHistoryDiceGame = () => {
+  const axios = new BaseAxios(process.env.API_GAME_DICE);
+  return axios.get(`/dice-detail`);
+};
