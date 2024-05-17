@@ -41,8 +41,8 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     ref
   ) => {
     const { gameDiceId } = useAppSelector((state) => state.diceGame);
-    const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
-    let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
+    const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
+    let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
     const [pointBetPosition, setPointBetPosition] = useState(1000);
     console.log('🚀 ~ pointBetPosition:', pointBetPosition);
     const statusDice =

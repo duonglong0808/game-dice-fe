@@ -10,8 +10,10 @@ import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
 import WebSocketSingleton from '@/lib/ws/wskInstance';
 import { EventSocket, StatusDiceDetail, TypeEmitMessage, TypeUpdatePointUser } from '@/constants';
 import {
+  updateListDataDiceCurrent,
   updateListDataDiceDetail,
   updateOrAddDataDiceDetail,
+  updateOrAddDataDiceDetailCurrent,
 } from '@/lib/redux/app/diceDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
@@ -55,13 +57,17 @@ export default function GamePage(): JSX.Element {
               arrBetActive.push(`p_xiu`);
             }
 
-            dispatch(updateOrAddDataDiceDetail({ ...data, arrBetActive }));
+            dispatch(updateOrAddDataDiceDetailCurrent({ ...data, arrBetActive }));
           } else {
-            dispatch(updateOrAddDataDiceDetail({ ...data, arrBetActive: [] }));
+            dispatch(updateOrAddDataDiceDetailCurrent({ ...data, arrBetActive: [] }));
+          }
+          if (data.status == StatusDiceDetail.end) {
+            dispatch(updateOrAddDataDiceDetail({ ...data }));
           }
           break;
         case TypeEmitMessage.join:
           dispatch(updateListDataDiceDetail({ dataDiceDetail: data?.dataDiceDetail || [] }));
+          dispatch(updateListDataDiceCurrent({ dataDiceDetail: data?.dataDiceDetail || [] }));
           break;
         case TypeEmitMessage.updatePoint:
           console.log('Update point', data);

@@ -40,10 +40,10 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
     position: { x: 0, y: 0 },
   });
   const [curChip, setCurChip] = useState<number>(0);
-  const { dataDiceDetail } = useAppSelector((state) => state.diceDetail);
+  const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
   const { diceGame } = useAppSelector((state) => state.diceGame);
   const diceGameById = diceGame.find((d) => d.id === gameDiceId);
-  let dataDiceDetailById = dataDiceDetail.find((d) => d.gameDiceId == gameDiceId);
+  let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
   const dataStatusDice =
     typeof dataDiceDetailById?.status == 'string'
       ? dataDiceDetailById?.status?.split(':')

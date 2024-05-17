@@ -14,12 +14,7 @@ export interface DiceDetailDto {
 interface DiceDetailSlice {
   indexChips: number[];
   dataDiceDetail: DiceDetailDto[];
-  // dataDiceDetailHistory: {
-  //   gameDiceId: {
-  //     transaction: number;
-  //     totalRed: number;
-  //   }[];
-  // }[];
+  dataDiceDetailCurrent: DiceDetailDto[];
 }
 
 const DiceDetailSlice = createSlice({
@@ -29,6 +24,7 @@ const DiceDetailSlice = createSlice({
     dataDiceDetail: [],
     // dataDiceDetailHistory: [],
     refreshDataDiceDetail: true,
+    dataDiceDetailCurrent: [],
   } as DiceDetailSlice,
   reducers: {
     setIndexChipsRedux: (state, action) => {
@@ -41,7 +37,17 @@ const DiceDetailSlice = createSlice({
     },
     updateListDataDiceDetail: (state, action) => {
       // console.log('🚀 ~ action.payload.dataDiceDetail:', action.payload.dataDiceDetail);
-      state.dataDiceDetail = [...action.payload.dataDiceDetail, ...state.dataDiceDetail];
+      state.dataDiceDetail = [
+        ...action.payload.dataDiceDetail.filter(
+          (i: DiceDetailDto) => i.status == StatusDiceDetail.end
+        ),
+        ...state.dataDiceDetail,
+      ];
+    },
+
+    updateListDataDiceCurrent: (state, action) => {
+      // console.log('🚀 ~ action.payload.dataDiceDetail:', action.payload.dataDiceDetail);
+      state.dataDiceDetailCurrent = action.payload.dataDiceDetail;
     },
     updateOrAddDataDiceDetail: (state, action: { payload: DiceDetailDto }) => {
       // console.log('🚀 ~ action.payload:', action.payload);
@@ -60,6 +66,20 @@ const DiceDetailSlice = createSlice({
         }
       }
     },
+    updateOrAddDataDiceDetailCurrent: (state, action: { payload: DiceDetailDto }) => {
+      const checkExit = state.dataDiceDetailCurrent.find(
+        (d) => d.gameDiceId == action.payload.gameDiceId
+      );
+      if (checkExit) {
+        console.log('Cos data');
+        state.dataDiceDetailCurrent = state.dataDiceDetailCurrent.map((item) => {
+          if (item.gameDiceId == action.payload.gameDiceId) return { ...item, ...action.payload };
+          else return item;
+        });
+      } else {
+        state.dataDiceDetailCurrent = [...state.dataDiceDetailCurrent, action.payload];
+      }
+    },
   },
 });
 
@@ -68,6 +88,8 @@ export const {
   updateOrAddDataDiceDetail,
   updateListDataDiceDetail,
   setDataDiceInitiated,
+  updateOrAddDataDiceDetailCurrent,
+  updateListDataDiceCurrent,
 } = DiceDetailSlice.actions;
 
 export default DiceDetailSlice.reducer;
