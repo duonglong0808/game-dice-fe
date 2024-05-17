@@ -28,10 +28,10 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
         <LiveStream src="https:live.vk169.net/hls/test1.m3u8" gameDiceId={gameDiceId} />
       </div>
       <div className={cx('result__list', 'flex')}>
-        <HistoryDiceGameDetail />
-        <HistoryDiceGame />
-        <EvenOddResultLive />
-        <DiceResultTXLive />
+        <HistoryDiceGameDetail gameDiceId={gameDiceId} />
+        <HistoryDiceGame gameDiceId={gameDiceId} />
+        <EvenOddResultLive gameDiceId={gameDiceId} />
+        <DiceResultTXLive gameDiceId={gameDiceId} />
         <GoodRoad />
         <div className="flex-1">
           <iframe src={diceGameById?.idChat} className="h-full w-full"></iframe>

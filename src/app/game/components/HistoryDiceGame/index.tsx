@@ -6,8 +6,8 @@ import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 
-export function HistoryDiceGame(): JSX.Element {
-  const { diceGame, gameDiceId } = useAppSelector((state) => state.diceGame);
+export function HistoryDiceGame({ gameDiceId }: { gameDiceId: number }): JSX.Element {
+  const { diceGame } = useAppSelector((state) => state.diceGame);
   const diceGameById = diceGame.find((d) => d.id === gameDiceId);
   const name = diceGameById?.name;
   console.log('🚀 ~ HistoryDiceGame ~ name:', name);
