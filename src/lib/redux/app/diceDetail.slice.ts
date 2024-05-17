@@ -50,7 +50,7 @@ const DiceDetailSlice = createSlice({
       state.dataDiceDetailCurrent = action.payload.dataDiceDetail;
     },
     updateOrAddDataDiceDetail: (state, action: { payload: DiceDetailDto }) => {
-      // console.log('🚀 ~ action.payload:', action.payload);
+      console.log('🚀 ~ action.payload:', action.payload);
       if (action.payload.status == StatusDiceDetail.end) {
         const checkExit = state.dataDiceDetail.findIndex(
           (d) => d.gameDiceId === +action.payload.gameDiceId
@@ -71,7 +71,6 @@ const DiceDetailSlice = createSlice({
         (d) => d.gameDiceId == action.payload.gameDiceId
       );
       if (checkExit) {
-        console.log('Cos data');
         state.dataDiceDetailCurrent = state.dataDiceDetailCurrent.map((item) => {
           if (item.gameDiceId == action.payload.gameDiceId) return { ...item, ...action.payload };
           else return item;

@@ -221,6 +221,13 @@ export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Eleme
 
   // const dataPosition = useRef<any>({});
   const [dataPosition, setDataPosition] = useState<any>({});
+  // console.log('🚀 ~ EvenOddResult ~ dataSort:', gameDiceId, dataSort[0]);
+  // console.log(
+  //   '🚀 ~ useEffect ~ lengthDataRowOld.current:',
+  //   gameDiceId,
+  //   lengthDataRowOld.current,
+  //   dataSort.length
+  // );
 
   useEffect(() => {
     if (lengthDataRowOld.current != dataSort.length) {
