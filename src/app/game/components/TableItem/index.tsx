@@ -9,7 +9,7 @@ import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
 const cx = classNames.bind(styles);
 interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
-  children: React.ReactElement;
+  children?: React.ReactElement;
   ratio: number;
   isHighlight: boolean;
   curChip: number;
@@ -21,6 +21,39 @@ interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
   numberPlayer?: number;
   isLeft?: boolean;
 }
+
+const getMaxValue = (level: number) => {
+  switch (level) {
+    case 4:
+    case 6:
+      return 9757153; // 10 triệu
+    case 5:
+    case 7:
+      return 1467382; // 1.5 triệu
+
+    default:
+      return 935781;
+  }
+};
+
+const getIncrementValue = (level: number) => {
+  switch (level) {
+    case 4:
+      return Math.random() > 0.5
+        ? Math.floor(Math.random() * 874231)
+        : Math.floor(Math.random() * 707835);
+    case 6:
+      return Math.random() > 0.5
+        ? Math.floor(Math.random() * 945371)
+        : Math.floor(Math.random() * 674399); // Tăng ngẫu nhiên tới 100k
+    case 5:
+    case 7:
+      return Math.floor(Math.random() * 13543); // Tăng ngẫu nhiên tới 15k
+
+    default:
+      return Math.floor(Math.random() * 8749);
+  }
+};
 
 const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
   (
@@ -43,12 +76,39 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     const { gameDiceId } = useAppSelector((state) => state.diceGame);
     const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
     let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
-    const [pointBetPosition, setPointBetPosition] = useState(1000);
-    // console.log('🚀 ~ pointBetPosition:', pointBetPosition);
+    const [pointBetPosition, setPointBetPosition] = useState(0);
     const statusDice =
       typeof dataDiceDetailById?.status == 'string'
         ? dataDiceDetailById?.status?.split(':')[0]
         : dataDiceDetailById?.status;
+
+    const [totalBetServer, setTotalBetServer] = useState(0);
+
+    const increaseTotalBetServer = () => {
+      const maxValue = getMaxValue(positionAnswer);
+      const increment = getIncrementValue(positionAnswer);
+      setTotalBetServer((prevValue) => {
+        const newValue = prevValue + increment;
+        return newValue > maxValue ? maxValue : newValue;
+      });
+    };
+
+    useEffect(() => {
+      const interval =
+        statusDice == StatusDiceDetail.bet &&
+        setInterval(() => {
+          increaseTotalBetServer();
+        }, 1000);
+      // const interval = setInterval(() => {
+      //   increaseTotalBetServer();
+      // }, 1000);
+
+      return () => {
+        if (interval) {
+          clearInterval(interval);
+        }
+      };
+    }, [statusDice, totalBetServer]);
 
     const handleHover = useCallback(
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -78,7 +138,8 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     );
 
     useEffect(() => {
-      if (pointBetPosition > 0) setPointBetPosition(0);
+      if (Number(statusDice) > StatusDiceDetail.prepare) setPointBetPosition(0);
+      if (Number(statusDice) == StatusDiceDetail.end) setTotalBetServer(0);
     }, [statusDice]);
 
     const dispatch = useAppDispatch();
@@ -157,8 +218,15 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
           {ratio}
         </div>
         <div className={cx('table__item__points')}>
-          <div className={cx('table__item__points--icon')}></div>
           {children}
+          {totalBetServer ? (
+            <>
+              <div className={cx('table__item__points--icon')}></div>
+              <p className={cx('col__row--counter')}>{totalBetServer.toLocaleString('vi-VN')}</p>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         {pointBetPosition ? (
           <div className={cx('total__point-bet')}>

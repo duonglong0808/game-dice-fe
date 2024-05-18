@@ -154,7 +154,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           bottom: 0,
         }}></div>
       {totalRed && <ShowResultDice totalRed={totalRed} />}
-      {countDown && <CountDownBet initCount={countDown} />}
+      <CountDownBet />
+      {/* {countDown && <CountDownBet initCount={countDown} />} */}
       {message ? (
         <div className={cx('message__box')} ref={messageRef}>
           <div className={cx('message__box--body')}>
@@ -178,9 +179,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_0'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_0'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
               points={1}
@@ -190,9 +189,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_1'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_1'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
               points={2}
@@ -202,9 +199,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_2'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_2'))}></TableItem>
           </div>
           <div className={cx('d3__col')}>
             <TableItem
@@ -217,9 +212,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_chan'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_chan'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--2')}
               points={0}
@@ -231,9 +224,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_xiu'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_xiu'))}></TableItem>
           </div>
           <div className={cx('d3__col')}>
             <TableItem
@@ -246,9 +237,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_le'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_le'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--2')}
               points={0}
@@ -261,9 +250,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_tai'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_tai'))}></TableItem>
           </div>
           <div className={cx('d3__col')}>
             <TableItem
@@ -275,9 +262,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_4'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_4'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
               points={3}
@@ -287,9 +272,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_3'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_3'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
               points={-1}
@@ -299,9 +282,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               onBetSuccess={() => {
                 setTotalBet((pre) => pre + curChip);
               }}
-              isHighlight={Boolean(arrBetActive?.includes('p_-1'))}>
-              <p className={cx('col__row--counter')}>11</p>
-            </TableItem>
+              isHighlight={Boolean(arrBetActive?.includes('p_-1'))}></TableItem>
           </div>
         </div>
         <div className={cx('live_action__control')}>

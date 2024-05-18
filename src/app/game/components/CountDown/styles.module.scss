@@ -57,7 +57,7 @@
 
 .wrapper-control {
   position: absolute;
-  top: 79%;
+  top: 80%;
   right: 46%;
   z-index: 2;
   will-change: transform;
@@ -76,28 +76,27 @@
       right: 0px;
       bottom: 0;
       background: url(/Content/images/vn/json/bettingButtons.png) no-repeat;
-      background-size: 226%;
-      background-position: -49px -274px;
+      background-size: 220%;
+      background-position: -47px -266px;
       margin: 0 0px 0 0;
     }
   }
 
   &__item {
     position: absolute;
-    top: 5px;
+    top: 6px;
     left: 8px;
     right: 0px;
     bottom: 0px;
     background: url(/Content/images/vn/json/bettingButtons.png) no-repeat;
     width: 60%;
     height: 70%;
-    /* margin-right: 8px; */
-    background-size: 330%;
+    background-size: 340%;
     z-index: 20;
   }
 
   &__rollback {
-    background-position: -66px -30px;
+    background-position: -68px -31px;
   }
 
   &__swapper {
@@ -106,6 +105,6 @@
   }
 
   &__check {
-    background-position: -66px -59px;
+    background-position: -68px -62px;
   }
 }

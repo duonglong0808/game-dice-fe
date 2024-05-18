@@ -1,17 +1,37 @@
 'use client';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useAppSelector } from '@/lib';
+import { StatusDiceDetail } from '@/constants';
 
 const cx = classNames.bind(styles);
 
 export default function CountDownBet({ initCount }: { initCount?: number }) {
-  const [count, setCount] = useState(initCount || 14);
+  const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
+  const { gameDiceId } = useAppSelector((state) => state.diceGame);
+  let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
+  const dataStatusDice =
+    typeof dataDiceDetailById?.status == 'string'
+      ? dataDiceDetailById?.status?.split(':')
+      : [dataDiceDetailById?.status];
+  const statsDiceDetail = Number(dataStatusDice[0]);
+  const timeStartBet = Number(dataStatusDice[1]);
+  const timeStamp = new Date().getTime();
+  const [count, setCountDown] = useState(0);
+
+  useEffect(() => {
+    if (statsDiceDetail == StatusDiceDetail.bet) {
+      let countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
+      if (typeof countDown == 'number' && countDown > 14) countDown = 14;
+      setCountDown(Number(countDown));
+    }
+  }, [statsDiceDetail]);
 
   useEffect(() => {
     if (count >= 1) {
       setTimeout(() => {
-        setCount((pre) => pre - 1);
+        setCountDown((pre) => pre - 1);
       }, 1000);
     }
   }, [count]);
