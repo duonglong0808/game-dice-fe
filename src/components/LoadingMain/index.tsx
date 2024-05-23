@@ -39,8 +39,14 @@ export default function LoadingScreen() {
       if (numberLoading == 99) {
         if (access_token && refresh_token) {
           const check = await handleLoginGame(access_token, refresh_token, dispatch);
-          if (check) router.replace('/game');
-          else {
+          if (check) {
+            if (window.innerWidth < 768) {
+              // Chuyển hướng sang path khác khi thiết bị là mobile
+              router.push('/mobile/game');
+            } else {
+              router.replace('/game');
+            }
+          } else {
             console.log('ooj');
             router.replace('/error');
           }

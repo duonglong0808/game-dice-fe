@@ -25,8 +25,13 @@ const userCurrentSlice = createSlice({
       state.gamePoint = action.payload.gamePoint;
       state.mainPoint = action.payload.mainPoint;
     },
-    updatePointUser(state, action) {
-      state.gamePoint = state.gamePoint + action.payload.gamePoint;
+    updatePointUser(state, action: { payload: { gamePoint?: number; mainPoint?: number } }) {
+      if (action.payload.gamePoint) {
+        state.gamePoint = state.gamePoint + action.payload.gamePoint;
+      }
+      if (action.payload.mainPoint) {
+        state.mainPoint = state.mainPoint + action.payload.mainPoint;
+      }
     },
     logOutUser(state) {
       state.userName = '';
