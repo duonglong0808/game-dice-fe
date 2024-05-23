@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 
 export default function LoadingScreen() {
   // const isResponsive = useIsResponsive();
-  const isResponsive = true;
+  // const isResponsive = true;
   const router = useRouter();
   const searchParams = useSearchParams();
   const refresh_token = searchParams.get('refresh_token');
@@ -56,21 +56,39 @@ export default function LoadingScreen() {
   return (
     <div className={cx('wrapper', 'relative')}>
       <div className={cx('loading__box')}>
-        <Image
-          src={'/Content/images/vn/img_LD_model.png'}
-          alt="img_LD_model"
-          priority
-          width={1420}
-          height={900}
-          className={cx('image__model')}
-        />
-        <Image
-          src={'/Content/images/vn/img_txt.png'}
-          alt="img_LD_text"
-          width={1150}
-          height={289}
-          className={cx('image__text')}
-        />
+        <div
+          className={cx(
+            'image__box',
+            'bottom-0'
+            // 'bg-[url(/Content/images/vn/img_LD_model.png)] bg-no-repeat bg-center bg-contain h-[50vh] bottom-[100px]'
+          )}>
+          <Image
+            src={'/Content/images/vn/img_LD_model.png'}
+            alt="img_LD_model"
+            priority
+            width={1420}
+            height={900}
+            className={cx('image__model', 'object-cover h-[70vh] hidden lg:block')}
+          />
+
+          <Image
+            src={'/Content/images/vn/img_loading_girl.png'}
+            alt="img_LD_model"
+            priority
+            width={1420}
+            height={900}
+            className={cx('image__model', 'object-cover h-[70vh] block lg:hidden')}
+          />
+        </div>
+        <div className={cx('image__box', 'top-[8%]')}>
+          <Image
+            src={'/Content/images/vn/img_txt.png'}
+            alt="img_LD_text"
+            width={1150}
+            height={289}
+            className={cx('image__text')}
+          />
+        </div>
         <div className={cx('loading__body')}>
           <div className={cx('loading__body--top')}>
             <span className={cx('loading__body--text')}>{numberLoading} %</span>
