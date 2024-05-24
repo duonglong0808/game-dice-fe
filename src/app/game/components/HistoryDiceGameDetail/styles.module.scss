@@ -84,3 +84,17 @@
   cursor: pointer;
   margin: auto;
 }
+
+@media (min-width: 350px) {
+  .wrapper-table {
+    height: 124px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 350px) {
+  .wrapper-table {
+    height: 124px;
+    max-width: 100%;
+  }
+}

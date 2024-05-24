@@ -85,31 +85,31 @@ export const dataListChipsStatistics: {
   type: string;
   on: string;
   off: string;
-  value: number | string;
+  value?: number | string;
 }[] = [
   {
     type: 'custom',
     on: '/Content/images/blingChip/icon_chip_selectEdit_off.png',
     off: '/Content/images/blingChip/icon_chip_selectEdit_off.png',
-    value: 0,
+    value: undefined,
   },
   {
     type: 'custom',
     on: '/Content/images/blingChip/icon_chip_selectEdit.png',
     off: '/Content/images/blingChip/icon_chip_selectEdit.png',
-    value: 0,
+    value: undefined,
   },
   {
     type: 'static',
     off: '/Content/images/blingChip/vn/icon_chip_selectT2_off.png',
     on: '/Content/images/blingChip/vn/icon_chip_selectT2.png',
-    value: 0,
+    value: undefined,
   },
   {
     type: 'static',
     off: '/Content/images/blingChip/vn/icon_chip_selectT3_off.png',
     on: '/Content/images/blingChip/vn/icon_chip_selectT3.png',
-    value: 0,
+    value: undefined,
   },
   {
     type: 'static',

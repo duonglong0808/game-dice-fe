@@ -2,12 +2,16 @@
 
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TableItemMobile } from '../components/TableItem';
 import ChipsList from '@/app/game/components/ChipList/index.';
 import Image from 'next/image';
-import { dataListChipsStatistics } from '@/constants';
+import { StatusDiceDetail, dataListChipsStatistics } from '@/constants';
 import { setIndexChipsRedux } from '@/lib/redux/app/diceDetail.slice';
+import classNames from 'classnames';
+import { HistoryDiceGameDetail } from '@/app/game/components/HistoryDiceGameDetail';
+import { EvenOddResultLive } from '@/app/game/components/EvenOddResultLive';
+import { DiceResultTXLive } from '@/app/game/components/DiceResultTXLive';
 
 function getLocalStream() {
   navigator.mediaDevices
@@ -23,21 +27,75 @@ function getLocalStream() {
 }
 
 export default function DetailLive() {
+  // Point user
+  const { gamePoint } = useAppSelector((state) => state.userCurrent);
+  const gamePointRef = useRef(gamePoint);
+
   const { id: gameDiceId } = useParams();
   const { diceGame } = useAppSelector((state) => state.diceGame);
   const gameDiceById = diceGame.find((i) => i.id == +gameDiceId);
   const router = useRouter();
-  const [totalBet, setTotalBet] = useState(0);
-  const [openChipList, setOpenChipList] = useState(true);
+  const [totalPointBet, setTotalPointBet] = useState(0);
+  const [currentChip, setCurrentChip] = useState<number>();
+  const [openChipList, setOpenChipList] = useState(false);
   const indexChipsRedux = useAppSelector((state) => state.diceDetail.indexChips);
   const [indexChips, setIndexChips] = useState<number[]>(indexChipsRedux);
   const dispatch = useAppDispatch();
+
+  const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
+  let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == Number(gameDiceById));
+  const dataStatusDice =
+    typeof dataDiceDetailById?.status == 'string'
+      ? dataDiceDetailById?.status?.split(':')
+      : [dataDiceDetailById?.status];
+  const statsDiceDetail = Number(dataStatusDice[0]);
+  const statsDiceDetailRef = useRef(statsDiceDetail);
+  const timeStartBet = Number(dataStatusDice[1]);
+  const timeStamp = new Date().getTime();
+  let countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
+  if (typeof countDown == 'number' && countDown > 14) countDown = 14;
+  const arrBetActive = dataDiceDetailById?.arrBetActive;
+  const totalRed = dataDiceDetailById?.totalRed;
 
   useEffect(() => {
     if (!gameDiceId) {
       router.replace('/mobile/game');
     }
   }, []);
+
+  // Handle Message
+  const [message, setMessage] = useState('');
+  useEffect(() => {
+    if (statsDiceDetail != statsDiceDetailRef.current) {
+      statsDiceDetailRef.current = statsDiceDetail;
+      switch (statsDiceDetail) {
+        case StatusDiceDetail.bet:
+          setMessage('Đã bắt đầu vui lòng đặt cược');
+          break;
+        case StatusDiceDetail.waitOpen:
+          setMessage('Chờ mở thưởng');
+          break;
+        case StatusDiceDetail.end:
+          console.log(
+            '🚀 ~ LiveStream ~ gamePoint - gamePointRef.current:',
+            gamePoint,
+            gamePointRef.current
+          );
+          if (totalPointBet != 0) {
+            // console.log('🚀 ~ useEffect ~ gamePoint - gamePointRef.current:');
+            if (gamePoint > gamePointRef.current)
+              setMessage(String(`+${Math.ceil(gamePoint - gamePointRef.current + totalPointBet)}`));
+            else setMessage(String(gamePoint - gamePointRef.current));
+            gamePointRef.current = gamePoint;
+
+            setTotalPointBet(0);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [statsDiceDetail]);
 
   return (
     <div>
@@ -50,7 +108,7 @@ export default function DetailLive() {
         <div className="flex h-[30px] items-center justify-between">
           <div className="flex">
             <span>Cược :</span>
-            <span className="ml-1 text-[#ffd100] text-xl">{totalBet}</span>
+            <span className="ml-1 text-[#ffd100] text-xl">{totalPointBet}</span>
           </div>
           <div className="flex h-full">
             <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_Traditionl.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
@@ -171,23 +229,26 @@ export default function DetailLive() {
 
         <div className="bg-white flex items-center relative">
           <div className="flex-1">
-            <ChipsList curChip={10} setChips={() => {}} />
+            <ChipsList curChip={Number(currentChip)} setChips={(chip) => setCurrentChip(chip)} />
           </div>
           <div className="h-full w-auto">
             <Image
+              onClick={() => setOpenChipList(true)}
               alt="bing"
               src={'/Areas/Mobile/Images/blingChip/icon_blingChip_Set.png'}
               width={57}
               height={57}
             />
             {openChipList ? (
-              <div className="absolute left-0 right-0 bottom-full m-auto h-fit z-10 bg-[#141414]">
+              <div className="absolute left-0 right-0 h-fit bottom-full m-auto h-fit z-10 bg-[#141414]">
                 <div className="text-center relative m-2 border-b-[1px] border-[#356492]">
                   <span className="text-white flex justify-center mb-1">
                     Cài đặt phỉnh
                     <span className=" bg-[url(/Areas/Mobile/Images/img_chipHint.svg)] block bg-no-repeat w-5 h-5 bg-center ml-2"></span>
                   </span>
-                  <span className="text-white w-[40px] text-xl absolute -top-[2px] bottom-0 right-0 ">
+                  <span
+                    onClick={() => setOpenChipList(false)}
+                    className="text-white w-[40px] text-xl absolute -top-[2px] bottom-0 right-0 ">
                     X
                   </span>
                 </div>
@@ -229,6 +290,98 @@ export default function DetailLive() {
             ) : (
               <></>
             )}
+          </div>
+        </div>
+
+        <div className="flex border-t-[1px] items-center justify-around h-[50px] border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full m-auto">
+          <button
+            className={classNames(
+              'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_cancel.svg)] bg-no-repeat bg-[#ff9401] shadow-[0_0_0_4px_#ff9401] ml-2 pl-2 bg-[length:auto_65%]',
+              {
+                'bg-[#929292] shadow-[0_0_0_4px_#929292]': statsDiceDetail != StatusDiceDetail.bet,
+              }
+            )}
+            style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
+            Hủy
+          </button>
+          <button
+            className={classNames(
+              'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
+              {
+                'bg-[#929292] shadow-[0_0_0_4px_#929292]': statsDiceDetail != StatusDiceDetail.bet,
+              }
+            )}
+            style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
+            Lặp lại
+          </button>
+          <button
+            className={classNames(
+              'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
+              {
+                'bg-[#929292] shadow-[0_0_0_4px_#929292]': statsDiceDetail != StatusDiceDetail.bet,
+              }
+            )}
+            style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
+            OK
+          </button>
+          <button className="w-[23%] h-[88%] text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/images/icon_change.svg)] bg-no-repeat ml-3">
+            Đổi bàn
+          </button>
+        </div>
+
+        <div className="w-full">
+          <div className="flex bg-[#e5e5e5] h-7">
+            <span className="block w-2 mx-2 bg-[url(/Areas/Mobile/images/btn_MT_gameArrow.svg)] bg-no-repeat bg-center "></span>
+            <div className="flex-1 flex items-center overflow-auto">
+              <div className="flex mr-4 items-baseline">
+                <span className="text-[#f00] mr-3 text-sm font-semibold">L</span>
+                <span className="text-black text-sm font-semibold">552</span>
+              </div>
+              <div className="flex mr-4 items-baseline">
+                <span className="text-[#0036ff] mr-3 text-sm font-semibold">C</span>
+                <span className="text-black text-sm font-semibold">522</span>
+              </div>
+              <div className="flex mr-4 items-baseline">
+                <span className="text-[#f00] mr-3 text-sm font-semibold">T</span>
+                <span className="text-black text-sm font-semibold">422</span>
+              </div>
+              <div className="flex mr-4 items-baseline">
+                <span className="text-[#0036ff] mr-3 text-sm font-semibold">X</span>
+                <span className="text-black text-sm font-semibold">398</span>
+              </div>
+
+              <div className="flex mr-4 items-end">
+                <span className="relative bottom-[1px] w-[15px] h-[15px] mr-2 bg-contain bg-[url(/Areas/Mobile/Images/report/CD/img_CDs0.svg)] bg-no-repeat bg-center"></span>
+                <span className="text-black text-sm font-semibold">62</span>
+              </div>
+              <div className="flex mr-4 items-end">
+                <span className="relative bottom-[1px] w-[15px] h-[15px] mr-2 bg-contain bg-[url(/Areas/Mobile/Images/report/CD/img_CDs1.svg)] bg-no-repeat bg-center"></span>
+                <span className="text-black text-sm font-semibold">280</span>
+              </div>
+              <div className="flex mr-4 items-end">
+                <span className="relative bottom-[1px] w-[15px] h-[15px] mr-2 bg-contain bg-[url(/Areas/Mobile/Images/report/CD/img_CDs2.svg)] bg-no-repeat bg-center"></span>
+                <span className="text-black text-sm font-semibold">445</span>
+              </div>
+              <div className="flex mr-4 items-end">
+                <span className="relative bottom-[1px] w-[15px] h-[15px] mr-2 bg-contain bg-[url(/Areas/Mobile/Images/report/CD/img_CDs3.svg)] bg-no-repeat bg-center"></span>
+                <span className="text-black text-sm font-semibold">293</span>
+              </div>
+              <div className="flex mr-4 items-end">
+                <span className="relative bottom-[1px] w-[15px] h-[15px] mr-2 bg-contain bg-[url(/Areas/Mobile/Images/report/CD/img_CDs4.svg)] bg-no-repeat bg-center"></span>
+                <span className="text-black text-sm font-semibold">60</span>
+              </div>
+            </div>
+            <span className="block px-5  bg-[url(/Areas/Mobile/images/icon_fingerblack.svg)] bg-no-repeat  border-l-[1px] border-[#ccc] bg-[length:20px]"></span>
+          </div>
+        </div>
+        <div className="flex">
+          <div className="basis-1/2 ">
+            {/* <HistoryDiceGameDetail gameDiceId={Number(gameDiceById)} /> */}
+          </div>
+          <div className="basis-1/2 ">
+            <div className="w-full border-b-[1px] border-[#e6e6e6]"></div>
+            {/* <EvenOddResultLive gameDiceId={Number(gameDiceById)} showBottom={false} />
+            <DiceResultTXLive gameDiceId={Number(gameDiceById)} showBottom={false} /> */}
           </div>
         </div>
       </div>

@@ -8,7 +8,13 @@ import { DiceDetailDto } from '@/lib/redux/app/diceDetail.slice';
 
 const cx = classNames.bind(styles);
 
-export function EvenOddResultLive({ gameDiceId }: { gameDiceId: number }): JSX.Element {
+export function EvenOddResultLive({
+  gameDiceId,
+  showBottom = true,
+}: {
+  gameDiceId: number;
+  showBottom?: boolean;
+}): JSX.Element {
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [
@@ -117,19 +123,23 @@ export function EvenOddResultLive({ gameDiceId }: { gameDiceId: number }): JSX.E
           ))}
         </tbody>
       </table>
-      <table className={cx('CD_dataInput_CT')}>
-        <tbody>
-          <tr>
-            <td>
-              <div className={cx('CD_dataInput_CT--box')}>
-                <span className={cx('red_t')}>Lẻ</span>
-                <span className={cx('gray_t2')}>{` / `}</span>
-                <span className={cx('blue_t3')}>Chẵn</span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {showBottom ? (
+        <table className={cx('CD_dataInput_CT')}>
+          <tbody>
+            <tr>
+              <td>
+                <div className={cx('CD_dataInput_CT--box')}>
+                  <span className={cx('red_t')}>Lẻ</span>
+                  <span className={cx('gray_t2')}>{` / `}</span>
+                  <span className={cx('blue_t3')}>Chẵn</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
