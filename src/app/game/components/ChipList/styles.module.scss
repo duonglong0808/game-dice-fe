@@ -95,3 +95,19 @@
 .chips-list__control--left {
   background-position: -24px 0;
 }
+
+@media (max-width: 768px) {
+  .chips-list {
+    gap: 0;
+
+    &__chips {
+      gap: 0;
+    }
+  }
+
+  .chips-list__chip-item,
+  .chips-list__chip-item--image {
+    width: 59px;
+    height: 59px;
+  }
+}

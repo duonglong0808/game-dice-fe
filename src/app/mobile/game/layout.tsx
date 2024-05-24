@@ -1,7 +1,4 @@
-'use client';
-
 import { Metadata } from 'next';
-import { HeaderGameMobile } from './components/Header';
 
 // export const metadata: Metadata = {
 //     title: 'KU Trò chơi Casino',
@@ -25,10 +22,5 @@ export default function LayoutGameMobile({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <main className="h-svh">
-      <HeaderGameMobile isShowSlide={true} />
-      {children}
-    </main>
-  );
+  return <main className="h-svh">{children}</main>;
 }

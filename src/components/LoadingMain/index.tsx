@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { handleLoginGame } from './ulti/handleLoading';
 import { useAppDispatch } from '@/lib';
@@ -23,10 +23,12 @@ export default function LoadingScreen() {
   const dispatch = useAppDispatch();
 
   const [numberLoading, setNumberLoading] = useState(0);
+  const isFetchData = useRef(false);
 
   useEffect(() => {
     if (numberLoading >= 100) {
       setNumberLoading(99);
+      isFetchData.current = true;
     } else {
       setTimeout(() => {
         setNumberLoading((pre) => {
@@ -36,7 +38,8 @@ export default function LoadingScreen() {
     }
 
     async function fetchData() {
-      if (numberLoading == 99) {
+      if (isFetchData.current) {
+        isFetchData.current = false;
         if (access_token && refresh_token) {
           const check = await handleLoginGame(access_token, refresh_token, dispatch);
           if (check) {

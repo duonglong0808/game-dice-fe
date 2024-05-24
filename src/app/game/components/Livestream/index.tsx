@@ -339,7 +339,6 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
                         dispatch(setIndexChipsRedux({ indexChips }));
                         setOpenListPhinh(false);
                       }}>
-                      {' '}
                       Xác nhận
                     </button>
                   </div>
