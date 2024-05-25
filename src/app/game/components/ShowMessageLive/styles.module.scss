@@ -5,7 +5,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 47%;
+  top: 46%;
   display: none;
 
   &--jump {
@@ -76,5 +76,14 @@
   100% {
     transform: scale(0, 0);
     -webkit-transform: scale(0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .message__box {
+    &--text {
+      padding: 5px 45px;
+      font-size: 20px;
+    }
   }
 }

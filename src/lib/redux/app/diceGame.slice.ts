@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface TransactionItem {
+export interface DiceGameItem {
   id: number;
   type: string;
   name: string;
@@ -16,7 +16,7 @@ export interface TransactionItem {
 
 interface DiceGameSlice {
   isInitData: boolean;
-  diceGame: TransactionItem[];
+  diceGame: DiceGameItem[];
   gameDiceId: number | undefined;
 }
 

@@ -108,3 +108,28 @@
     background-position: -68px -62px;
   }
 }
+
+@media (max-width: 768px) {
+  .wrapper {
+    left: 2%;
+    top: 72%;
+    width: 45px;
+    height: 45px;
+  }
+
+  .countDNum {
+    font-size: 18px;
+    line-height: 45px;
+  }
+  .countDNum,
+  .loadingImg,
+  .icon_message_line {
+    background-size: contain;
+    width: 45px;
+    height: 45px;
+  }
+
+  .wrapper-control {
+    display: none;
+  }
+}

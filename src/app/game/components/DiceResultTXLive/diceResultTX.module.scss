@@ -1,16 +1,13 @@
 .wrapper {
   border-right: 1px solid var(--border-color-table);
   border-left: 1px solid var(--border-color-table);
-  height: 166px;
-  // width: 273px;
 }
 
 .CD_dataInput {
   table-layout: auto;
   border-collapse: separate;
   border-spacing: 0;
-  width: 273px;
-  height: 124px;
+  height: 56px;
 }
 
 .table__body {
@@ -117,5 +114,45 @@
 
   & .green_t {
     color: #5abd10;
+  }
+}
+
+@media (max-width: 768px) {
+  .CD_dataInput {
+    height: 62px;
+    width: 100%;
+  }
+  .table__td {
+    width: 10.2px;
+    height: 10px;
+    background-color: #fff;
+  }
+
+  .CD_red_T,
+  .CD_blue_T {
+    font-size: 9px;
+    line-height: 10px;
+  }
+
+  .CD_green_ball {
+    width: 8px;
+    height: 8px;
+    font-size: 9px;
+    line-height: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    height: 166px;
+    width: 273px;
+  }
+
+  .CD_dataInput {
+    height: 126px;
+    width: 273px;
+    border-bottom: 1px solid #bbb;
+
+    // max-width: 100%;
   }
 }

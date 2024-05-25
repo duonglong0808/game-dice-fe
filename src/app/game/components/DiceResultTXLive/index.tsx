@@ -11,10 +11,15 @@ const cx = classNames.bind(styles);
 export function DiceResultTXLive({
   gameDiceId,
   showBottom = true,
+  initCol = 13,
+  initRow = 6,
 }: {
   gameDiceId: number;
   showBottom?: boolean;
+  initCol?: number;
+  initRow?: number;
 }): JSX.Element {
+  console.log('🚀 ~ gameDiceId:', gameDiceId);
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [
@@ -26,11 +31,12 @@ export function DiceResultTXLive({
 
   useEffect(() => {
     if (lengthDataRowOld.current != dataSort.length) {
+      console.log('🚀 ~ useEffect ~ dataSort:', dataSort);
       const dataPositionCalc: any = {};
 
       let indexCurrent = 0;
-      let col = 12;
-      let row = 6;
+      let col = initCol - 1;
+      let row = initCol;
       dataSort.forEach((item, index, arrThis) => {
         if (col > 0) {
           // console.log('🚀 ~ dataSort.forEach ~ col:', col);
@@ -57,7 +63,9 @@ export function DiceResultTXLive({
             if (lisTypeEquals.length >= 2) {
               if (lisTypeEquals.length > 6) {
                 let colTg =
-                  col + (lisTypeEquals.length - 6) > 12 ? 12 : col + (lisTypeEquals.length - 12);
+                  col + (lisTypeEquals.length - 6) > initCol - 1
+                    ? initCol - 1
+                    : col + (lisTypeEquals.length - 12);
                 for (let i = 0; i < lisTypeEquals.length; i++) {
                   const element = lisTypeEquals[i];
                   indexCurrent++;
@@ -101,9 +109,9 @@ export function DiceResultTXLive({
     <div className={cx('wrapper')}>
       <table className={cx('CD_dataInput')}>
         <tbody className={cx('table__body')}>
-          {Array.from({ length: 6 }, (v, k) => k + 1).map((rowIndex) => (
+          {Array.from({ length: initRow }, (v, k) => k + 1).map((rowIndex) => (
             <tr key={rowIndex} className={cx('table__tr')}>
-              {Array.from({ length: 13 }, (v, k) => k + 1).map((colIndex) => (
+              {Array.from({ length: initCol }, (v, k) => k + 1).map((colIndex) => (
                 <td key={`${rowIndex}${colIndex}`} className={cx('table__td')}>
                   <div
                     className={

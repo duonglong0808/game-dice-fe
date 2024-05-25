@@ -102,6 +102,7 @@ class WebSocketSingleton {
 
   public disconnect(): void {
     if (this.socket) {
+      this.socket.disconnect();
       this.socket.close();
       this.socket = null;
     }

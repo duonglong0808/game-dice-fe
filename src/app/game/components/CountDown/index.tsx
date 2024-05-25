@@ -7,7 +7,7 @@ import { StatusDiceDetail } from '@/constants';
 
 const cx = classNames.bind(styles);
 
-export default function CountDownBet({ initCount }: { initCount?: number }) {
+export default function CountDownBet() {
   const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
   let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);

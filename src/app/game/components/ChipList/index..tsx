@@ -12,9 +12,11 @@ const cx = classNames.bind(styles);
 export default function ChipsList({
   setChips,
   curChip,
+  alwayActive = false,
 }: {
   curChip: number;
   setChips: (num: number) => void;
+  alwayActive?: boolean;
 }) {
   const { indexChips, dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
@@ -76,8 +78,20 @@ export default function ChipsList({
               alt="chip"
               width={50}
               height={50}
-              src={statusDice == StatusDiceDetail.bet ? chip.on : chip.off}
-              className={cx('chips-list__chip-item--image')}
+              src={alwayActive || 2 == StatusDiceDetail.bet ? chip.on : chip.off}
+              className={cx('chips-list__chip-item--image', 'hidden lg:block')}
+              onClick={() => {
+                if (typeof chip.value == 'number') {
+                  setChips(chip.value);
+                }
+              }}
+            />
+            <Image
+              alt="chip"
+              width={50}
+              height={50}
+              src={alwayActive || 2 == StatusDiceDetail.bet ? chip.select : chip.off}
+              className={cx('chips-list__chip-item--image', 'block lg:hidden')}
               onClick={() => {
                 if (typeof chip.value == 'number') {
                   setChips(chip.value);

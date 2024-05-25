@@ -24,6 +24,7 @@ import {
   updateOrAddDataDiceDetailCurrent,
 } from '@/lib/redux/app/diceDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
+import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
 
 export default function PageGame(): JSX.Element {
   const { data } = useDiceGame();
@@ -32,6 +33,7 @@ export default function PageGame(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    console.log('Start 1');
     const wsk = WebSocketSingleton.getInstance();
     wsk.checkAndConnectSocket();
 
@@ -102,6 +104,7 @@ export default function PageGame(): JSX.Element {
     });
 
     return () => {
+      console.log('leave 1');
       wsk.disconnect();
     };
   }, []);
@@ -268,11 +271,14 @@ export default function PageGame(): JSX.Element {
                 default:
                   break;
               }
-              console.log('🚀 ~ {data.map ~ imageNational:', imageNational);
 
               return (
                 <div
-                  onClick={() => router.push(`/mobile/game/${item.id}`)}
+                  key={index}
+                  onClick={() => {
+                    dispatch(setGameDiceId({ id: item.id }));
+                    router.push(`/mobile/game/${item.id}`);
+                  }}
                   className="w-full mb-1 rounded-sm border-[1px] border-[#484848] relative bg-gradient-to-b-[#2a2a2a_0%,#131313_100%]">
                   <div className="flex justify-between bg-[#484647]">
                     <div className="flex text-[12px] items-center px-1">

@@ -85,60 +85,71 @@ export const dataListChipsStatistics: {
   type: string;
   on: string;
   off: string;
+  select: string;
   value?: number | string;
 }[] = [
   {
     type: 'custom',
     on: '/Content/images/blingChip/icon_chip_selectEdit_off.png',
     off: '/Content/images/blingChip/icon_chip_selectEdit_off.png',
+    select: '/Content/images/blingChip/icon_chip_selectEdit_off.png',
     value: undefined,
   },
   {
     type: 'custom',
     on: '/Content/images/blingChip/icon_chip_selectEdit.png',
     off: '/Content/images/blingChip/icon_chip_selectEdit.png',
+    select: '/Content/images/blingChip/icon_chip_selectEdit_off.png',
     value: undefined,
   },
   {
     type: 'static',
     off: '/Content/images/blingChip/vn/icon_chip_selectT2_off.png',
     on: '/Content/images/blingChip/vn/icon_chip_selectT2.png',
+    select: '/Content/images/blingChip/icon_blingChip_T2.png.png',
     value: undefined,
   },
   {
     type: 'static',
     off: '/Content/images/blingChip/vn/icon_chip_selectT3_off.png',
     on: '/Content/images/blingChip/vn/icon_chip_selectT3.png',
+    select: '/Content/images/blingChip/icon_blingChip_T3.png.png',
     value: undefined,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/vn/icon_chip_selectS.png',
     off: '/Content/images/blingChip/vn/icon_chip_selectS_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_S.png',
     value: 'min',
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select10.png',
     off: '/Content/images/blingChip/icon_chip_select10_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_10.png',
+
     value: 10,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select50.png',
     off: '/Content/images/blingChip/icon_chip_select50_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_50.png',
     value: 50,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select100.png',
     off: '/Content/images/blingChip/icon_chip_select100_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_100.png',
     value: 100,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select200.png',
     off: '/Content/images/blingChip/icon_chip_select200_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_200.png',
     value: 200,
   },
 
@@ -146,42 +157,49 @@ export const dataListChipsStatistics: {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select500.png',
     off: '/Content/images/blingChip/icon_chip_select500_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_500.png',
     value: 500,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select1K.png',
     off: '/Content/images/blingChip/icon_chip_select1K_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_1k.png',
     value: 1000,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select5K.png',
     off: '/Content/images/blingChip/icon_chip_select5K_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_5k.png',
     value: 5000,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select10k.png',
     off: '/Content/images/blingChip/icon_chip_select10k_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_10k.png',
     value: 10000,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select50k.png',
     off: '/Content/images/blingChip/icon_chip_select50k_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_50k.png',
     value: 50000,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select100k.png',
     off: '/Content/images/blingChip/icon_chip_select100k_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_100k.png',
     value: 100000,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/vn/icon_chip_selectB.png',
     off: '/Content/images/blingChip/vn/icon_chip_selectB_off.png',
+    select: '/Content/images/blingChip/icon_blingChip_B.png',
     value: 'max',
   },
 ];

@@ -103,6 +103,56 @@
     &__chips {
       gap: 0;
     }
+
+    &__chip-item {
+      &--select {
+        transform: inherit;
+        // transform-origin: bottom;
+        z-index: 1;
+
+        &::before {
+          content: '';
+          position: absolute;
+          // scale: 1.1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-image: url(/Content/images/blingChip/icon_blingChip_out.png);
+          // background-image: url(/Content/images/blingChip/icon_chip_select_h.png);
+          background-size: cover;
+
+          transform-origin: bottom;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          scale: 1.1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-size: cover;
+          // transform: scale(1.4);
+          // transform: scale(1.4) rotate(360deg);
+          // animation: spin 0.6s linear infinite;
+          background-image: url(/Areas/Mobile/Images/blingChip/icon_blingChip_in.gif);
+
+          @keyframes spin {
+            0% {
+              background-image: url(/Content/images/blingChip/icon_blingChip_in-0.png);
+            }
+            50% {
+              background-image: url(/Content/images/blingChip/icon_blingChip_in-1.png);
+            }
+            100% {
+              background-image: url(/Content/images/blingChip/icon_blingChip_in-0.png);
+            }
+          }
+        }
+      }
+    }
   }
 
   .chips-list__chip-item,

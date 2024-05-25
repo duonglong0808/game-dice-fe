@@ -39,3 +39,32 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .wrapper {
+    right: 1%;
+    top: 78%;
+    background-color: #000000cc;
+    padding: 7px 0;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+
+    &__box {
+      width: 97px;
+      height: fit-content;
+    }
+
+    &__body {
+      width: 97px;
+      height: fit-content;
+      justify-content: center;
+
+      &--image {
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+      }
+    }
+  }
+}

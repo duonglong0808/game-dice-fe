@@ -8,7 +8,13 @@ import { DiceDetailDto } from '@/lib/redux/app/diceDetail.slice';
 
 const cx = classNames.bind(styles);
 
-export function HistoryDiceGameDetail({ gameDiceId }: { gameDiceId: number }): JSX.Element {
+export function HistoryDiceGameDetail({
+  gameDiceId,
+  initCol = 6,
+}: {
+  gameDiceId: number;
+  initCol?: number;
+}): JSX.Element {
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [
@@ -41,7 +47,7 @@ export function HistoryDiceGameDetail({ gameDiceId }: { gameDiceId: number }): J
       const dataPositionCalc: any = {};
 
       let indexCurrent = 0;
-      let col = 6;
+      let col = initCol - 1;
       let row = 6;
       dataSort.forEach((item, index, arrThis) => {
         if (col > 0) {
@@ -110,7 +116,7 @@ export function HistoryDiceGameDetail({ gameDiceId }: { gameDiceId: number }): J
         <tbody className={cx('wrapper-table__tbody')}>
           {Array.from({ length: 6 }, (v, k) => k + 1).map((rowIndex) => (
             <tr key={rowIndex} className={cx('wrapper-table__tr')}>
-              {Array.from({ length: 7 }, (v, k) => k + 1).map((colIndex) => (
+              {Array.from({ length: initCol }, (v, k) => k + 1).map((colIndex) => (
                 <td key={`${rowIndex}${colIndex}`} className={cx('wrapper-table__td')}>
                   <div className={cx('wrapper-table__td--CD_ballBox')}>
                     <div

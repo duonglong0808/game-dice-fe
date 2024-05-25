@@ -15,6 +15,7 @@ interface DiceDetailSlice {
   indexChips: number[];
   dataDiceDetail: DiceDetailDto[];
   dataDiceDetailCurrent: DiceDetailDto[];
+  dataBetCurrent: { point: number; answer: number }[];
 }
 
 const DiceDetailSlice = createSlice({
@@ -25,6 +26,7 @@ const DiceDetailSlice = createSlice({
     // dataDiceDetailHistory: [],
     refreshDataDiceDetail: true,
     dataDiceDetailCurrent: [],
+    dataBetCurrent: [],
   } as DiceDetailSlice,
   reducers: {
     setIndexChipsRedux: (state, action) => {
@@ -79,6 +81,30 @@ const DiceDetailSlice = createSlice({
         state.dataDiceDetailCurrent = [...state.dataDiceDetailCurrent, action.payload];
       }
     },
+
+    updateDataBetDice: (state, action: { payload: { point: number; answer: number } }) => {
+      const { point, answer } = action.payload;
+      if (point) {
+        const existingBet = state.dataBetCurrent.find((bet) => bet.answer === answer);
+
+        if (existingBet) {
+          state.dataBetCurrent = state.dataBetCurrent.map((bet) => {
+            if (bet.answer === answer) {
+              return { ...bet, point: bet.point + point };
+            }
+            return bet;
+          });
+        } else {
+          state.dataBetCurrent = [...state.dataBetCurrent, { point: point, answer }];
+        }
+      }
+    },
+
+    resetDataBetDice: (state) => {
+      if (state.dataBetCurrent) {
+        state.dataBetCurrent = [];
+      }
+    },
   },
 });
 
@@ -89,6 +115,8 @@ export const {
   setDataDiceInitiated,
   updateOrAddDataDiceDetailCurrent,
   updateListDataDiceCurrent,
+  updateDataBetDice,
+  resetDataBetDice,
 } = DiceDetailSlice.actions;
 
 export default DiceDetailSlice.reducer;

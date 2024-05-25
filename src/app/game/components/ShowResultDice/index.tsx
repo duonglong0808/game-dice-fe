@@ -10,13 +10,13 @@ const cx = classNames.bind(styles);
 export function ShowResultDice({ totalRed }: { totalRed: number }): JSX.Element {
   const [countDown, setCountDown] = useState(6);
 
-  useEffect(() => {
-    if (countDown >= 1) {
-      setTimeout(() => {
-        setCountDown((pre) => pre - 1);
-      }, 1000);
-    }
-  }, [countDown, totalRed]);
+  // useEffect(() => {
+  //   if (countDown >= 1) {
+  //     setTimeout(() => {
+  //       setCountDown((pre) => pre - 1);
+  //     }, 1000);
+  //   }
+  // }, [countDown, totalRed]);
 
   return countDown ? (
     <div className={cx('wrapper')}>
