@@ -19,7 +19,6 @@ export function DiceResultTXLive({
   initCol?: number;
   initRow?: number;
 }): JSX.Element {
-  console.log('🚀 ~ gameDiceId:', gameDiceId);
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [

@@ -52,7 +52,7 @@ const DiceDetailSlice = createSlice({
       state.dataDiceDetailCurrent = action.payload.dataDiceDetail;
     },
     updateOrAddDataDiceDetail: (state, action: { payload: DiceDetailDto }) => {
-      console.log('🚀 ~ action.payload:', action.payload);
+      // console.log('🚀 ~ action.payload:', action.payload);
       if (action.payload.status == StatusDiceDetail.end) {
         const checkExit = state.dataDiceDetail.findIndex(
           (d) => d.gameDiceId === +action.payload.gameDiceId

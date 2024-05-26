@@ -133,7 +133,9 @@ export function TableItemMobile({
   return (
     <div
       onClick={() => {
-        onBetPosition(positionAnswer);
+        if (statusDice == StatusDiceDetail.bet) {
+          onBetPosition(positionAnswer);
+        }
         // setPointBetNow(pre => pre + curChip)
       }}
       className="w-full h-full">
@@ -143,10 +145,12 @@ export function TableItemMobile({
         })}>
         {pointBetPosition ? (
           <div
-            className="absolute top-2 h-7 z-[1] left-0 right-0 flex items-center justify-center"
+            className="absolute top-2 h-7 z-[1] left-0 right-0 flex items-center justify-center bg-center bg-no-repeat"
             style={{
-              background: `url(${getBackGroundImage(pointBetPosition)}) no-repeat center`,
-              backgroundSize: 'contain',
+              backgroundImage: `url(${getBackGroundImage(pointBetPosition)})`,
+              // backgroundSize: 'contain',
+              // backgroundRepeat: 'no-repeat',
+              // backgroundPosition: 'center',
             }}>
             <p className="text-white text-sm">{pointBetPosition.toLocaleString('vi-VN')}</p>
           </div>
@@ -161,7 +165,7 @@ export function TableItemMobile({
                 src={image}
                 height={24}
                 width={80}
-                className="h-[18px] object-contain mx-auto"
+                className="h-[18px] object-contain mx-auto w-auto"
               />
             ) : (
               <h2 className={cx('text-[26px] font-bold text-center', textColor)}>{name}</h2>

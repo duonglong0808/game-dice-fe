@@ -2,6 +2,7 @@
 
 import { useAppSelector } from '@/lib';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 export function SideBarHomeGame({
   openSideBar,
@@ -11,6 +12,10 @@ export function SideBarHomeGame({
   setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const { userName, name } = useAppSelector((state) => state.userCurrent);
+
+  if (!userName) {
+    redirect('/error');
+  }
 
   return openSideBar ? (
     <div
@@ -34,8 +39,8 @@ export function SideBarHomeGame({
             </div>
           </div>
           <div className="flex-1 text-center">
-            <span className=" block text-black text-base uppercase">{userName || 'TTTTT'}</span>
-            <span className=" block text-[#836634] text-sm">{name || 'bjhf6'}</span>
+            <span className=" block text-black text-base uppercase">{userName}</span>
+            <span className=" block text-[#836634] text-sm">{name}</span>
           </div>
         </div>
 

@@ -19,7 +19,7 @@ export function AccountError(): JSX.Element {
           </div>
           <div className={cx('error__box--right')}>
             <span className={cx('error__title')}>Xác nhận thất bại, vui lòng đăng nhập lại！</span>
-            <div className="error__desc">Phân tích thông tin đăng nhập thất bại</div>
+            <div className="error__desc text-white">Phân tích thông tin đăng nhập thất bại</div>
           </div>
         </div>
       </div>

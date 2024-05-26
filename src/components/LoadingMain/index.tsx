@@ -50,11 +50,9 @@ export default function LoadingScreen() {
               router.replace('/game');
             }
           } else {
-            console.log('ooj');
             router.replace('/error');
           }
         } else {
-          console.log('oojdsfbdjhm');
           router.replace('/error');
         }
       }

@@ -21,6 +21,8 @@ import { ShowMessageLive } from '@/app/game/components/ShowMessageLive';
 import CountDownBet from '@/app/game/components/CountDown';
 import { useHandleMessageWsk } from './ultils/handleDetail';
 import { ShowResultDice } from '@/app/game/components/ShowResultDice';
+import { betDice } from './ultils/api';
+import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
 function getLocalStream() {
   navigator.mediaDevices
@@ -45,9 +47,7 @@ export default function DetailLive() {
 
   // Bet
   const [totalPointBet, setTotalPointBet] = useState(0);
-  const [dataBetConfirmOld, setDataBetConfirmOld] = useState<{ point: number; answer: number }[]>(
-    []
-  );
+  const dataBetConfirmOld = useRef<{ point: number; answer: number }[]>([]);
   const [currentChip, setCurrentChip] = useState<number>();
 
   const { id: gameDiceId } = useParams();
@@ -70,11 +70,53 @@ export default function DetailLive() {
   const arrBetActive = dataDiceDetailById?.arrBetActive;
   const totalRed = dataDiceDetailById?.totalRed;
 
-  // const handleCon
+  const handleConfirmBet = async () => {
+    const transaction = dataDiceDetailById?.transaction || 1;
+    const gameDiceId = dataDiceDetailById?.gameDiceId || 1;
+    const diceDetailId = dataDiceDetailById?.diceDetailId || 1;
+    if (
+      dataBetCurrent.length &&
+      transaction &&
+      gameDiceId &&
+      Number(statsDiceDetail) == StatusDiceDetail.bet
+    ) {
+      const reqBets = await Promise.all(
+        dataBetCurrent.map(async (bet) => {
+          const data = {
+            transaction,
+            gameDiceId,
+            diceDetailId,
+            point: bet.point,
+            answer: bet.answer,
+          };
+          const req = await betDice(data);
+
+          return {
+            answer: bet.answer,
+            point: req?.data ? bet.point : 0,
+          };
+        })
+      );
+
+      // const newDataBetConfirm = [...dataBetConfirmOld.current];
+      let totalBetSuc = 0;
+      reqBets.map((item) => {
+        totalBetSuc += item.point;
+        const checkExits = dataBetConfirmOld.current.find((i) => i.answer == item.answer);
+        if (checkExits) checkExits.point = item.point + checkExits.point;
+        dataBetConfirmOld.current.push(item);
+      });
+      setTotalPointBet((pre) => pre + totalBetSuc);
+      dispatch(updatePointUser({ gamePoint: -totalBetSuc }));
+      dispatch(resetDataBetDice());
+    }
+  };
 
   useEffect(() => {
-    if (!gameDiceId) {
-      router.replace('/mobile/game');
+    if (!gameDiceById) {
+      // TODO: rederic to error if not data game
+      // router.replace('/mobile/game');
+      router.replace('/error');
     }
   }, []);
 
@@ -92,16 +134,22 @@ export default function DetailLive() {
           break;
         case StatusDiceDetail.end:
           if (totalPointBet != 0) {
-            // console.log('🚀 ~ useEffect ~ gamePoint - gamePointRef.current:');
+            // console.log(
+            //   '🚀 ~ useEffect ~ gamePoint - gamePointRef.current:',
+            //   gamePoint,
+            //   gamePointRef.current
+            // );
             if (gamePoint > gamePointRef.current)
               setMessage(String(`+${Math.ceil(gamePoint - gamePointRef.current + totalPointBet)}`));
             else setMessage(String(gamePoint - gamePointRef.current));
             gamePointRef.current = gamePoint;
-
+            dataBetConfirmOld.current = [];
             setTotalPointBet(0);
+            dispatch(resetDataBetDice());
           }
           break;
         default:
+          setMessage('');
           break;
       }
     }
@@ -145,7 +193,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_0'))}
                     positionAnswer={1}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 1)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 1)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -160,7 +208,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_1'))}
                     positionAnswer={2}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 2)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 2)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -175,7 +223,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_2'))}
                     positionAnswer={3}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 3)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 3)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -190,7 +238,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_chan'))}
                     positionAnswer={4}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 4)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 4)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -206,7 +254,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_xiu'))}
                     positionAnswer={5}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 5)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 5)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -222,7 +270,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_le'))}
                     positionAnswer={6}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 6)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 6)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -238,7 +286,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_tai'))}
                     positionAnswer={7}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 7)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 7)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -254,7 +302,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_4'))}
                     positionAnswer={8}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 8)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 8)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -269,7 +317,7 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_3'))}
                     positionAnswer={9}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 9)?.point || 0}
+                    betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 9)?.point || 0}
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -284,7 +332,9 @@ export default function DetailLive() {
                     statusDice={statsDiceDetail}
                     isHighlight={Boolean(arrBetActive?.includes('p_-1'))}
                     positionAnswer={10}
-                    betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 10)?.point || 0}
+                    betConfirmOld={
+                      dataBetConfirmOld.current.find((i) => i.answer == 10)?.point || 0
+                    }
                     onBetPosition={(answer: number) =>
                       dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
                     }
@@ -397,6 +447,7 @@ export default function DetailLive() {
                 Lặp lại
               </button>
               <button
+                onClick={handleConfirmBet}
                 className={classNames(
                   'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
                   {
