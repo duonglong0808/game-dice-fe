@@ -164,6 +164,7 @@ export default function DetailLive() {
         <iframe
           className="w-full h-[164px] scale-[1.66] mt-9 ml-1"
           src={gameDiceById?.idLive}></iframe>
+        <div className="absolute top-0 left-0 right-0 bottom-0"></div>
       </div>
       <div className="fixed bottom-0 left-0 right-0 bg-black top-[200px]">
         {/* <div className=" bg-black top-[200px]"> */}
@@ -422,7 +423,7 @@ export default function DetailLive() {
                   dispatch(resetDataBetDice());
                 }}
                 className={classNames(
-                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
+                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -437,7 +438,7 @@ export default function DetailLive() {
               </button>
               <button
                 className={classNames(
-                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
+                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -449,7 +450,7 @@ export default function DetailLive() {
               <button
                 onClick={handleConfirmBet}
                 className={classNames(
-                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
+                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -458,14 +459,14 @@ export default function DetailLive() {
                 style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
                 OK
               </button>
-              <button className="w-[23%] h-[88%] text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/images/icon_change.svg)] bg-no-repeat ml-3">
+              <button className="w-[23%] h-[88%] text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/Images/icon_change.svg)] bg-no-repeat ml-3">
                 Đổi bàn
               </button>
             </div>
 
             <div className="w-full">
               <div className="flex bg-[#e5e5e5] h-7">
-                <span className="block w-2 mx-2 bg-[url(/Areas/Mobile/images/btn_MT_gameArrow.svg)] bg-no-repeat bg-center "></span>
+                <span className="block w-2 mx-2 bg-[url(/Areas/Mobile/Images/btn_MT_gameArrow.svg)] bg-no-repeat bg-center "></span>
                 <div className="flex-1 flex items-center overflow-auto">
                   <div className="flex mr-4 items-baseline">
                     <span className="text-[#f00] mr-3 text-sm font-semibold">L</span>
@@ -505,7 +506,7 @@ export default function DetailLive() {
                     <span className="text-black text-sm font-semibold">60</span>
                   </div>
                 </div>
-                <span className="block px-5  bg-[url(/Areas/Mobile/images/icon_fingerblack.svg)] bg-no-repeat  border-l-[1px] border-[#ccc] bg-[length:20px]"></span>
+                <span className="block px-5  bg-[url(/Areas/Mobile/Images/icon_fingerblack.svg)] bg-no-repeat  border-l-[1px] border-[#ccc] bg-[length:20px]"></span>
               </div>
             </div>
             <div className="flex">
