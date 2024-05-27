@@ -116,7 +116,7 @@ export default function DetailLive() {
     if (!gameDiceById) {
       // TODO: rederic to error if not data game
       // router.replace('/mobile/game');
-      router.replace('/error');
+      // router.replace('/error');
     }
   }, []);
 
@@ -161,12 +161,16 @@ export default function DetailLive() {
       <div className="w-full overflow-hidden bg-[#111] relative">
         {totalRed && <ShowResultDice totalRed={totalRed} />}
         <CountDownBet />
-        <iframe className="w-full h-[21svh]  scale-[1.22] ml-1" src={gameDiceById?.idLive}></iframe>
-        <div className="absolute top-0 left-0 right-0 bottom-0"></div>
+        <iframe
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          className="w-full h-[28svh]  scale-[1.1]"
+          src={gameDiceById?.idLiveMobile}></iframe>
+        {/* <div className="absolute top-0 left-0 right-0 bottom-0"></div> */}
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-black top-[21svh]">
+      <div className="fixed bottom-0 left-0 right-0 bg-black top-[calc(28svh_-_19px)]">
         {/* <div className=" bg-black top-[200px]"> */}
-        <div className="flex flex-col" style={{ height: 'calc(100svh - 21svh)' }}>
+        <div className="flex flex-col" style={{ height: 'calc(72svh + 19px)' }}>
           <div className="flex h-[30px] items-center justify-between">
             <div className="flex items-center">
               <span className="text-white">Cược :</span>
@@ -180,10 +184,10 @@ export default function DetailLive() {
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_webLineGrey.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
             </div>
           </div>
-          <div className="flex flex-col" style={{ height: 'calc(79svh - 30px)' }}>
+          <div className="flex-1 flex flex-col" style={{ height: 'calc(72svh - 11px)' }}>
             <div
-              className=" bg-white w-full flex justify-center p-[3px] "
-              style={{ height: 'calc(100% - 296px)' }}>
+              className=" bg-white w-full flex justify-center p-[3px]"
+              style={{ height: 'calc(100% - 285px)' }}>
               <div className="flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm">
                 <div className="basis-1/3 w-[28%]">
                   <TableItemMobile
@@ -418,7 +422,6 @@ export default function DetailLive() {
             <div className="flex border-t-[1px] items-center justify-around h-[50px] min- border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full mx-auto">
               <button
                 onClick={() => {
-                  console.error('aaaa');
                   dispatch(resetDataBetDice());
                 }}
                 className={classNames(
@@ -459,7 +462,7 @@ export default function DetailLive() {
                 OK
               </button>
               <button className="w-[23%] h-[88%] text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/Images/icon_change.svg)] bg-no-repeat ml-3">
-                Đổi bàn
+                <span className="block ">Đổi bàn</span>
               </button>
             </div>
 

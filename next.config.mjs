@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    API_URL: 'http://localhost:9999/api',
-    API_GAME_DICE: 'http://localhost:9991/api',
-    API_URL_WSK: 'http://localhost:8089',
+    API_URL: 'http://192.168.1.10:9999/api',
+    API_GAME_DICE: 'http://192.168.1.10:9991/api',
+    API_URL_WSK: 'http://192.168.1.10:8089',
     HOST_KU: 'https://vn.vc3559k.net/api',
-    URL_MAIN: 'http://localhost:3002',
+    URL_MAIN: 'http://192.168.1.10:3002',
   },
 
   // Production

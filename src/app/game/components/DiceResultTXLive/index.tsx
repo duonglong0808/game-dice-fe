@@ -30,7 +30,7 @@ export function DiceResultTXLive({
 
   useEffect(() => {
     if (lengthDataRowOld.current != dataSort.length) {
-      console.log('🚀 ~ useEffect ~ dataSort:', dataSort);
+      // console.log('🚀 ~ useEffect ~ dataSort:', dataSort);
       const dataPositionCalc: any = {};
 
       let indexCurrent = 0;

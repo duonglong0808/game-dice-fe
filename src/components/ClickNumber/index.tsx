@@ -39,7 +39,7 @@ export function ClickNumberBox({
             else return '';
           })
         }
-        className="py-2 bg-white text-3xl text-[#2682d5] border-l-[1px] border-t-[1px] border-[#2682d5] bg-[url(/Areas/Mobile/images/btn_arrowCRB.svg)] bg-[center] bg-[length:25px_86px] bg-no-repeat w-full h-full"></div>
+        className="py-2 bg-white text-3xl text-[#2682d5] border-l-[1px] border-t-[1px] border-[#2682d5] bg-[url(/Areas/Mobile/Images/btn_arrowCRB.svg)] bg-[center] bg-[length:25px_86px] bg-no-repeat w-full h-full"></div>
       <div
         onClick={(e) => onChangeValue((pre) => String(pre + 6))}
         className="py-2 bg-white text-3xl text-[#2682d5] border-l-[1px] border-t-[1px] border-[#2682d5]">

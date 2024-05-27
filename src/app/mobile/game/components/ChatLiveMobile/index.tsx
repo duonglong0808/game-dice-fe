@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 export function ChatLiveMobile(): JSX.Element {
   return (
     <div>
-      <div className="bg-[#000] h-[45px] flex items-center">
+      <div className="bg-[#000] h-[38px] flex items-center">
         <div className={cx('sendArea', 'hideVoice', 'w-full')}>
           <div className={cx('giftBtn')}>
             <Image alt="Gift" src={'/Content/images/chat/gift.svg'} width={23} height={23} />

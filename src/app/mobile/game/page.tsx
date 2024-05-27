@@ -257,7 +257,7 @@ export default function PageGame(): JSX.Element {
             </button>
           </li>
         </ul>
-        <div className="w-[calc(100%-64px)] fixed top-[84px] right-0 bottom-0 h-full ml-auto overflow-hidden bg-black">
+        <div className="w-[calc(100%-64px)] fixed top-[84px] right-0 bottom-0 h-full ml-auto overflow-scroll bg-black">
           <div className="flex-1 pt-1 px-1">
             {data.map((item, index) => {
               let imageNational = '';
