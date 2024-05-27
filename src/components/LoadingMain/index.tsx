@@ -26,19 +26,19 @@ export default function LoadingScreen() {
   const isFetchData = useRef(false);
 
   useEffect(() => {
-    if (numberLoading >= 100) {
-      setNumberLoading(99);
-      isFetchData.current = true;
-    } else {
+    if (numberLoading !== 99) {
       setTimeout(() => {
         setNumberLoading((pre) => {
-          return pre + 6;
+          return pre + 6 < 99 ? pre + 6 : 99;
         });
       }, 200);
+    } else {
+      isFetchData.current = true;
     }
 
     async function fetchData() {
       if (isFetchData.current) {
+        console.log('2222');
         isFetchData.current = false;
         if (access_token && refresh_token) {
           const check = await handleLoginGame(access_token, refresh_token, dispatch);

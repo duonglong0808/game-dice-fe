@@ -158,19 +158,24 @@ export default function DetailLive() {
   return (
     <div>
       {message ? <ShowMessageLive message={message} statsDiceDetail={statsDiceDetail} /> : <></>}
-      <div className="w-full overflow-hidden bg-[#111] relative">
+      <div className="fixed top-0 left-0 right-0 bottom-0 overflow-hidden bg-[#111]">
         {totalRed && <ShowResultDice totalRed={totalRed} />}
         <CountDownBet />
         <iframe
           allow="autoplay; encrypted-media"
-          allowFullScreen
-          className="w-full h-[28svh]  scale-[1.1]"
-          src={gameDiceById?.idLiveMobile}></iframe>
-        {/* <div className="absolute top-0 left-0 right-0 bottom-0"></div> */}
+          // allowFullScreen
+          className="w-svw h-svh scale-[1.04]"
+          // className="w-full h-[35svh] "
+          // src={gameDiceById?.idLiveMobile}
+          src={'https://gat6.vnskuvideo.com/ios.html?id=71101'}></iframe>
+        <div className="absolute top-0 left-0 right-0 h-[calc(100svw*0.49)]"></div>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-black top-[calc(28svh_-_19px)]">
+      <div className="fixed bottom-0 left-0 right-0 z-[6] bg-black top-[calc(100svw*0.49)]">
         {/* <div className=" bg-black top-[200px]"> */}
-        <div className="flex flex-col" style={{ height: 'calc(72svh + 19px)' }}>
+        <div
+          className="flex flex-col h-full"
+          //  style={{ height: 'calc(100svw*0.49)' }}
+        >
           <div className="flex h-[30px] items-center justify-between">
             <div className="flex items-center">
               <span className="text-white">Cược :</span>
@@ -184,10 +189,12 @@ export default function DetailLive() {
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_webLineGrey.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
             </div>
           </div>
-          <div className="flex-1 flex flex-col" style={{ height: 'calc(72svh - 11px)' }}>
+          <div
+            className="flex-1 flex flex-col"
+            style={{ height: 'calc(100svh - 100svw*0.49 - 30px)' }}>
             <div
               className=" bg-white w-full flex justify-center p-[3px]"
-              style={{ height: 'calc(100% - 285px)' }}>
+              style={{ height: 'calc(100% - 10.45svh - 188px)' }}>
               <div className="flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm">
                 <div className="basis-1/3 w-[28%]">
                   <TableItemMobile
@@ -348,7 +355,7 @@ export default function DetailLive() {
               </div>
             </div>
 
-            <div className="bg-white flex items-center relative h-12">
+            <div className="bg-white flex items-center relative h-[5.45svh]">
               <div className="flex-1 w-[calc(100%_-_56px)] h-full">
                 <ChipsList
                   alwayActive={true}
@@ -419,13 +426,13 @@ export default function DetailLive() {
               </div>
             </div>
 
-            <div className="flex border-t-[1px] items-center justify-around h-[50px] min- border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full mx-auto">
+            <div className="flex border-t-[1px] items-center justify-around h-[5svh] min- border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full mx-auto">
               <button
                 onClick={() => {
                   dispatch(resetDataBetDice());
                 }}
                 className={classNames(
-                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
+                  'w-[24%] h-[67%] text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -440,7 +447,7 @@ export default function DetailLive() {
               </button>
               <button
                 className={classNames(
-                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
+                  'w-[24%] h-[67%] text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -452,7 +459,7 @@ export default function DetailLive() {
               <button
                 onClick={handleConfirmBet}
                 className={classNames(
-                  'w-[24%] h-8 text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
+                  'w-[24%] h-[67%] text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -462,7 +469,7 @@ export default function DetailLive() {
                 OK
               </button>
               <button className="w-[23%] h-[88%] text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/Images/icon_change.svg)] bg-no-repeat ml-3">
-                <span className="block ">Đổi bàn</span>
+                <span className="block mr-5 text-sm">Đổi bàn</span>
               </button>
             </div>
 

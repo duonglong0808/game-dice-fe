@@ -113,7 +113,7 @@ export default function PageGame(): JSX.Element {
     <div>
       <HeaderGameMobile isShowSlide={true} />
 
-      <div className="h-full">
+      <div className="">
         <ul className="fixed z-[2] bottom-0 top-[84px] w-[64px] px-1 border-r-[1px] border-[#333] bg-[#000] py-2">
           <li className="mb-1 w-full h-fit flex justify-center items-center">
             <button className="p-1 w-full text-center border-[1px] rounded-lg border-[#8099ff] shadow-[0_0_3px_#9e865e,0_0_3px_#9e865e_inset]">
@@ -257,8 +257,8 @@ export default function PageGame(): JSX.Element {
             </button>
           </li>
         </ul>
-        <div className="w-[calc(100%-64px)] fixed top-[84px] right-0 bottom-0 h-full ml-auto overflow-scroll bg-black">
-          <div className="flex-1 pt-1 px-1">
+        <div className="w-[calc(100%-64px)]  h-[calc(100svh-84px)] fixed top-[84px] right-0 bottom-0 ml-auto overflow-y-scroll bg-black">
+          <div className="flex-1 pt-1 px-1 flex flex-col ">
             {data.map((item, index) => {
               let imageNational = '';
               switch (item.national?.toLowerCase()) {

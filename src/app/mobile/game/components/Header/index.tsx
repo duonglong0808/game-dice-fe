@@ -45,7 +45,11 @@ export function HeaderGameMobile({
   return (
     <header className="fixed top-0 left-0 right-0 z-10">
       {openTransferPoint ? <TransferFlash closePopup={() => setOpenTransferPoint(false)} /> : <></>}
-      <SideBarHomeGame openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} />
+      <SideBarHomeGame
+        setOpenTransferPoint={setOpenTransferPoint}
+        openSideBar={openSideBar}
+        setOpenSideBar={setOpenSideBar}
+      />
       <div
         className={classNames('flex h-[35px] ', {
           'bg-black border-[#666] border-b-[1px] ': !bg,

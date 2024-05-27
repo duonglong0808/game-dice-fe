@@ -7,9 +7,11 @@ import { redirect } from 'next/navigation';
 export function SideBarHomeGame({
   openSideBar,
   setOpenSideBar,
+  setOpenTransferPoint,
 }: {
   openSideBar: boolean;
   setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenTransferPoint: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const { userName, name } = useAppSelector((state) => state.userCurrent);
 
@@ -21,7 +23,9 @@ export function SideBarHomeGame({
     <div
       onClick={() => setOpenSideBar(false)}
       className="fixed top-0 left-0 right-0 bottom-0 bg-[#000000b3] z-10">
-      <div className="absolute top-0 bottom-0 right-0 w-[62%] bg-[#fffaec] text-white flex flex-col">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="absolute top-0 bottom-0 right-0 w-[62%] bg-[#fffaec] text-white flex flex-col">
         <div
           onClick={() => setOpenSideBar(false)}
           className="absolute top-0 bottom-0 -left-[26px] w-[26px] h-[52px] bg-no-repeat bg-contain m-auto bg-[url(/Areas/Mobile/Images/btn_Rswitch.svg)]"></div>
@@ -55,7 +59,12 @@ export function SideBarHomeGame({
                 <span className="block text-sm text-black text-center mt-2">Lịch sử đặt cược</span>
               </div>
             </div>
-            <div className="basis-1/2 ">
+            <div
+              onClick={() => {
+                setOpenSideBar(false);
+                setOpenTransferPoint(true);
+              }}
+              className="basis-1/2 ">
               <div className="items-center h-[100px] pb-2 mx-2 flex flex-col justify-center">
                 <div className="w-[43px] h-[43px] relative">
                   <div className="absolute top-[10px] left-0 right-0 bottom-0 bg-[url(/Areas/Mobile/Images/btn_transfer_CO.svg)] mb-2 bg-no-repeat bg-center bg-[length:52%] z-[5]"></div>
