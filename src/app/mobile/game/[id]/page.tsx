@@ -116,7 +116,7 @@ export default function DetailLive() {
     if (!gameDiceById) {
       // TODO: rederic to error if not data game
       // router.replace('/mobile/game');
-      router.replace('/error');
+      // router.replace('/error');
     }
   }, []);
 
@@ -162,13 +162,13 @@ export default function DetailLive() {
         {totalRed && <ShowResultDice totalRed={totalRed} />}
         <CountDownBet />
         <iframe
-          className="w-full h-[164px] scale-[1.66] mt-9 ml-1"
+          className="w-full h-[21svh]  scale-[1.66] mt-9 ml-1"
           src={gameDiceById?.idLive}></iframe>
         <div className="absolute top-0 left-0 right-0 bottom-0"></div>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-black top-[200px]">
+      <div className="fixed bottom-0 left-0 right-0 bg-black top-[21svh]">
         {/* <div className=" bg-black top-[200px]"> */}
-        <div className="flex flex-col" style={{ height: 'calc(100svh - 200px)' }}>
+        <div className="flex flex-col" style={{ height: 'calc(100svh - 21svh)' }}>
           <div className="flex h-[30px] items-center justify-between">
             <div className="flex items-center">
               <span className="text-white">Cược :</span>
@@ -182,10 +182,10 @@ export default function DetailLive() {
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_webLineGrey.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
             </div>
           </div>
-          <div className="flex flex-col" style={{ height: 'calc(100svh - 230px)' }}>
+          <div className="flex flex-col" style={{ height: 'calc(79svh - 30px)' }}>
             <div
               className=" bg-white w-full flex justify-center p-[3px] "
-              style={{ height: 'calc(100% - 307px)' }}>
+              style={{ height: 'calc(100% - 296px)' }}>
               <div className="flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm">
                 <div className="basis-1/3 w-[28%]">
                   <TableItemMobile
@@ -346,21 +346,22 @@ export default function DetailLive() {
               </div>
             </div>
 
-            <div className="bg-white flex items-center relative">
-              <div className="flex-1 w-[calc(100% - 56px)]">
+            <div className="bg-white flex items-center relative h-12">
+              <div className="flex-1 w-[calc(100%_-_56px)] h-full">
                 <ChipsList
                   alwayActive={true}
                   curChip={Number(currentChip)}
                   setChips={(chip) => setCurrentChip(chip)}
                 />
               </div>
-              <div className=" w-14">
+              <div className=" w-14 h-full">
                 <Image
                   onClick={() => setOpenChipList(true)}
                   alt="bing"
                   src={'/Areas/Mobile/Images/blingChip/icon_blingChip_Set.png'}
                   width={57}
                   height={57}
+                  className="h-full object-contain"
                 />
                 {openChipList ? (
                   <div className="absolute left-0 right-0 bottom-full m-auto h-fit z-10 bg-[#141414]">
@@ -416,7 +417,7 @@ export default function DetailLive() {
               </div>
             </div>
 
-            <div className="flex border-t-[1px] items-center justify-around h-[50px] border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full m-auto">
+            <div className="flex border-t-[1px] items-center justify-around h-[50px] min- border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full mx-auto">
               <button
                 onClick={() => {
                   console.error('aaaa');
@@ -509,6 +510,7 @@ export default function DetailLive() {
                 <span className="block px-5  bg-[url(/Areas/Mobile/Images/icon_fingerblack.svg)] bg-no-repeat  border-l-[1px] border-[#ccc] bg-[length:20px]"></span>
               </div>
             </div>
+
             <div className="flex">
               <div className="basis-1/2">
                 <div className="border-b-[1px] border-[#e6e6e6]">
@@ -530,6 +532,7 @@ export default function DetailLive() {
                 </div>
               </div>
             </div>
+
             <ChatLiveMobile />
           </div>
         </div>

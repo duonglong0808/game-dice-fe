@@ -10,7 +10,7 @@ const nextConfig = {
 
   // Production
   // env: {
-  //  URL_MAIN: 'https://api.vk169.net',
+  //  URL_MAIN: 'https://vk169.net',
   //   API_URL: 'https://api.vk169.net/api',
   //   API_GAME_DICE: 'https://game.api.vk169.net/api',
   //   API_URL_WSK: 'https://game.wsk.vk169.net',

@@ -13,7 +13,7 @@ export function SliderBarGame(): JSX.Element {
   const { name, userName, gamePoint } = useAppSelector((state) => state.userCurrent);
 
   // TODO: unable  wwith prod
-  // if (!userName) redirect('error');
+  if (!userName) redirect('error');
 
   const clickAutoConfirm = (e: any) => {
     const element = e.target as HTMLElement;
@@ -63,7 +63,7 @@ export function SliderBarGame(): JSX.Element {
 
       <ul className={cx('list-game')}>
         <li className={cx('item-game', 'item-game-xd__active')}>
-          <Link href={'aa'}>Xóc đĩa</Link>
+          <Link href={'#'}>Xóc đĩa</Link>
         </li>
         <li className={cx('item-game', 'item-game__mc')}>MC Baccarat</li>
         <li className={cx('item-game', 'item-game__chinaBacca')}>China Baccarat</li>
