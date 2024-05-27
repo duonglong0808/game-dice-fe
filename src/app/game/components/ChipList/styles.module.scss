@@ -101,9 +101,13 @@
 @media (max-width: 768px) {
   .chips-list {
     gap: 0;
+    justify-content: space-between;
+    margin: 0 4px;
 
     &__chips {
+      flex: 1;
       gap: 0;
+      justify-content: space-between;
     }
 
     &__chip-item {
@@ -115,16 +119,14 @@
         &::before {
           content: '';
           position: absolute;
-          // scale: 1.1;
           top: 0;
-          left: 0;
+          left: 7px;
           right: 0;
           bottom: 0;
           background-image: url(/Content/images/blingChip/icon_blingChip_out.png);
-          // background-image: url(/Content/images/blingChip/icon_chip_select_h.png);
-          background-size: cover;
-
+          background-size: contain;
           transform-origin: bottom;
+          background-repeat: no-repeat;
         }
 
         &::after {
@@ -132,10 +134,11 @@
           position: absolute;
           scale: 1.1;
           top: 0;
-          left: 0;
+          left: 7px;
           right: 0;
           bottom: 0;
-          background-size: cover;
+          background-size: contain;
+          background-repeat: no-repeat;
           // transform: scale(1.4);
           // transform: scale(1.4) rotate(360deg);
           // animation: spin 0.6s linear infinite;
@@ -159,8 +162,7 @@
 
   .chips-list__chip-item,
   .chips-list__chip-item--image {
-    width: 59px;
-    height: 59px;
+    width: 100%;
     max-height: 100%;
     object-fit: contain;
   }

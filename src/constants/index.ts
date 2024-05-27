@@ -164,14 +164,14 @@ export const dataListChipsStatistics: {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select1K.png',
     off: '/Content/images/blingChip/icon_chip_select1K_off.png',
-    select: '/Content/images/blingChip/icon_blingChip_1k.png',
+    select: '/Content/images/blingChip/icon_blingChip_1K.png',
     value: 1000,
   },
   {
     type: 'static',
     on: '/Content/images/blingChip/icon_chip_select5K.png',
     off: '/Content/images/blingChip/icon_chip_select5K_off.png',
-    select: '/Content/images/blingChip/icon_blingChip_5k.png',
+    select: '/Content/images/blingChip/icon_blingChip_5K.png',
     value: 5000,
   },
   {

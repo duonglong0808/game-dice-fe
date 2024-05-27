@@ -116,7 +116,7 @@ export default function DetailLive() {
     if (!gameDiceById) {
       // TODO: rederic to error if not data game
       // router.replace('/mobile/game');
-      // router.replace('/error');
+      router.replace('/error');
     }
   }, []);
 
@@ -161,9 +161,7 @@ export default function DetailLive() {
       <div className="w-full overflow-hidden bg-[#111] relative">
         {totalRed && <ShowResultDice totalRed={totalRed} />}
         <CountDownBet />
-        <iframe
-          className="w-full h-[21svh]  scale-[1.66] mt-9 ml-1"
-          src={gameDiceById?.idLive}></iframe>
+        <iframe className="w-full h-[21svh]  scale-[1.22] ml-1" src={gameDiceById?.idLive}></iframe>
         <div className="absolute top-0 left-0 right-0 bottom-0"></div>
       </div>
       <div className="fixed bottom-0 left-0 right-0 bg-black top-[21svh]">

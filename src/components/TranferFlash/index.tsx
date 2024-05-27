@@ -70,7 +70,7 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                     'flex items-center px-2 py-2 flex-1 border-[1px] border-[#ddd] mr-3',
                     {
                       'bg-[#c7c7c7] text-white': !point,
-                      'bg-[#fff] font-semibold': point,
+                      'bg-[#fff] font-semibold text-black': point,
                     }
                   )}>
                   {point ? point : 'Nhập số điểm'}
