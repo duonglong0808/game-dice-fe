@@ -90,7 +90,7 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                   Xác nhận
                 </button>
               </div>
-              <div className="my-3 flex border-t-[1px] border-b-[1px] border-r-[1px] border-[#dfdfdf]">
+              <div className="my-3 flex border-t-[1px] border-b-[1px] border-r-[1px] text-black border-[#dfdfdf]">
                 <button
                   onClick={() =>
                     setPoint(+point + 100 < mainPoint ? String(+point + 100) : String(mainPoint))
