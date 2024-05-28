@@ -78,7 +78,7 @@ export default function ChipsList({
               alt="chip"
               width={50}
               height={50}
-              src={alwayActive || 2 == StatusDiceDetail.bet ? chip.on : chip.off}
+              src={alwayActive || statusDice == StatusDiceDetail.bet ? chip.on : chip.off}
               className={cx('chips-list__chip-item--image', 'hidden lg:block')}
               onClick={() => {
                 if (typeof chip.value == 'number') {

@@ -56,7 +56,9 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                       const res = await transferPoint(1, 3, mainPoint);
                       if (res?.data) {
                         closePopup();
-                        dispatch(updatePointUser({ gamePoint: mainPoint, mainPoint: -mainPoint }));
+                        dispatch(
+                          updatePointUser({ gamePoint: mainPoint, mainPoint: Number(-mainPoint) })
+                        );
                       }
                     }
                   }}
@@ -79,10 +81,12 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                   disabled={!point}
                   onClick={async () => {
                     if (point) {
-                      const res = await transferPoint(1, 3, +point);
+                      const res = await transferPoint(1, 3, Number(point));
                       if (res?.data) {
                         closePopup();
-                        dispatch(updatePointUser({ gamePoint: +point, mainPoint: -point }));
+                        dispatch(
+                          updatePointUser({ gamePoint: Number(point), mainPoint: Number(-point) })
+                        );
                       }
                     }
                   }}
@@ -93,28 +97,44 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
               <div className="my-3 flex border-t-[1px] border-b-[1px] border-r-[1px] text-black border-[#dfdfdf]">
                 <button
                   onClick={() =>
-                    setPoint(+point + 100 < mainPoint ? String(+point + 100) : String(mainPoint))
+                    setPoint(
+                      Number(point) + 100 < mainPoint
+                        ? String(Number(point) + 100)
+                        : String(mainPoint)
+                    )
                   }
                   className="flex-1 py-2 bg-[#f3f3f3] border-l-[1px] border-[#dfdfdf]">
                   +100
                 </button>
                 <button
                   onClick={() =>
-                    setPoint(+point + 500 < mainPoint ? String(+point + 500) : String(mainPoint))
+                    setPoint(
+                      Number(point) + 500 < mainPoint
+                        ? String(Number(point) + 500)
+                        : String(mainPoint)
+                    )
                   }
                   className="flex-1 py-2 bg-[#f3f3f3] border-l-[1px] border-[#dfdfdf]">
                   +500
                 </button>
                 <button
                   onClick={() =>
-                    setPoint(+point + 1000 < mainPoint ? String(+point + 1000) : String(mainPoint))
+                    setPoint(
+                      Number(point) + 1000 < mainPoint
+                        ? String(Number(point) + 1000)
+                        : String(mainPoint)
+                    )
                   }
                   className="flex-1 py-2 bg-[#f3f3f3] border-l-[1px] border-[#dfdfdf]">
                   +1000
                 </button>
                 <button
                   onClick={() =>
-                    setPoint(+point + 2000 < mainPoint ? String(+point + 2000) : String(mainPoint))
+                    setPoint(
+                      Number(point) + 2000 < mainPoint
+                        ? String(Number(point) + 2000)
+                        : String(mainPoint)
+                    )
                   }
                   className="flex-1 py-2 bg-[#f3f3f3] border-l-[1px] border-[#dfdfdf]">
                   +2000
@@ -132,7 +152,12 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                     const res = await transferPoint(3, 1, +gamePoint);
                     if (res?.data) {
                       closePopup();
-                      dispatch(updatePointUser({ gamePoint: -point, mainPoint: +point }));
+                      dispatch(
+                        updatePointUser({
+                          gamePoint: Number(-gamePoint),
+                          mainPoint: Number(gamePoint),
+                        })
+                      );
                     }
                   }
                 }}
@@ -181,7 +206,10 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                         if (res?.data) {
                           closePopup();
                           dispatch(
-                            updatePointUser({ gamePoint: +mainPoint, mainPoint: -mainPoint })
+                            updatePointUser({
+                              gamePoint: +mainPoint,
+                              mainPoint: Number(-mainPoint),
+                            })
                           );
                         }
                       }
@@ -210,10 +238,10 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                   disabled={!point}
                   onClick={async () => {
                     if (point) {
-                      const res = await transferPoint(1, 3, +point);
+                      const res = await transferPoint(1, 3, Number(point));
                       if (res?.data) {
                         closePopup();
-                        dispatch(updatePointUser({ gamePoint: +point, mainPoint: -point }));
+                        dispatch(updatePointUser({ gamePoint: Number(point), mainPoint: -point }));
                       }
                     }
                   }}

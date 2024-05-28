@@ -116,7 +116,7 @@ export default function DetailLive() {
     if (!gameDiceById) {
       // TODO: rederic to error if not data game
       // router.replace('/mobile/game');
-      // router.replace('/error');
+      router.replace('/error');
     }
   }, []);
 
@@ -155,6 +155,19 @@ export default function DetailLive() {
     }
   }, [statsDiceDetail]);
 
+  const onBetPosition = (positionAns: number) => {
+    if (currentChip) {
+      const sumBet = dataBetCurrent.reduce((pre, item) => pre + item.point, 0);
+      if (sumBet < gamePoint)
+        dispatch(
+          updateDataBetDice({
+            answer: positionAns,
+            point: Number(sumBet + currentChip < gamePoint ? currentChip : gamePoint - sumBet),
+          })
+        );
+    }
+  };
+
   return (
     <div>
       {message ? <ShowMessageLive message={message} statsDiceDetail={statsDiceDetail} /> : <></>}
@@ -166,8 +179,9 @@ export default function DetailLive() {
           // allowFullScreen
           className="w-svw h-svh scale-[1.04]"
           // className="w-full h-[35svh] "
-          // src={gameDiceById?.idLiveMobile}
-          src={'https://gat6.vnskuvideo.com/ios.html?id=71101'}></iframe>
+          src={gameDiceById?.idLiveMobile}
+          // src={'https://gat6.vnskuvideo.com/ios.html?id=71101'}
+        ></iframe>
         <div className="absolute top-0 left-0 right-0 h-[calc(100svw*0.49)]"></div>
       </div>
       <div className="fixed bottom-0 left-0 right-0 z-[6] bg-black top-[calc(100svw*0.49)]">
@@ -204,9 +218,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_0'))}
                     positionAnswer={1}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 1)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     image="/Areas/Mobile/Images/report/CD/img_roadZero.png"
                   />
@@ -219,9 +231,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_1'))}
                     positionAnswer={2}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 2)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:2.8'}
                     image="/Areas/Mobile/Images/report/CD/img_roadOne.png"
                   />
@@ -234,9 +244,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_2'))}
                     positionAnswer={3}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 3)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     image="/Areas/Mobile/Images/report/CD/img_roadTwo.png"
                   />
@@ -249,9 +257,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_chan'))}
                     positionAnswer={4}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 4)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     name="Chẵn"
                     textColor="text-[#0055fe]"
@@ -265,9 +271,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_xiu'))}
                     positionAnswer={5}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 5)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     name="Xỉu"
                     textColor="text-[#0055fe]"
@@ -281,9 +285,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_le'))}
                     positionAnswer={6}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 6)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     name="Lẻ"
                     textColor="text-[#fe0000]"
@@ -297,9 +299,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_tai'))}
                     positionAnswer={7}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 7)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     name="Tài"
                     textColor="text-[#fe0000]"
@@ -313,9 +313,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_4'))}
                     positionAnswer={8}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 8)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     image="/Areas/Mobile/Images/report/CD/img_roadFour.png"
                   />
@@ -328,9 +326,7 @@ export default function DetailLive() {
                     isHighlight={Boolean(arrBetActive?.includes('p_3'))}
                     positionAnswer={9}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 9)?.point || 0}
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     image="/Areas/Mobile/Images/report/CD/img_roadThree.png"
                   />
@@ -345,9 +341,7 @@ export default function DetailLive() {
                     betConfirmOld={
                       dataBetConfirmOld.current.find((i) => i.answer == 10)?.point || 0
                     }
-                    onBetPosition={(answer: number) =>
-                      dispatch(updateDataBetDice({ answer, point: Number(currentChip) }))
-                    }
+                    onBetPosition={onBetPosition}
                     ratio={'1:14'}
                     image="/Areas/Mobile/Images/report/CD/img_roadEight.png"
                   />
@@ -429,7 +423,9 @@ export default function DetailLive() {
             <div className="flex border-t-[1px] items-center justify-around h-[5svh] min- border-b-[1px] border-[#ccc] bg-[#f3f3f3] w-full mx-auto">
               <button
                 onClick={() => {
-                  dispatch(resetDataBetDice());
+                  if (statsDiceDetail == StatusDiceDetail.bet) {
+                    dispatch(resetDataBetDice());
+                  }
                 }}
                 className={classNames(
                   'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
