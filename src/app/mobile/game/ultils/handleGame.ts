@@ -4,6 +4,14 @@ import { getAllGameDice } from './api';
 import { setDataDiceGame } from '@/lib/redux/app/diceGame.slice';
 import { TypeGameDice } from '@/constants';
 
+const generateDiceTx = () => {
+  let number = 0;
+  while (number < 600) {
+    number = Math.floor(Math.random() * 1000);
+  }
+  return number;
+};
+
 export const useDiceGame = () => {
   const { isInitData, diceGame } = useAppSelector((state) => state.diceGame);
 
@@ -28,7 +36,7 @@ export const useDiceGame = () => {
     fetchData();
   }, [isInitData]);
 
-  const dataDiceAfter = diceGame.map((dice) => {
+  const dataDiceAfter = diceGame.map((dice, index) => {
     let typeGameText = 'Xóc đĩa';
     switch (dice.type) {
       case TypeGameDice.ChanLe:
@@ -49,8 +57,8 @@ export const useDiceGame = () => {
       nameAuthor: dice.nameAuthor,
       national: dice.nationalAuthor,
       image: dice.avtAuthor,
-      valueL: 997,
-      valueC: 651,
+      valueL: generateDiceTx(),
+      valueC: generateDiceTx(),
     };
   });
 
