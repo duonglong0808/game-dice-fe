@@ -116,7 +116,7 @@ export default function DetailLive() {
     if (!gameDiceById) {
       // TODO: rederic to error if not data game
       // router.replace('/mobile/game');
-      // router.replace('/error');
+      router.replace('/error');
     }
   }, []);
 
