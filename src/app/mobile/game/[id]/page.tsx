@@ -116,7 +116,7 @@ export default function DetailLive() {
     if (!gameDiceById) {
       // TODO: rederic to error if not data game
       // router.replace('/mobile/game');
-      router.replace('/error');
+      // router.replace('/error');
     }
   }, []);
 
@@ -432,7 +432,7 @@ export default function DetailLive() {
                   dispatch(resetDataBetDice());
                 }}
                 className={classNames(
-                  'w-[24%] h-[67%] text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
+                  'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -447,7 +447,7 @@ export default function DetailLive() {
               </button>
               <button
                 className={classNames(
-                  'w-[24%] h-[67%] text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
+                  'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -459,7 +459,7 @@ export default function DetailLive() {
               <button
                 onClick={handleConfirmBet}
                 className={classNames(
-                  'w-[24%] h-[67%] text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
+                  'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
                   {
                     'bg-[#929292] shadow-[0_0_0_4px_#929292]':
                       statsDiceDetail != StatusDiceDetail.bet,
@@ -468,8 +468,8 @@ export default function DetailLive() {
                 style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
                 OK
               </button>
-              <button className="w-[23%] h-[88%] text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/Images/icon_change.svg)] bg-no-repeat ml-3">
-                <span className="block mr-5 text-sm">Đổi bàn</span>
+              <button className="w-[23%] h-[88%] flex justify-start items-center text-white text-center bg-contain rounded-sm bg-[url(/Areas/Mobile/Images/icon_change.svg)] bg-no-repeat ml-3">
+                <span className="block ml-2 text-sm">Đổi bàn</span>
               </button>
             </div>
 
