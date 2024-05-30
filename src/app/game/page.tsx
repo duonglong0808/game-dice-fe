@@ -53,7 +53,7 @@ export default function GamePage(): JSX.Element {
             }
             if (result > 2) {
               arrBetActive.push(`p_tai`);
-            } else {
+            } else if (result < 2) {
               arrBetActive.push(`p_xiu`);
             }
 

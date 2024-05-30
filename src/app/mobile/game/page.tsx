@@ -64,7 +64,7 @@ export default function PageGame(): JSX.Element {
             }
             if (result > 2) {
               arrBetActive.push(`p_tai`);
-            } else {
+            } else if (result < 2) {
               arrBetActive.push(`p_xiu`);
             }
 
