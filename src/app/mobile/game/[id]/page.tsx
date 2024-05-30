@@ -245,7 +245,7 @@ export default function DetailLive() {
                     positionAnswer={3}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 3)?.point || 0}
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:1.5'}
                     image="/Areas/Mobile/Images/report/CD/img_roadTwo.png"
                   />
                 </div>
@@ -258,7 +258,7 @@ export default function DetailLive() {
                     positionAnswer={4}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 4)?.point || 0}
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:0.96'}
                     name="Chẵn"
                     textColor="text-[#0055fe]"
                   />
@@ -272,7 +272,7 @@ export default function DetailLive() {
                     positionAnswer={5}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 5)?.point || 0}
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:0.96'}
                     name="Xỉu"
                     textColor="text-[#0055fe]"
                   />
@@ -286,7 +286,7 @@ export default function DetailLive() {
                     positionAnswer={6}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 6)?.point || 0}
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:0.96'}
                     name="Lẻ"
                     textColor="text-[#fe0000]"
                   />
@@ -300,7 +300,7 @@ export default function DetailLive() {
                     positionAnswer={7}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 7)?.point || 0}
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:0.96'}
                     name="Tài"
                     textColor="text-[#fe0000]"
                   />
@@ -327,7 +327,7 @@ export default function DetailLive() {
                     positionAnswer={9}
                     betConfirmOld={dataBetConfirmOld.current.find((i) => i.answer == 9)?.point || 0}
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:2.8'}
                     image="/Areas/Mobile/Images/report/CD/img_roadThree.png"
                   />
                 </div>
@@ -342,7 +342,7 @@ export default function DetailLive() {
                       dataBetConfirmOld.current.find((i) => i.answer == 10)?.point || 0
                     }
                     onBetPosition={onBetPosition}
-                    ratio={'1:14'}
+                    ratio={'1:6.5'}
                     image="/Areas/Mobile/Images/report/CD/img_roadEight.png"
                   />
                 </div>
