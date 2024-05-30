@@ -80,7 +80,7 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                 <button
                   disabled={!point}
                   onClick={async () => {
-                    if (point) {
+                    if (Number(point) > 0) {
                       const res = await transferPoint(1, 3, Number(point));
                       if (res?.data) {
                         closePopup();
@@ -237,7 +237,7 @@ export function TransferFlash({ closePopup }: { closePopup: () => void }): JSX.E
                 <button
                   disabled={!point}
                   onClick={async () => {
-                    if (point) {
+                    if (Number(point) > 0) {
                       const res = await transferPoint(1, 3, Number(point));
                       if (res?.data) {
                         closePopup();
