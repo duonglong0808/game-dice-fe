@@ -194,7 +194,7 @@ export default function DetailLive() {
           <div className="flex h-[30px] items-center justify-between">
             <div className="flex items-center">
               <span className="text-white">Cược :</span>
-              <span className="ml-1 text-[#ffd100] text-xl">{totalPointBet}</span>
+              <span className="ml-1 text-[#ffd100] text-xl">{Math.floor(totalPointBet)}</span>
             </div>
             <div className="flex h-full">
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_Traditionl.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
