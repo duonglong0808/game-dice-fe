@@ -74,14 +74,16 @@ export default function DetailLive() {
     const transaction = dataDiceDetailById?.transaction || 1;
     const gameDiceId = dataDiceDetailById?.gameDiceId || 1;
     const diceDetailId = dataDiceDetailById?.diceDetailId || 1;
+    const dataBetTg = [...dataBetCurrent];
     if (
-      dataBetCurrent.length &&
+      dataBetTg.length &&
       transaction &&
       gameDiceId &&
       Number(statsDiceDetail) == StatusDiceDetail.bet
     ) {
+      dispatch(resetDataBetDice());
       const reqBets = await Promise.all(
-        dataBetCurrent.map(async (bet) => {
+        dataBetTg.map(async (bet) => {
           const data = {
             transaction,
             gameDiceId,
@@ -108,7 +110,6 @@ export default function DetailLive() {
       });
       setTotalPointBet((pre) => pre + totalBetSuc);
       dispatch(updatePointUser({ gamePoint: -totalBetSuc }));
-      dispatch(resetDataBetDice());
     }
   };
 

@@ -70,7 +70,9 @@ export function HeaderGameMobile({
             onClick={() => setOpenTransferPoint(true)}
             className="text-[#ffd100] flex items-center">
             <span className="text-[14px]">$</span>
-            <span className="text-xl ml-1">{gamePoint?.toLocaleString('vi-VN') || 0}</span>
+            <span className="text-xl ml-1">
+              {Math.floor(gamePoint)?.toLocaleString('vi-VN') || 0}
+            </span>
             <span className="border-t-[5px] border-r-[5px] border-l-[5px] border-t-[#ffd100] border-l-[transparent] border-r-[transparent] mx-[3px]"></span>
           </div>
           <button className="w-8 h-full ml-1 bg-[url(/Content/images/btn_pieChart.svg)] bg-no-repeat  bg-[length:auto_60%] opacity-[0.8] relative bg-center"></button>
