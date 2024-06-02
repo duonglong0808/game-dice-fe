@@ -71,7 +71,7 @@ export function SliderBarGame(): JSX.Element {
           Xóc đĩa
         </li>
         <li
-          onClick={() => router.replace('?game=mc-baca')}
+          // onClick={() => router.replace('?game=mc-baca')}
           className={cx('item-game', 'item-game__mc', {
             'item-game__mc--active': game == 'mc-baca',
           })}>
