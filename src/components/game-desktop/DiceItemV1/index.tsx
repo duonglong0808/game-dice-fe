@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import styles from './diceItem.module.scss';
 import Image from 'next/image';
-import { EvenOddResult } from '../EvenOddResult';
 import { TypeGameDice } from '@/constants';
-import { DiceResultTX } from '../DiceResultTX';
+import { EvenOddResult } from '@/components/game/EvenOddResult';
+import { DiceResultTX } from '@/components/game/DiceResultTX';
 
 const cx = classNames.bind(styles);
 

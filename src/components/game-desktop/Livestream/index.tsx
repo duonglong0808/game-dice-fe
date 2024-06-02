@@ -8,13 +8,12 @@ import { ICheckHover, StatusDiceDetail, dataListChipsStatistics } from '@/consta
 import { BaseAxios, useAppDispatch, useAppSelector } from '@/lib';
 import TableItem from '../TableItem';
 import ToolTipGame from '../ToolTip';
-import ChipsList from '../ChipList/index.';
 import Image from 'next/image';
 import { setIndexChipsRedux } from '@/lib/redux/app/diceDetail.slice';
-import CountDownBet from '../CountDown';
-import { ShowResultDice } from '../ShowResultDice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
-import { ShowMessageLive } from '../ShowMessageLive';
+import { ShowResultDice } from '@/components/game/ShowResultDice';
+import CountDownBet from '@/components/game/CountDown';
+import ChipsList from '@/components/game/ChipList/index.';
 // import ToolTipGame from '../tool-tip-game';
 // import { ChipsList } from '../chips-list';
 

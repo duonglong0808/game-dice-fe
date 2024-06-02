@@ -5,14 +5,17 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAppSelector } from '@/lib';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 
 const cx = classNames.bind(styles);
 
 export function SliderBarGame(): JSX.Element {
   const { name, userName, gamePoint } = useAppSelector((state) => state.userCurrent);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const game = searchParams.get('game');
 
-  // TODO: unable  wwith prod
+  // TODO: unable  with prod
   if (!userName) redirect('error');
 
   const clickAutoConfirm = (e: any) => {
@@ -62,10 +65,18 @@ export function SliderBarGame(): JSX.Element {
       </div>
 
       <ul className={cx('list-game')}>
-        <li className={cx('item-game', 'item-game-xd__active')}>
-          <Link href={'#'}>Xóc đĩa</Link>
+        <li
+          onClick={() => router.replace('?game=')}
+          className={cx('item-game', { 'item-game-xd__active': !game })}>
+          Xóc đĩa
         </li>
-        <li className={cx('item-game', 'item-game__mc')}>MC Baccarat</li>
+        <li
+          onClick={() => router.replace('?game=mc-baca')}
+          className={cx('item-game', 'item-game__mc', {
+            'item-game__mc--active': game == 'mc-baca',
+          })}>
+          MC Baccarat
+        </li>
         <li className={cx('item-game', 'item-game__chinaBacca')}>China Baccarat</li>
         <li className={cx('item-game', 'item-game__blockchainBacca')}>Blockchain Baccarat</li>
         <li className={cx('item-game')}>Sic Bo</li>

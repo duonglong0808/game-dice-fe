@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { TableItemMobile } from '../components/TableItem';
-import ChipsList from '@/app/game/components/ChipList/index.';
+import ChipsList from '@/components/game/ChipList/index.';
 import Image from 'next/image';
 import { StatusDiceDetail, dataListChipsStatistics } from '@/constants';
 import {
@@ -13,14 +13,14 @@ import {
   updateDataBetDice,
 } from '@/lib/redux/app/diceDetail.slice';
 import classNames from 'classnames';
-import { HistoryDiceGameDetail } from '@/app/game/components/HistoryDiceGameDetail';
-import { EvenOddResultLive } from '@/app/game/components/EvenOddResultLive';
-import { DiceResultTXLive } from '@/app/game/components/DiceResultTXLive';
+import { HistoryDiceGameDetail } from '@/components/game/HistoryDiceGameDetail';
+import { EvenOddResultLive } from '@/components/game/EvenOddResultLive';
+import { DiceResultTXLive } from '@/components/game/DiceResultTXLive';
 import { ChatLiveMobile } from '../components/ChatLiveMobile';
-import { ShowMessageLive } from '@/app/game/components/ShowMessageLive';
-import CountDownBet from '@/app/game/components/CountDown';
+import { ShowMessageLive } from '@/components/game/ShowMessageLive';
+import CountDownBet from '@/components/game/CountDown';
 import { useHandleMessageWsk } from './ultils/handleDetail';
-import { ShowResultDice } from '@/app/game/components/ShowResultDice';
+import { ShowResultDice } from '@/components/game/ShowResultDice';
 import { betDice } from './ultils/api';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 

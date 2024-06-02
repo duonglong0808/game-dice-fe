@@ -4,14 +4,14 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useRef } from 'react';
 import LiveStream from '../Livestream';
-import { HistoryDiceGameDetail } from '../HistoryDiceGameDetail';
 import { HistoryDiceGame } from '../HistoryDiceGame';
 import Image from 'next/image';
-import { EvenOddResultLive } from '../EvenOddResultLive';
 import { GoodRoad } from '../GoodRoad';
-import { ChatLive } from '../ChatLive';
 import { useAppSelector } from '@/lib';
-import { DiceResultTXLive } from '../DiceResultTXLive';
+import { HistoryDiceGameDetail } from '@/components/game/HistoryDiceGameDetail';
+import { EvenOddResultLive } from '@/components/game/EvenOddResultLive';
+import { DiceResultTXLive } from '@/components/game/DiceResultTXLive';
+import { ChatLive } from '../ChatLive';
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -34,7 +34,8 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
         <DiceResultTXLive gameDiceId={gameDiceId} />
         <GoodRoad />
         <div className="flex-1">
-          <iframe src={diceGameById?.idChat} className="h-full w-full"></iframe>
+          {/* <iframe src={diceGameById?.idChat} className="h-full w-full"></iframe> */}
+          <ChatLive />
         </div>
       </div>
     </div>

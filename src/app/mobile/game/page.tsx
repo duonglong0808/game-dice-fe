@@ -10,8 +10,8 @@ import {
   TypeGameDice,
   TypeUpdatePointUser,
 } from '@/constants';
-import { EvenOddResult } from '@/app/game/components/EvenOddResult';
-import { DiceResultTX } from '@/app/game/components/DiceResultTX';
+import { EvenOddResult } from '@/components/game/EvenOddResult';
+import { DiceResultTX } from '@/components/game/DiceResultTX';
 import { useRouter } from 'next/navigation';
 import { HeaderGameMobile } from './components/Header';
 import { useAppDispatch } from '@/lib';

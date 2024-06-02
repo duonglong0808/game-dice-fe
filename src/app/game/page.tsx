@@ -1,11 +1,8 @@
 'use client';
 
-import { XocDiaSlider } from './components/DiceSlider';
-import { XocDiaItem } from './components/DiceItemV1';
 import { useDiceGame } from './ultils/handleGame';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
-import XocDiaDetailsView from './components/DiceDetailView';
 import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
 import WebSocketSingleton from '@/lib/ws/wskInstance';
 import { EventSocket, StatusDiceDetail, TypeEmitMessage, TypeUpdatePointUser } from '@/constants';
@@ -16,6 +13,9 @@ import {
   updateOrAddDataDiceDetailCurrent,
 } from '@/lib/redux/app/diceDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
+import XocDiaDetailsView from '@/components/game-desktop/DiceDetailView';
+import { SliderHome } from '@/components/game-desktop/DiceSlider';
+import { XocDiaItem } from '@/components/game-desktop/DiceItemV1';
 
 export default function GamePage(): JSX.Element {
   const { data } = useDiceGame();
@@ -103,7 +103,7 @@ export default function GamePage(): JSX.Element {
         <XocDiaDetailsView gameDiceId={gameDiceId} />
       ) : (
         <>
-          <XocDiaSlider />
+          <SliderHome />
           <div
             className="wrapper-games"
             style={{

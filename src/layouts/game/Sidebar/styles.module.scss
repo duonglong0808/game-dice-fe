@@ -260,6 +260,13 @@
 
 .item-game__mc {
   color: #ffd100;
+
+  &--active {
+    background-image: url(/Content/images/btn_VIPnav.png);
+    position: relative;
+    color: #fff;
+    border: 1px solid #333;
+  }
 }
 
 .item-game__chinaBacca {
