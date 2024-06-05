@@ -5,7 +5,7 @@ import Hls from 'hls.js';
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
 import { ICheckHover, StatusDiceDetail, dataListChipsStatistics } from '@/constants';
-import { BaseAxios, useAppDispatch, useAppSelector } from '@/lib';
+import { useAppDispatch, useAppSelector } from '@/lib';
 import TableItem from '../TableItem';
 import ToolTipGame from '../ToolTip';
 import Image from 'next/image';

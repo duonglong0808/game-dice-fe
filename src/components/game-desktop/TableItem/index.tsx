@@ -73,6 +73,7 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     },
     ref
   ) => {
+    const { gamePoint } = useAppSelector((state) => state.userCurrent);
     const { gameDiceId } = useAppSelector((state) => state.diceGame);
     const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
     let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
@@ -153,18 +154,19 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
 
       if (transaction && gameDiceId && Number(statusDice) == StatusDiceDetail.bet) {
         try {
-          if (curChip) {
+          if (curChip && gamePoint) {
+            const pointBet = curChip < gamePoint ? curChip : gamePoint;
             const requestBet = await axios.post('/history-play', {
               transaction,
               gameDiceId,
               diceDetailId,
-              point: curChip,
+              point: pointBet,
               answer: positionAnswer,
             });
             if (requestBet?.data) {
               onBetSuccess();
-              dispatch(updatePointUser({ gamePoint: -curChip }));
-              setPointBetPosition((pre) => pre + curChip);
+              dispatch(updatePointUser({ gamePoint: -pointBet }));
+              setPointBetPosition((pre) => pre + pointBet);
             }
           }
         } catch (error: any) {
