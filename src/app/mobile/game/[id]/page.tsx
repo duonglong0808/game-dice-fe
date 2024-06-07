@@ -19,9 +19,9 @@ import { DiceResultTXLive } from '@/components/game/DiceResultTXLive';
 import { ChatLiveMobile } from '../components/ChatLiveMobile';
 import { ShowMessageLive } from '@/components/game/ShowMessageLive';
 import CountDownBet from '@/components/game/CountDown';
-import { useHandleMessageWsk } from './ultils/handleDetail';
+import { useHandleMessageWsk } from '../../../../ultils/handleDetail';
 import { ShowResultDice } from '@/components/game/ShowResultDice';
-import { betDice } from './ultils/api';
+import { betDice } from '../../../../ultils/api';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
 function getLocalStream() {

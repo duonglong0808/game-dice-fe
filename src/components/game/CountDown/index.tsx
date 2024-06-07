@@ -1,14 +1,35 @@
 'use client';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-import { useEffect, useRef, useState } from 'react';
-import { useAppSelector } from '@/lib';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/lib';
 import { StatusDiceDetail } from '@/constants';
+import { betDice } from '@/ultils/api';
+import { resetDataBetDice } from '@/lib/redux/app/diceDetail.slice';
+import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 
 const cx = classNames.bind(styles);
 
-export default function CountDownBet() {
-  const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
+export default function CountDownBet({
+  setTotalPointBet,
+  dataBetConfirmOld,
+  setDataBetConfirmOld,
+}: {
+  setTotalPointBet?: React.Dispatch<React.SetStateAction<number>>;
+  setDataBetConfirmOld?: React.Dispatch<
+    React.SetStateAction<
+      {
+        point: number;
+        answer: number;
+      }[]
+    >
+  >;
+  dataBetConfirmOld?: {
+    point: number;
+    answer: number;
+  }[];
+}) {
+  const { dataDiceDetailCurrent, dataBetCurrent } = useAppSelector((state) => state.diceDetail);
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
   let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
   const dataStatusDice =
@@ -36,6 +57,58 @@ export default function CountDownBet() {
     }
   }, [count]);
 
+  // Xác nhận, hủy đặt cược
+  const dispatch = useAppDispatch();
+  const handleConfirmBet = async () => {
+    const transaction = dataDiceDetailById?.transaction || 1;
+    const gameDiceId = dataDiceDetailById?.gameDiceId || 1;
+    const diceDetailId = dataDiceDetailById?.diceDetailId || 1;
+    const dataBetTg = [...dataBetCurrent];
+    if (
+      dataBetTg.length &&
+      transaction &&
+      gameDiceId &&
+      Number(statsDiceDetail) == StatusDiceDetail.bet
+    ) {
+      dispatch(resetDataBetDice());
+      const reqBets = await Promise.all(
+        dataBetTg.map(async (bet) => {
+          const data = {
+            transaction,
+            gameDiceId,
+            diceDetailId,
+            point: bet.point,
+            answer: bet.answer,
+          };
+          const req = await betDice(data);
+
+          return {
+            answer: bet.answer,
+            point: req?.data ? bet.point : 0,
+          };
+        })
+      );
+
+      // const newDataBetConfirm = [...dataBetConfirmOld.current];
+      let totalBetSuc = 0;
+      reqBets.map((item) => {
+        totalBetSuc += item.point;
+        const newDataBetConfirmOld = dataBetConfirmOld ? [...dataBetConfirmOld] : [];
+        const checkExits = newDataBetConfirmOld.find((i) => i.answer == item.answer);
+        if (checkExits) checkExits.point = item.point + checkExits.point;
+        newDataBetConfirmOld.push(item);
+        console.log(
+          '🚀 ~ reqBets.map ~ dataBetConfirmOld:',
+          dataBetConfirmOld,
+          newDataBetConfirmOld
+        );
+        setDataBetConfirmOld && setDataBetConfirmOld(newDataBetConfirmOld);
+      });
+      setTotalPointBet && setTotalPointBet((pre) => pre + totalBetSuc);
+      dispatch(updatePointUser({ gamePoint: -totalBetSuc }));
+    }
+  };
+
   return count ? (
     <>
       <div className={cx('wrapper', { sec10: count <= 10 })}>
@@ -44,7 +117,13 @@ export default function CountDownBet() {
         <div className={cx('loadingImg')}></div>
       </div>
       <div className={cx('wrapper-control')}>
-        <div className={cx('wrapper-control__box')}>
+        <div
+          className={cx('wrapper-control__box')}
+          onClick={() => {
+            if (statsDiceDetail == StatusDiceDetail.bet) {
+              dispatch(resetDataBetDice());
+            }
+          }}>
           <div className={cx('wrapper-control__box--bg')}></div>
           <div className={cx('wrapper-control__item', 'wrapper-control__rollback')}></div>
         </div>
@@ -52,7 +131,7 @@ export default function CountDownBet() {
           <div className={cx('wrapper-control__box--bg')}></div>
           <div className={cx('wrapper-control__item', 'wrapper-control__swapper')}></div>
         </div>
-        <div className={cx('wrapper-control__box')}>
+        <div className={cx('wrapper-control__box')} onClick={handleConfirmBet}>
           <div className={cx('wrapper-control__box--bg')}></div>
           <div className={cx('wrapper-control__item', 'wrapper-control__check')}></div>
         </div>

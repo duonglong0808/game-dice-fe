@@ -9,7 +9,11 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import TableItem from '../TableItem';
 import ToolTipGame from '../ToolTip';
 import Image from 'next/image';
-import { setIndexChipsRedux } from '@/lib/redux/app/diceDetail.slice';
+import {
+  resetDataBetDice,
+  setIndexChipsRedux,
+  updateDataBetDice,
+} from '@/lib/redux/app/diceDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { ShowResultDice } from '@/components/game/ShowResultDice';
 import CountDownBet from '@/components/game/CountDown';
@@ -27,6 +31,9 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const [indexChips, setIndexChips] = useState<number[]>(indexChipsRedux);
   const [openListPhinh, setOpenListPhinh] = useState(false);
   const dispatch = useAppDispatch();
+  const [dataBetConfirmOld, setDataBetConfirmOld] = useState<{ point: number; answer: number }[]>(
+    []
+  );
 
   // Ref
   // const videoRef = useRef<HTMLVideoElement>(null);
@@ -39,7 +46,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
     position: { x: 0, y: 0 },
   });
   const [curChip, setCurChip] = useState<number>(0);
-  const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
+  const { dataDiceDetailCurrent, dataBetCurrent } = useAppSelector((state) => state.diceDetail);
   const { diceGame } = useAppSelector((state) => state.diceGame);
   const diceGameById = diceGame.find((d) => d.id === gameDiceId);
   let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
@@ -56,6 +63,20 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const arrBetActive = dataDiceDetailById?.arrBetActive;
   const totalRed = dataDiceDetailById?.totalRed;
 
+  // Bet
+  const onBetPosition = (positionAns: number) => {
+    if (curChip) {
+      const sumBet = dataBetCurrent.reduce((pre, item) => pre + item.point, 0);
+      if (sumBet < gamePoint)
+        dispatch(
+          updateDataBetDice({
+            answer: positionAns,
+            point: Number(sumBet + curChip < gamePoint ? curChip : gamePoint - sumBet),
+          })
+        );
+    }
+  };
+
   // Handle Message
   const [message, setMessage] = useState('');
   const [totalPointBet, setTotalBet] = useState(0);
@@ -67,6 +88,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           setMessage('Đã bắt đầu vui lòng đặt cược');
           break;
         case StatusDiceDetail.waitOpen:
+          setDataBetConfirmOld([]);
+          dispatch(resetDataBetDice());
           setMessage('Chờ mở thưởng');
           break;
         case StatusDiceDetail.end:
@@ -81,7 +104,6 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               setMessage(String(`+${Math.ceil(gamePoint - gamePointRef.current + totalPointBet)}`));
             else setMessage(String(gamePoint - gamePointRef.current));
             gamePointRef.current = gamePoint;
-
             setTotalBet(0);
           }
           break;
@@ -153,7 +175,11 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           bottom: 0,
         }}></div>
       {totalRed && <ShowResultDice totalRed={totalRed} />}
-      <CountDownBet />
+      <CountDownBet
+        setTotalPointBet={setTotalBet}
+        setDataBetConfirmOld={setDataBetConfirmOld}
+        dataBetConfirmOld={dataBetConfirmOld}
+      />
       {/* {countDown && <CountDownBet initCount={countDown} />} */}
       {message ? (
         <div className={cx('message__box')} ref={messageRef}>
@@ -171,6 +197,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           <div className={cx('d3__col')}>
             <TableItem
               className={cx('d3__col__row--1')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 1)?.point || 0}
               points={0}
               positionAnswer={1}
               curChip={curChip}
@@ -181,6 +209,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               isHighlight={Boolean(arrBetActive?.includes('p_0'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 2)?.point || 0}
               points={1}
               positionAnswer={2}
               curChip={curChip}
@@ -191,6 +221,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               isHighlight={Boolean(arrBetActive?.includes('p_1'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 3)?.point || 0}
               points={2}
               positionAnswer={3}
               curChip={curChip}
@@ -203,6 +235,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           <div className={cx('d3__col')}>
             <TableItem
               positionAnswer={4}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 4)?.point || 0}
               className={cx('d3__col__row--2')}
               points={0}
               curChip={curChip}
@@ -214,6 +248,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               isHighlight={Boolean(arrBetActive?.includes('p_chan'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--2')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 5)?.point || 0}
               points={0}
               curChip={curChip}
               positionAnswer={5}
@@ -228,6 +264,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           <div className={cx('d3__col')}>
             <TableItem
               className={cx('d3__col__row--2')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 6)?.point || 0}
               points={0}
               curChip={curChip}
               positionAnswer={6}
@@ -239,6 +277,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               isHighlight={Boolean(arrBetActive?.includes('p_le'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--2')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 7)?.point || 0}
               points={0}
               curChip={curChip}
               positionAnswer={7}
@@ -254,6 +294,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
           <div className={cx('d3__col')}>
             <TableItem
               className={cx('d3__col__row--1')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 8)?.point || 0}
               points={4}
               curChip={curChip}
               positionAnswer={8}
@@ -264,6 +306,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               isHighlight={Boolean(arrBetActive?.includes('p_4'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 9)?.point || 0}
               points={3}
               curChip={curChip}
               positionAnswer={9}
@@ -274,6 +318,8 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
               isHighlight={Boolean(arrBetActive?.includes('p_3'))}></TableItem>
             <TableItem
               className={cx('d3__col__row--1')}
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 10)?.point || 0}
               points={-1}
               positionAnswer={10}
               ratio={6.5}

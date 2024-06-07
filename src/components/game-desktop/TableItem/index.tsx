@@ -4,8 +4,7 @@ import React, { forwardRef, HTMLAttributes, useCallback, useEffect, useState } f
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
 import { ICheckHover, StatusDiceDetail } from '@/constants';
-import { BaseAxios, useAppDispatch, useAppSelector } from '@/lib';
-import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
+import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,6 +13,8 @@ interface TableItemProps extends HTMLAttributes<HTMLDivElement> {
   isHighlight: boolean;
   curChip: number;
   positionAnswer: number;
+  betConfirmOld: number;
+  onBetPosition: (position: number) => void;
   onBetSuccess: () => void;
   onHover?: (iCheckHover: ICheckHover) => void;
   points?: number;
@@ -63,6 +64,8 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
       className,
       points,
       ratio,
+      betConfirmOld,
+      onBetPosition,
       onHover,
       isLeft,
       isHighlight,
@@ -73,11 +76,13 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     },
     ref
   ) => {
-    const { gamePoint } = useAppSelector((state) => state.userCurrent);
+    // const [pointBetPosition, setPointBetPosition] = useState(0);
+    const { dataBetCurrent } = useAppSelector((state) => state.diceDetail);
+    const pointBetPosition =
+      betConfirmOld + (dataBetCurrent.find((i) => i.answer == positionAnswer)?.point || 0);
     const { gameDiceId } = useAppSelector((state) => state.diceGame);
     const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
     let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
-    const [pointBetPosition, setPointBetPosition] = useState(0);
     const statusDice =
       typeof dataDiceDetailById?.status == 'string'
         ? dataDiceDetailById?.status?.split(':')[0]
@@ -139,41 +144,9 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
     );
 
     useEffect(() => {
-      if (Number(statusDice) > StatusDiceDetail.prepare) setPointBetPosition(0);
+      // if (Number(statusDice) > StatusDiceDetail.prepare) setPointBetPosition(0);
       if (Number(statusDice) == StatusDiceDetail.end) setTotalBetServer(0);
     }, [statusDice]);
-
-    const dispatch = useAppDispatch();
-    const chooseBet = async () => {
-      // console.log(position);
-      const axios = new BaseAxios(process.env.API_GAME_DICE);
-
-      const transaction = dataDiceDetailById?.transaction;
-      const gameDiceId = dataDiceDetailById?.gameDiceId;
-      const diceDetailId = dataDiceDetailById?.diceDetailId;
-
-      if (transaction && gameDiceId && Number(statusDice) == StatusDiceDetail.bet) {
-        try {
-          if (curChip && gamePoint) {
-            const pointBet = curChip < gamePoint ? curChip : gamePoint;
-            const requestBet = await axios.post('/history-play', {
-              transaction,
-              gameDiceId,
-              diceDetailId,
-              point: pointBet,
-              answer: positionAnswer,
-            });
-            if (requestBet?.data) {
-              onBetSuccess();
-              dispatch(updatePointUser({ gamePoint: -pointBet }));
-              setPointBetPosition((pre) => pre + pointBet);
-            }
-          }
-        } catch (error: any) {
-          alert(error.message);
-        }
-      }
-    };
 
     return (
       <div
@@ -185,7 +158,7 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
         ref={ref}
         onClick={() => {
           if (statusDice == StatusDiceDetail.bet) {
-            chooseBet();
+            onBetPosition(positionAnswer);
           }
         }}
         {...otherProps}>
@@ -287,3 +260,35 @@ const TableItem = forwardRef<HTMLDivElement, TableItemProps>(
 );
 
 export default TableItem;
+
+// const dispatch = useAppDispatch();
+//     const chooseBet = async () => {
+//       // console.log(position);
+//       const axios = new BaseAxios(process.env.API_GAME_DICE);
+
+//       const transaction = dataDiceDetailById?.transaction;
+//       const gameDiceId = dataDiceDetailById?.gameDiceId;
+//       const diceDetailId = dataDiceDetailById?.diceDetailId;
+
+//       if (transaction && gameDiceId && Number(statusDice) == StatusDiceDetail.bet) {
+//         try {
+//           if (curChip && gamePoint) {
+//             const pointBet = curChip < gamePoint ? curChip : gamePoint;
+//             const requestBet = await axios.post('/history-play', {
+//               transaction,
+//               gameDiceId,
+//               diceDetailId,
+//               point: pointBet,
+//               answer: positionAnswer,
+//             });
+//             if (requestBet?.data) {
+//               onBetSuccess();
+//               dispatch(updatePointUser({ gamePoint: -pointBet }));
+//               setPointBetPosition((pre) => pre + pointBet);
+//             }
+//           }
+//         } catch (error: any) {
+//           alert(error.message);
+//         }
+//       }
+//     };
