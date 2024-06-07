@@ -77,16 +77,40 @@ export function SliderBarGame(): JSX.Element {
           })}>
           MC Baccarat
         </li>
-        <li className={cx('item-game', 'item-game__chinaBacca')}>China Baccarat</li>
-        <li className={cx('item-game', 'item-game__blockchainBacca')}>Blockchain Baccarat</li>
-        <li className={cx('item-game')}>Sic Bo</li>
-        <li className={cx('item-game')}>Rồng hổ</li>
-        <li className={cx('item-game')}>Trác Kim Hoa</li>
-        <li className={cx('item-game')}>Roulette</li>
-        <li className={cx('item-game')}>Blockchain Ba Tây</li>
-        <li className={cx('item-game')}>Ngầu Hầm</li>
-        <li className={cx('item-game')}>Blockchain Pokdeng</li>
-        <li className={cx('item-game')}>Nhiều bản</li>
+        <li
+          onClick={() => router.replace('?game=other')}
+          className={cx('item-game', 'item-game__chinaBacca')}>
+          China Baccarat
+        </li>
+        <li
+          onClick={() => router.replace('?game=other')}
+          className={cx('item-game', 'item-game__blockchainBacca')}>
+          Blockchain Baccarat
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Sic Bo
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Rồng hổ
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Trác Kim Hoa
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Roulette
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Blockchain Ba Tây
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Ngầu Hầm
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Blockchain Pokdeng
+        </li>
+        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+          Nhiều bản
+        </li>
       </ul>
     </div>
   );

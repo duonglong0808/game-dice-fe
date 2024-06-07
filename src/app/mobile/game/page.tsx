@@ -276,8 +276,12 @@ export default function PageGame(): JSX.Element {
                 <div
                   key={index}
                   onClick={() => {
-                    dispatch(setGameDiceId({ id: item.id }));
-                    router.push(`/mobile/game/${item.id}`);
+                    dispatch(
+                      setGameDiceId({ id: index < 2 ? item.id : data[index % 2 == 0 ? 0 : 1].id })
+                    );
+                    router.push(
+                      `/mobile/game/${index < 2 ? item.id : data[index % 2 == 0 ? 0 : 1].id}`
+                    );
                   }}
                   className="w-full mb-1 rounded-sm border-[1px] border-[#484848] relative bg-gradient-to-b-[#2a2a2a_0%,#131313_100%]">
                   <div className="flex justify-between bg-[#484647]">
@@ -322,12 +326,16 @@ export default function PageGame(): JSX.Element {
                     <div className="flex-1 flex ml-1 l">
                       <div className="basis-1/2">
                         <div className="border-r-[1px] border-[#979797]">
-                          <EvenOddResult gameDiceId={item.id} />
+                          <EvenOddResult
+                            gameDiceId={index < 2 ? item.id : data[index % 2 == 0 ? 0 : 1].id}
+                          />
                         </div>
                       </div>
 
                       <div className="basis-1/2">
-                        <DiceResultTX gameDiceId={item.id} />
+                        <DiceResultTX
+                          gameDiceId={index < 2 ? item.id : data[index % 2 == 0 ? 0 : 1].id}
+                        />
                       </div>
                       {/* <div className="basis-1/2">
                       <EvenOddResult gameDiceId={item.id} />
