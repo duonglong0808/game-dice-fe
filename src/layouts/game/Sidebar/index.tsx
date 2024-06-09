@@ -16,7 +16,7 @@ export function SliderBarGame(): JSX.Element {
   const game = searchParams.get('game');
 
   // TODO: unable  with prod
-  if (!userName) redirect('error');
+  // if (!userName) redirect('error');
 
   const clickAutoConfirm = (e: any) => {
     const element = e.target as HTMLElement;
@@ -71,9 +71,9 @@ export function SliderBarGame(): JSX.Element {
           Xóc đĩa
         </li>
         <li
-          onClick={() => router.replace('?game=mc-baca')}
+          onClick={() => router.replace('?game=mc-bacca')}
           className={cx('item-game', 'item-game__mc', {
-            'item-game__mc--active': game == 'mc-baca',
+            'item-game__mc--active': game == 'mc-bacca',
           })}>
           MC Baccarat
         </li>

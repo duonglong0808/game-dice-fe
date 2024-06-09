@@ -6,6 +6,7 @@ import { SliderHome } from '@/components/game-desktop/DiceSlider';
 import { useSearchParams } from 'next/navigation';
 import { DicesHome } from '@/components/game-desktop/DicesHome';
 import { GameMainTain } from '@/components/game/GameMaintain';
+import { BaccaratHome } from '@/components/game-desktop/BaccaratHome';
 
 export default function GamePage(): JSX.Element {
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
@@ -29,7 +30,13 @@ export default function GamePage(): JSX.Element {
             }}>
             <div className="grid grid-cols-3 gap-4">
               {/*  */}
-              {game === 'dice' ? <DicesHome /> : <GameMainTain />}
+              {game === 'dice' ? (
+                <DicesHome />
+              ) : game === 'mc-bacca' ? (
+                <BaccaratHome />
+              ) : (
+                <GameMainTain />
+              )}
             </div>
           </div>
         </>
