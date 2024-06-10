@@ -5,6 +5,7 @@ import { TypeGameBaccarat } from '@/constants';
 import { EvenOddResult } from '@/components/game/EvenOddResult';
 import { DiceResultTX } from '@/components/game/DiceResultTX';
 import { HistoryBPT } from '@/components/game-baccarat/HistoryBPT';
+import { HistoryOX } from '@/components/game-baccarat/HistoryOX';
 
 const cx = classNames.bind(styles);
 
@@ -40,6 +41,12 @@ export function BaccaratItem({
       break;
     case 'phl':
       imageNational = "url('/Content/images/bg_anchor_03.png')";
+      break;
+    case 'tl':
+      imageNational = "url('/Content/images/bg_anchor_02.png')";
+      break;
+    case 'ind':
+      imageNational = "url('/Content/images/bg_anchor_06.png')";
       break;
     default:
       break;
@@ -86,6 +93,7 @@ export function BaccaratItem({
         </div>
         <div className={cx('list-result')}>
           <HistoryBPT baccaratId={id} />
+          <HistoryOX />
           {/* <DiceResultTX gameDiceId={id} /> */}
           {/* <EvenOddResult gameDiceId={id} /> */}
         </div>

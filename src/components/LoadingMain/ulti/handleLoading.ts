@@ -8,11 +8,11 @@ export const handleLoginGame = async (
   refresh_token: string,
   dispatch: any
 ) => {
-  sessionStorage.setItem('access_token', access_token);
-  sessionStorage.setItem('refresh_token', refresh_token);
+  // sessionStorage.setItem('access_token', access_token);
+  // sessionStorage.setItem('refresh_token', refresh_token);
 
-  // localStorage.setItem('access_token', access_token);
-  // localStorage.setItem('refresh_token', refresh_token);
+  localStorage.setItem('access_token', access_token);
+  localStorage.setItem('refresh_token', refresh_token);
 
   const userInfo = await getUserInfo();
   if (userInfo) {
