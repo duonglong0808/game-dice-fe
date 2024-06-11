@@ -46,6 +46,7 @@ export const TypeGameDice = {
 export const TypeGameBaccarat = {
   normal: '0',
   flash: '1',
+  mi: '2',
 };
 
 export const StatusDiceDetail = {

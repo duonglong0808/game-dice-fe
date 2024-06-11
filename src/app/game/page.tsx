@@ -7,17 +7,23 @@ import { useSearchParams } from 'next/navigation';
 import { DicesHome } from '@/components/game-desktop/DicesHome';
 import { GameMainTain } from '@/components/game/GameMaintain';
 import { BaccaratHome } from '@/components/game-desktop/BaccaratHome';
+import { BaccaratDetailView } from '@/components/game-desktop/BaccaratDetailView';
 
 export default function GamePage(): JSX.Element {
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
+  console.log('🚀 ~ GamePage ~ gameBaccaratId:', gameBaccaratId);
   const searchParams = useSearchParams();
   const game = searchParams.get('game') || 'dice';
-  console.log('🚀 ~ GamePage ~ game:', game);
 
   return (
     <div className="w-full">
-      {gameDiceId ? (
-        <XocDiaDetailsView gameDiceId={gameDiceId} />
+      {gameDiceId || gameBaccaratId ? (
+        gameDiceId ? (
+          <XocDiaDetailsView gameDiceId={gameDiceId} />
+        ) : (
+          <BaccaratDetailView />
+        )
       ) : (
         <>
           <SliderHome />
@@ -29,7 +35,6 @@ export default function GamePage(): JSX.Element {
               paddingLeft: 8,
             }}>
             <div className="grid grid-cols-3 gap-4">
-              {/*  */}
               {game === 'dice' ? (
                 <DicesHome />
               ) : game === 'mc-bacca' ? (

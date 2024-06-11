@@ -2,8 +2,6 @@ import classNames from 'classnames/bind';
 import styles from './baccaratItem.module.scss';
 import Image from 'next/image';
 import { TypeGameBaccarat } from '@/constants';
-import { EvenOddResult } from '@/components/game/EvenOddResult';
-import { DiceResultTX } from '@/components/game/DiceResultTX';
 import { HistoryBPT } from '@/components/game-baccarat/HistoryBPT';
 import { HistoryOX } from '@/components/game-baccarat/HistoryOX';
 
@@ -17,7 +15,7 @@ export function BaccaratItem({
   image,
   national,
   nameAuthor,
-  valueN,
+  valueB,
   valueP,
   valueT,
   id,
@@ -30,7 +28,7 @@ export function BaccaratItem({
   image: string;
   national: string;
   nameAuthor: string;
-  valueN: number;
+  valueB: number;
   valueP: number;
   valueT: number;
 }): JSX.Element {
@@ -59,6 +57,7 @@ export function BaccaratItem({
           <span
             className={cx('header__type', {
               'header__type--flash': TypeGameBaccarat.flash == type,
+              'header__type--mi': TypeGameBaccarat.mi == type,
             })}>
             {typeText}
           </span>
@@ -102,7 +101,7 @@ export function BaccaratItem({
         <div className={cx('total__play')}>
           <div className={cx('total__play__B')}>
             <span className={cx('total__play--text')}>B</span>
-            <span className={cx('total__play--value')}>{valueN}</span>
+            <span className={cx('total__play--value')}>{valueB}</span>
           </div>
           <div className={cx('total__play__P')}>
             <span className={cx('total__play--text')}>P</span>

@@ -1,0 +1,32 @@
+.live_action {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  top: 10.8%;
+  bottom: 20%;
+  left: 0;
+  right: 0;
+  perspective: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-left: 4px;
+}
+
+.item__table--active {
+  background: url('');
+}
+
+.d3 {
+  margin: 0 auto;
+  margin-bottom: -48px;
+  width: 90.5%;
+  box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s;
+  transform: rotateX(50deg);
+  transform-style: flat;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+}

@@ -4,16 +4,21 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useAppSelector } from '@/lib';
+import { useAppDispatch, useAppSelector } from '@/lib';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
+import { setGameBaccaratId } from '@/lib/redux/app/baccaratGame.slice';
 
 const cx = classNames.bind(styles);
 
 export function SliderBarGame(): JSX.Element {
   const { name, userName, gamePoint } = useAppSelector((state) => state.userCurrent);
+  const { gameDiceId } = useAppSelector((state) => state.diceGame);
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   const router = useRouter();
   const searchParams = useSearchParams();
   const game = searchParams.get('game');
+  const dispatch = useAppDispatch();
 
   // TODO: unable  with prod
   // if (!userName) redirect('error');
@@ -21,6 +26,14 @@ export function SliderBarGame(): JSX.Element {
   const clickAutoConfirm = (e: any) => {
     const element = e.target as HTMLElement;
     element.classList.toggle(cx('auto-confirm__check'));
+  };
+
+  const handleClickGame = (game: string) => {
+    if (gameDiceId || gameBaccaratId) {
+      dispatch(setGameDiceId({ id: undefined }));
+      dispatch(setGameBaccaratId({ id: undefined }));
+    }
+    router.replace(`?game=${game}`);
   };
 
   return (
@@ -66,49 +79,49 @@ export function SliderBarGame(): JSX.Element {
 
       <ul className={cx('list-game')}>
         <li
-          onClick={() => router.replace('?game=')}
+          onClick={() => handleClickGame('')}
           className={cx('item-game', { 'item-game-xd__active': !game })}>
           Xóc đĩa
         </li>
         <li
-          onClick={() => router.replace('?game=mc-bacca')}
+          onClick={() => handleClickGame('mc-bacca')}
           className={cx('item-game', 'item-game__mc', {
             'item-game__mc--active': game == 'mc-bacca',
           })}>
           MC Baccarat
         </li>
         <li
-          onClick={() => router.replace('?game=other')}
+          onClick={() => handleClickGame('other')}
           className={cx('item-game', 'item-game__chinaBacca')}>
           China Baccarat
         </li>
         <li
-          onClick={() => router.replace('?game=other')}
+          onClick={() => handleClickGame('other')}
           className={cx('item-game', 'item-game__blockchainBacca')}>
           Blockchain Baccarat
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Sic Bo
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Rồng hổ
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Trác Kim Hoa
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Roulette
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Blockchain Ba Tây
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Ngầu Hầm
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Blockchain Pokdeng
         </li>
-        <li onClick={() => router.replace('?game=other')} className={cx('item-game')}>
+        <li onClick={() => handleClickGame('other')} className={cx('item-game')}>
           Nhiều bản
         </li>
       </ul>

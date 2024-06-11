@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
+import { setGameBaccaratId } from '@/lib/redux/app/baccaratGame.slice';
 
 function formatNumber(number: number): string {
   number = +number.toFixed(1);
@@ -31,6 +32,7 @@ export function HeaderGame(): JSX.Element {
   const numberCd = useRef(1534321.5);
   const [render, setRender] = useState(true);
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   const dispatch = useAppDispatch();
 
   const mood = useRef('');
@@ -163,8 +165,9 @@ export function HeaderGame(): JSX.Element {
             <div
               className={cx('header-control__logout', 'header-control__item')}
               onClick={() => {
-                if (gameDiceId) {
+                if (gameDiceId || gameBaccaratId) {
                   dispatch(setGameDiceId({ id: undefined }));
+                  dispatch(setGameBaccaratId({ id: undefined }));
                 } else {
                   console.log('tắt');
                   window.close();
