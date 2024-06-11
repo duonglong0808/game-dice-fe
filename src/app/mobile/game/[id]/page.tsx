@@ -7,11 +7,7 @@ import { TableItemMobile } from '../components/TableItem';
 import ChipsList from '@/components/game/ChipList/index.';
 import Image from 'next/image';
 import { StatusDiceDetail, dataListChipsStatistics } from '@/constants';
-import {
-  resetDataBetDice,
-  setIndexChipsRedux,
-  updateDataBetDice,
-} from '@/lib/redux/app/diceDetail.slice';
+import { resetDataBetDice, updateDataBetDice } from '@/lib/redux/app/diceDetail.slice';
 import classNames from 'classnames';
 import { HistoryDiceGameDetail } from '@/components/game/HistoryDiceGameDetail';
 import { EvenOddResultLive } from '@/components/game/EvenOddResultLive';
@@ -23,6 +19,7 @@ import { useHandleMessageWsk } from '../../../../ultils/handleDetail';
 import { ShowResultDice } from '@/components/game/ShowResultDice';
 import { betDice } from '../../../../ultils/api';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
+import { setIndexChipsRedux } from '@/lib/redux/system/settingSys';
 
 function getLocalStream() {
   navigator.mediaDevices

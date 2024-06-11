@@ -1,10 +1,21 @@
-// .parabol {
-//   width: 100%;
-//   height: 100%;
-//   background-color: transparent;
-//   border-top-left-radius: 110px;
-//   border-top-right-radius: 110px;
-//   border: 10px solid gray;
-//   border-bottom: 0;
-//   transform: rotate(180deg);
-// }
+.parabol {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -142%;
+    width: 100%;
+    height: 240%;
+    background-color: transparent;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    //   border-radius: 50%;
+    // border: 1px solid transparent;
+    border-bottom: 0;
+    transform: rotate(180deg);
+  }
+}

@@ -29,9 +29,6 @@ const DiceDetailSlice = createSlice({
     dataBetCurrent: [],
   } as DiceDetailSlice,
   reducers: {
-    setIndexChipsRedux: (state, action) => {
-      state.indexChips = action.payload.indexChips;
-    },
     setDataDiceInitiated: (state, action) => {
       if (!state.dataDiceDetail.length) {
         state.dataDiceDetail = action.payload.dataDiceDetail;
@@ -109,7 +106,6 @@ const DiceDetailSlice = createSlice({
 });
 
 export const {
-  setIndexChipsRedux,
   updateOrAddDataDiceDetail,
   updateListDataDiceDetail,
   setDataDiceInitiated,

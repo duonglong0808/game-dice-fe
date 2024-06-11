@@ -18,7 +18,8 @@ export default function ChipsList({
   setChips: (num: number) => void;
   alwayActive?: boolean;
 }) {
-  const { indexChips, dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
+  const { indexChips } = useAppSelector((state) => state.settingApp);
+  const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
   let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
   const statusDice =

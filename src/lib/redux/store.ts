@@ -4,6 +4,7 @@ import userCurrentReduce from './app/userCurrent.slice';
 import diceGameReduce from './app/diceGame.slice';
 import diceDetailReduce from './app/diceDetail.slice';
 import baccaratGameReduce from './app/baccaratGame.slice';
+import baccaratDetailReduce from './app/baccaratDetail.slice';
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const makeStore = () => {
       diceGame: diceGameReduce,
       diceDetail: diceDetailReduce,
       baccaratGame: baccaratGameReduce,
+      baccaratDetail: baccaratDetailReduce,
     },
   });
 };

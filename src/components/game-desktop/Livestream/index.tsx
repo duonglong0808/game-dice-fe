@@ -4,20 +4,15 @@ import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
-import { ICheckHover, StatusDiceDetail, dataListChipsStatistics } from '@/constants';
+import { ICheckHover, StatusDiceDetail } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import TableItem from '../TableItem';
 import ToolTipGame from '../ToolTip';
-import Image from 'next/image';
-import {
-  resetDataBetDice,
-  setIndexChipsRedux,
-  updateDataBetDice,
-} from '@/lib/redux/app/diceDetail.slice';
+import { resetDataBetDice, updateDataBetDice } from '@/lib/redux/app/diceDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { ShowResultDice } from '@/components/game/ShowResultDice';
 import CountDownBet from '@/components/game/CountDown';
-import ChipsList from '@/components/game/ChipList/index.';
+import { SelectChipsAndChosesChip } from '../SelectChipsAndChosesChip';
 // import ToolTipGame from '../tool-tip-game';
 // import { ChipsList } from '../chips-list';
 
@@ -337,68 +332,9 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
             <p className={cx('live_action__control--left__cuoc')}> Cược: </p>
             <p className={cx('live_action__control--left__value')}> 0 </p>
           </div>
-          <div className={cx('live_action__control--right')}>
-            <div className={cx('right__coins')}>
-              <ChipsList setChips={setCurChip} curChip={curChip} />
-            </div>
-            <div className={cx('right__action')}>
-              <div
-                className={cx('right__action__phinh')}
-                onClick={() => setOpenListPhinh((pre) => !pre)}></div>
-              {openListPhinh && (
-                <div className={cx('phing_wrapper')}>
-                  <div className={cx('body__chips', 'grid grid-cols-4')}>
-                    {dataListChipsStatistics.map((chip, index) => (
-                      <Image
-                        alt="chip phinh"
-                        src={indexChips.includes(index) ? chip.on : chip.off}
-                        key={index}
-                        width={68}
-                        height={68}
-                        className={cx('body__chips--item')}
-                        onClick={() => {
-                          if (indexChips.includes(index)) {
-                            setIndexChips((pre) => pre.filter((c) => c !== index));
-                          } else if (indexChips.length < 8) {
-                            setIndexChips((pre) => [...pre, index]);
-                          }
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <div className={cx('body__confirm')}>
-                    <div
-                      className={cx('body__confirm--cancel')}
-                      onClick={() => {
-                        setIndexChips(indexChipsRedux);
-                        setOpenListPhinh(false);
-                      }}></div>
-                    <span className={cx('body__confirm--text')}>
-                      Chọn tối đa
-                      <br></br>8 phỉnh
-                      <span className={cx('body__confirm--icon')}></span>
-                    </span>
-                    <button
-                      className={cx('body__confirm--btn')}
-                      onClick={() => {
-                        dispatch(setIndexChipsRedux({ indexChips }));
-                        setOpenListPhinh(false);
-                      }}>
-                      Xác nhận
-                    </button>
-                  </div>
-                </div>
-              )}
-              <div className={cx('right__action__auto')} />
-            </div>
-          </div>
-        </div>
 
-        {/* {hoverData.isHover && (
-          <ToolTipGame position={hoverData.position}>
-            <p>test</p>
-          </ToolTipGame>
-        )} */}
+          <SelectChipsAndChosesChip curChip={curChip} setCurChip={setCurChip} />
+        </div>
       </div>
     </div>
   );
