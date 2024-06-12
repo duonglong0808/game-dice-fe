@@ -91,8 +91,8 @@ export function BaccaratItem({
           )}
         </div>
         <div className={cx('list-result')}>
-          <HistoryBPT baccaratId={id} />
-          <HistoryOX />
+          <HistoryBPT baccaratId={id} initType="string" col={6} row={6} />
+          <HistoryOX col={20} baccaratId={id} row={8} />
           {/* <DiceResultTX gameDiceId={id} /> */}
           {/* <EvenOddResult gameDiceId={id} /> */}
         </div>

@@ -1,0 +1,15 @@
+.table__td {
+  &--live {
+    width: 18px;
+    height: 17px;
+  }
+
+  &--box {
+    &-live {
+      width: 18px;
+      height: 18px;
+      border-width: 2px;
+      border-color: transparent;
+    }
+  }
+}

@@ -2,10 +2,21 @@
 
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import styles from './styles.module.scss';
 
-const cx = classNames.bind({});
+const cx = classNames.bind(styles);
 
-export function HistoryOX(): JSX.Element {
+export function HistoryOX({
+  baccaratId,
+  col,
+  row,
+  isLive,
+}: {
+  row: number;
+  col: number;
+  baccaratId: number;
+  isLive?: boolean;
+}): JSX.Element {
   const [dataPosition, setDataPosition] = useState<any>({
     11: {
       value: 1, // Xanh rỗng
@@ -40,43 +51,53 @@ export function HistoryOX(): JSX.Element {
     <div className={cx('bg-white flex-1', 'wrapper')}>
       <table className={cx('CD_dataInput')} cellSpacing={0} cellPadding={0}>
         <tbody className={cx('table__body')}>
-          {Array.from({ length: 8 }, (v, k) => k + 1).map((rowIndex) => (
+          {Array.from({ length: row }, (v, k) => k + 1).map((rowIndex) => (
             <tr key={rowIndex} className={cx('table__tr')}>
-              {Array.from({ length: 20 }, (v, k) => k + 1).map((colIndex) => (
+              {Array.from({ length: col }, (v, k) => k + 1).map((colIndex) => (
                 <td
                   key={`${rowIndex}${colIndex}`}
                   className={cx(
                     'relative bg-white border-b-[1px] border-r-[1px] border-[#e6e6e6]',
                     'table__td',
-                    'dark:table__td--dark'
+                    'dark:table__td--dark',
+                    { 'table__td--live': isLive }
                   )}>
                   <div className="static w-full h-full block">
                     <div
                       className={cx(
-                        'text-white rounded-full h-3 w-3 text-xs text-center relative flex items-center justify-center',
+                        'text-white rounded-full text-xs text-center relative flex items-center justify-center',
                         {
-                          'border-[1px] border-[#0036ff]':
+                          'border-[1px] border-[#0036ff!important]':
                             dataPosition[`${colIndex}${rowIndex}`]?.value == 1 ||
                             dataPosition[`${colIndex}${rowIndex}`]?.value == 2,
-                          'border-[1px] border-[#dc0000]':
+                          'border-[1px] border-[#dc0000!important]':
                             dataPosition[`${colIndex}${rowIndex}`]?.value == 3 ||
                             dataPosition[`${colIndex}${rowIndex}`]?.value == 4,
-                          'text-[#3aaf00]': dataPosition[`${colIndex}${rowIndex}`]?.value == 5,
                           'bg-[url(/Content/images/icon_s6.svg)] bg-no-repeat bg-center bg-contain':
                             dataPosition[`${colIndex}${rowIndex}`]?.value == 6,
+                          'h-3 w-3': !isLive,
+                          'table__td--box-live': isLive,
                         }
                       )}>
                       {dataPosition[`${colIndex}${rowIndex}`]?.value != 6 ? (
                         <div
-                          className={cx('rounded-full w-[8px] h-[8px] bg-white', {
-                            'bg-[#7c98ff]': dataPosition[`${colIndex}${rowIndex}`]?.value == '2',
-                            'bg-[#fea2a2]': dataPosition[`${colIndex}${rowIndex}`]?.value == '4',
+                          className={cx('rounded-full w-[90%] h-[90%] bg-white', {
+                            'table__td--box': isLive,
+                            'bg-[#7c98ff!important]':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == '2',
+                            'bg-[#fea2a2!important]':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == '4',
                           })}></div>
                       ) : (
                         <></>
                       )}
                       {dataPosition[`${colIndex}${rowIndex}`]?.value == 5 ? (
-                        <div className={cx('font-semibold')}>X</div>
+                        <div
+                          className={cx('font-semibold text-[#3aaf00]', {
+                            'text-base': isLive,
+                          })}>
+                          X
+                        </div>
                       ) : (
                         <></>
                       )}
