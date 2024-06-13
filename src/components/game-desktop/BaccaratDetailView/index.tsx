@@ -7,6 +7,10 @@ import { GoodRoad } from '../GoodRoad';
 import { HistoryBPT } from '@/components/game-baccarat/HistoryBPT';
 import { useAppSelector } from '@/lib';
 import { HistoryOX } from '@/components/game-baccarat/HistoryOX';
+import { HistoryDetailBaccarat } from '@/components/game-baccarat/HistoryDetail';
+import { HistoryRingBaccarat } from '@/components/game-baccarat/HistoryRing';
+import { HistoryDotBaccarat } from '@/components/game-baccarat/HistoryDot';
+import { HistoryLineBaccarat } from '@/components/game-baccarat/HistoryLine';
 
 const cx = classNames.bind({});
 
@@ -29,6 +33,11 @@ export function BaccaratDetailView(): JSX.Element {
         <div className="flex">
           <div>
             <HistoryOX baccaratId={Number(gameBaccaratId)} col={25} row={6} isLive />
+            <div className="flex">
+              <HistoryRingBaccarat baccaratId={Number(gameBaccaratId)} />
+              <HistoryDotBaccarat baccaratId={Number(gameBaccaratId)} />
+              <HistoryLineBaccarat baccaratId={Number(gameBaccaratId)} />
+            </div>
           </div>
           <div className="w-[35px] bg-white">
             <div className="h-[50%] border-[1px] border-t-0 text-center border-[#979797]">
@@ -48,6 +57,7 @@ export function BaccaratDetailView(): JSX.Element {
               </div>
             </div>
           </div>
+          <HistoryDetailBaccarat baccaratId={Number(gameBaccaratId)} />
         </div>
 
         <GoodRoad />
