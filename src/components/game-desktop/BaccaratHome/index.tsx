@@ -4,7 +4,6 @@ import { useAppDispatch } from '@/lib';
 import { BaccaratItem } from '../BaccaratItem';
 import { useBaccaratGame } from '@/ultils/handleHomeBaccarat';
 import { setGameBaccaratId } from '@/lib/redux/app/baccaratGame.slice';
-import { TypeGameBaccarat } from '@/constants';
 
 export function BaccaratHome(): JSX.Element {
   const dispatch = useAppDispatch();

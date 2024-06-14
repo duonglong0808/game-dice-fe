@@ -13,3 +13,21 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .table__td {
+    &--live {
+      width: 10.5px;
+      height: 13.5px;
+    }
+
+    &--box {
+      &-live {
+        width: 10.5px;
+        height: 10.5px;
+        border-width: 1px;
+        border-color: transparent;
+      }
+    }
+  }
+}

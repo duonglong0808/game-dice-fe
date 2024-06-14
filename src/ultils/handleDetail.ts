@@ -10,7 +10,7 @@ import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import WebSocketSingleton from '@/lib/ws/wskInstance';
 import { useEffect } from 'react';
 
-export const useHandleMessageWsk = () => {
+export const useHandleMessageDiceWsk = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

@@ -34,9 +34,9 @@ export function BaccaratDetailView(): JSX.Element {
           <div>
             <HistoryOX baccaratId={Number(gameBaccaratId)} col={25} row={6} isLive />
             <div className="flex">
-              <HistoryRingBaccarat baccaratId={Number(gameBaccaratId)} />
-              <HistoryDotBaccarat baccaratId={Number(gameBaccaratId)} />
-              <HistoryLineBaccarat baccaratId={Number(gameBaccaratId)} />
+              <HistoryRingBaccarat col={9} row={3} baccaratId={Number(gameBaccaratId)} />
+              <HistoryDotBaccarat col={9} row={3} baccaratId={Number(gameBaccaratId)} />
+              <HistoryLineBaccarat col={9} row={3} baccaratId={Number(gameBaccaratId)} />
             </div>
           </div>
           <div className="w-[35px] bg-white">

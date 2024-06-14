@@ -48,8 +48,8 @@ export function HistoryOX({
   });
 
   return (
-    <div className={cx('bg-white flex-1', 'wrapper')}>
-      <table className={cx('CD_dataInput')} cellSpacing={0} cellPadding={0}>
+    <div className={cx('bg-white flex-1 border-[#979797] border-b-[1px] lg:border-b-0', 'wrapper')}>
+      <table className={cx('w-full h-full')} cellSpacing={0} cellPadding={0}>
         <tbody className={cx('table__body')}>
           {Array.from({ length: row }, (v, k) => k + 1).map((rowIndex) => (
             <tr key={rowIndex} className={cx('table__tr')}>
@@ -81,21 +81,27 @@ export function HistoryOX({
                       )}>
                       {dataPosition[`${colIndex}${rowIndex}`]?.value != 6 ? (
                         <div
-                          className={cx('rounded-full w-[90%] h-[90%] bg-white', {
-                            'table__td--box': isLive,
-                            'bg-[#7c98ff!important]':
-                              dataPosition[`${colIndex}${rowIndex}`]?.value == '2',
-                            'bg-[#fea2a2!important]':
-                              dataPosition[`${colIndex}${rowIndex}`]?.value == '4',
-                          })}></div>
+                          className={cx(
+                            'absolute top-[1px] left-[1px] right-[1px] bottom-[1px] rounded-full bg-white',
+                            {
+                              'table__td--box': isLive,
+                              'bg-[#7c98ff!important]':
+                                dataPosition[`${colIndex}${rowIndex}`]?.value == '2',
+                              'bg-[#fea2a2!important]':
+                                dataPosition[`${colIndex}${rowIndex}`]?.value == '4',
+                            }
+                          )}></div>
                       ) : (
                         <></>
                       )}
                       {dataPosition[`${colIndex}${rowIndex}`]?.value == 5 ? (
                         <div
-                          className={cx('font-semibold text-[#3aaf00]', {
-                            'text-base': isLive,
-                          })}>
+                          className={cx(
+                            'absolute top-[0] left-[0] right-[0] bottom-[0] font-semibold text-[#3aaf00]',
+                            {
+                              'text-[10px] lg:text-base': isLive,
+                            }
+                          )}>
                           X
                         </div>
                       ) : (
