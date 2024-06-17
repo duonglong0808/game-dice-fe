@@ -17,7 +17,7 @@ import { ShowResultDice } from '@/components/game/ShowResultDice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { setIndexChipsRedux } from '@/lib/redux/system/settingSys';
 import { useHandleMessageDiceWsk } from '@/ultils/handleDetail';
-import { betDice } from '@/ultils/api';
+import { betDiceAndBaccarat } from '@/ultils/api';
 import { TableItemMobile } from '@/app/mobile/game/components/TableItem';
 import { ChatLiveMobile } from '@/app/mobile/game/components/ChatLiveMobile';
 

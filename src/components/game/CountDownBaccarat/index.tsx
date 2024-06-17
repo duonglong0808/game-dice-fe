@@ -3,14 +3,14 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/lib';
-import { StatusDiceDetail } from '@/constants';
-import { betDiceAndBaccarat } from '@/ultils/api';
-import { resetDataBetDice } from '@/lib/redux/app/diceDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
+import { StatusBaccarat } from '@/constants';
+import { resetDataBetBaccarat } from '@/lib/redux/app/baccaratDetail.slice';
+import { betDiceAndBaccarat } from '@/ultils/api';
 
 const cx = classNames.bind(styles);
 
-export default function CountDownBet({
+export default function CountDownBetBaccarat({
   setTotalPointBet,
   dataBetConfirmOld,
   setDataBetConfirmOld,
@@ -29,25 +29,30 @@ export default function CountDownBet({
     answer: number;
   }[];
 }) {
-  const { dataDiceDetailCurrent, dataBetCurrent } = useAppSelector((state) => state.diceDetail);
-  const { gameDiceId } = useAppSelector((state) => state.diceGame);
-  let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
-  const dataStatusDice =
-    typeof dataDiceDetailById?.status == 'string'
-      ? dataDiceDetailById?.status?.split(':')
-      : [dataDiceDetailById?.status];
-  const statsDiceDetail = Number(dataStatusDice[0]);
-  const timeStartBet = Number(dataStatusDice[1]);
+  const { dataBaccaratDetailCurrent, dataBetCurrent } = useAppSelector(
+    (state) => state.baccaratDetail
+  );
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
+  let dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
+    (d) => d.gameBaccaratId == gameBaccaratId
+  );
+  const dataStatusBaccarat =
+    typeof dataBaccaratDetailById?.status == 'string'
+      ? dataBaccaratDetailById?.status?.split(':')
+      : [dataBaccaratDetailById?.status];
+  const statsBaccaratDetail = Number(dataStatusBaccarat[0]);
+  const timeStartBet = Number(dataStatusBaccarat[1]);
   const timeStamp = new Date().getTime();
   const [count, setCountDown] = useState(0);
 
   useEffect(() => {
-    if (statsDiceDetail == StatusDiceDetail.bet) {
+    if (statsBaccaratDetail == StatusBaccarat.bet) {
       let countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
-      if (typeof countDown == 'number' && countDown > 14) countDown = 14;
+      console.log('🚀 ~ useEffect ~ countDown:', countDown);
+      if (typeof countDown == 'number' && countDown > 19) countDown = 19;
       setCountDown(Number(countDown));
     }
-  }, [statsDiceDetail]);
+  }, [statsBaccaratDetail]);
 
   useEffect(() => {
     if (count >= 1) {
@@ -60,25 +65,26 @@ export default function CountDownBet({
   // Xác nhận, hủy đặt cược
   const dispatch = useAppDispatch();
   const handleConfirmBet = async () => {
-    const transaction = dataDiceDetailById?.transaction || 1;
-    const gameDiceId = dataDiceDetailById?.gameDiceId || 1;
-    const diceDetailId = dataDiceDetailById?.diceDetailId || 1;
+    const transaction = dataBaccaratDetailById?.transaction || 1;
+    const gameBaccaratId = dataBaccaratDetailById?.gameBaccaratId || 1;
+    const baccaratDetailId = dataBaccaratDetailById?.baccaratDetailId || 1;
     const dataBetTg = [...dataBetCurrent];
     if (
       dataBetTg.length &&
       transaction &&
-      gameDiceId &&
-      Number(statsDiceDetail) == StatusDiceDetail.bet
+      gameBaccaratId &&
+      Number(statsBaccaratDetail) == StatusBaccarat.bet
     ) {
-      dispatch(resetDataBetDice());
+      dispatch(resetDataBetBaccarat());
       const reqBets = await Promise.all(
         dataBetTg.map(async (bet) => {
           const data = {
             transaction,
-            gameDiceId,
-            diceDetailId,
+            gameBaccaratId,
+            baccaratDetailId,
             point: bet.point,
             answer: bet.answer,
+            game: 'mc-baccarat',
           };
           const req = await betDiceAndBaccarat(data);
 
@@ -120,8 +126,8 @@ export default function CountDownBet({
         <div
           className={cx('wrapper-control__box')}
           onClick={() => {
-            if (statsDiceDetail == StatusDiceDetail.bet) {
-              dispatch(resetDataBetDice());
+            if (statsBaccaratDetail == StatusBaccarat.bet) {
+              dispatch(resetDataBetBaccarat());
             }
           }}>
           <div className={cx('wrapper-control__box--bg')}></div>

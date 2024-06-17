@@ -1,10 +1,13 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TableItemBaccarat } from '../TableItemBacarat';
 import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
-import ChipsList from '@/components/game/ChipList/index.';
 import { SelectChipsAndChosesChip } from '../SelectChipsAndChosesChip';
+import { useAppDispatch, useAppSelector } from '@/lib';
+import CountDownBetBaccarat from '@/components/game/CountDownBaccarat';
+import { StatusBaccarat } from '@/constants';
+import { resetDataBetDice } from '@/lib/redux/app/diceDetail.slice';
 
 const cx = classNames.bind(styles);
 
@@ -12,9 +15,98 @@ export function ControllerBaccarat(): JSX.Element {
   const [typePlay, setTypePlay] = useState('old');
   const [totalBet, setTotalBet] = useState(0);
   const [curChip, setCurrChip] = useState(0);
+  const { dataBaccaratDetailCurrent, dataBetCurrent } = useAppSelector(
+    (state) => state.baccaratDetail
+  );
+  const { baccaratGame, gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
+  const gameBaccaratById = baccaratGame.find((baccarat) => baccarat.id === gameBaccaratId);
+  let dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
+    (d) => d.gameBaccaratId == gameBaccaratId
+  );
+  const dataStatusBaccarat =
+    typeof dataBaccaratDetailById?.status == 'string'
+      ? dataBaccaratDetailById?.status?.split(':')
+      : [dataBaccaratDetailById?.status];
+  const statsBaccaratDetail = Number(dataStatusBaccarat[0]);
+  const statsBaccaratDetailRef = useRef(statsBaccaratDetail);
+  const timeStartBet = Number(dataStatusBaccarat[1]);
+  const timeStamp = new Date().getTime();
+  let countDown = timeStartBet > timeStamp && Math.ceil((timeStartBet - timeStamp) / 1000);
+  if (typeof countDown == 'number' && countDown > 14) countDown = 19;
+
+  // Bet
+  const [dataBetConfirmOld, setDataBetConfirmOld] = useState<{ point: number; answer: number }[]>(
+    []
+  );
+
+  // Handle Message
+  const dispatch = useAppDispatch();
+  const [message, setMessage] = useState('');
+  const messageRef = useRef<HTMLDivElement>(null);
+  const { gamePoint } = useAppSelector((state) => state.userCurrent);
+  const gamePointRef = useRef(gamePoint);
+  useEffect(() => {
+    if (statsBaccaratDetail != statsBaccaratDetailRef.current) {
+      statsBaccaratDetailRef.current = statsBaccaratDetail;
+      switch (statsBaccaratDetail) {
+        case StatusBaccarat.bet:
+          setMessage('Đã bắt đầu, vui lòng cược!');
+          break;
+        case StatusBaccarat.waitOpen:
+          setDataBetConfirmOld([]);
+          dispatch(resetDataBetDice());
+          setMessage('Đã kết thúc đặt cược, vui lòng chờ mở bài');
+          break;
+        case StatusBaccarat.end:
+          console.log(
+            '🚀 ~ LiveStream ~ gamePoint - gamePointRef.current:',
+            gamePoint,
+            gamePointRef.current
+          );
+          if (totalBet != 0) {
+            if (gamePoint > gamePointRef.current)
+              setMessage(String(`+${Math.ceil(gamePoint - gamePointRef.current + totalBet)}`));
+            else setMessage(String(gamePoint - gamePointRef.current));
+            gamePointRef.current = gamePoint;
+            setTotalBet(0);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [statsBaccaratDetail]);
+
+  useEffect(() => {
+    if (
+      [StatusBaccarat.bet, StatusBaccarat.waitOpen, StatusBaccarat.end].includes(
+        statsBaccaratDetail
+      )
+    ) {
+      messageRef.current?.classList.add(cx('message__box--jump'));
+
+      setTimeout(() => {
+        messageRef.current?.classList.remove(cx('message__box--jump'));
+      }, 3000);
+    }
+  }, [message]);
 
   return (
     <div className="">
+      {message ? (
+        <div className={cx('message__box')} ref={messageRef}>
+          <div className={cx('message__box--body')}>
+            <span className={cx('message__box--text')}>{message}</span>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+      <CountDownBetBaccarat
+        setTotalPointBet={setTotalBet}
+        setDataBetConfirmOld={setDataBetConfirmOld}
+        dataBetConfirmOld={dataBetConfirmOld}
+      />
       <div
         className={cx(
           'bg-[url(/Content/images/vn/json/desktopBJ.png)] absolute left-0 right-0 bottom-[130px] bg-no-repeat z-[1] overflow-hidden ',

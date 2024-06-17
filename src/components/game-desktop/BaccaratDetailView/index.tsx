@@ -11,11 +11,14 @@ import { HistoryDetailBaccarat } from '@/components/game-baccarat/HistoryDetail'
 import { HistoryRingBaccarat } from '@/components/game-baccarat/HistoryRing';
 import { HistoryDotBaccarat } from '@/components/game-baccarat/HistoryDot';
 import { HistoryLineBaccarat } from '@/components/game-baccarat/HistoryLine';
+import { useHandleMessageBaccaratWsk } from '@/ultils/handleDetailBaccarat';
 
 const cx = classNames.bind({});
 
 export function BaccaratDetailView(): JSX.Element {
   const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
+  const initWsk = useHandleMessageBaccaratWsk();
+
   return (
     <div className={cx('relative')}>
       <div className={cx('h-[calc(87vh-4px)]')}>
@@ -34,9 +37,9 @@ export function BaccaratDetailView(): JSX.Element {
           <div>
             <HistoryOX baccaratId={Number(gameBaccaratId)} col={25} row={6} isLive />
             <div className="flex">
-              <HistoryRingBaccarat col={9} row={3} baccaratId={Number(gameBaccaratId)} />
-              <HistoryDotBaccarat col={9} row={3} baccaratId={Number(gameBaccaratId)} />
-              <HistoryLineBaccarat col={9} row={3} baccaratId={Number(gameBaccaratId)} />
+              <HistoryRingBaccarat key={1} col={9} row={3} baccaratId={Number(gameBaccaratId)} />
+              <HistoryDotBaccarat key={2} col={9} row={3} baccaratId={Number(gameBaccaratId)} />
+              <HistoryLineBaccarat key={3} col={9} row={3} baccaratId={Number(gameBaccaratId)} />
             </div>
           </div>
           <div className="w-[35px] bg-white">

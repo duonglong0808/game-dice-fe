@@ -77,7 +77,7 @@ export function HistoryBPT({
                         'hover:bg-[#888]': isLive && dataPosition[`${colIndex}${rowIndex}`]?.value,
                       })}>
                       <div
-                        className={cx('w-full h-full text-white rounded-full text-center', {
+                        className={cx('w-full h-full text-xs text-white rounded-full text-center', {
                           'ba_AT_box--live': isLive,
                           'bg-[#0036ff]': dataPosition[`${colIndex}${rowIndex}`]?.value == 'P',
                           'bg-[#dc0000]': dataPosition[`${colIndex}${rowIndex}`]?.value == 'B',

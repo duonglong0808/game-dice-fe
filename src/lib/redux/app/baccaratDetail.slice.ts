@@ -1,18 +1,21 @@
 // import { StatusBaccaratDetail } from '@/constants';
+import { StatusBaccarat } from '@/constants';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface BaccaratDetailDto {
   gameBaccaratId: number;
-  status: string | number;
-  totalRed: number;
+  baccaratDetailId: number;
   transaction: number;
-  mainTransaction: number;
-  BaccaratDetailId: number;
+  mainTransaction: string;
+  status: number | string;
+  pointPlayer: number;
+  pointBanker: number;
+  pokerBanker?: string[];
+  pokerPlayer?: string[];
   arrBetActive: string[];
 }
 
 interface BaccaratDetailSlice {
-  indexChips: number[];
   dataBaccaratDetail: BaccaratDetailDto[];
   dataBaccaratDetailCurrent: BaccaratDetailDto[];
   dataBetCurrent: { point: number; answer: number }[];
@@ -21,7 +24,6 @@ interface BaccaratDetailSlice {
 const BaccaratDetailSlice = createSlice({
   name: 'baccaratDetail',
   initialState: {
-    indexChips: [4, 5, 6, 7, 8],
     dataBaccaratDetail: [],
     refreshDataBaccaratDetail: true,
     dataBaccaratDetailCurrent: [],
@@ -33,37 +35,37 @@ const BaccaratDetailSlice = createSlice({
         state.dataBaccaratDetail = action.payload.dataBaccaratDetail;
       }
     },
-    // updateListDataBaccaratDetail: (state, action) => {
-    //   // console.log('🚀 ~ action.payload.dataBaccaratDetail:', action.payload.dataBaccaratDetail);
-    //   state.dataBaccaratDetail = [
-    //     ...action.payload.dataBaccaratDetail.filter(
-    //       (i: BaccaratDetailDto) => i.status == StatusBaccaratDetail.end
-    //     ),
-    //     ...state.dataBaccaratDetail,
-    //   ];
-    // },
+    updateListDataBaccaratDetail: (state, action) => {
+      // console.log('🚀 ~ action.payload.dataBaccaratDetail:', action.payload.dataBaccaratDetail);
+      state.dataBaccaratDetail = [
+        ...action.payload.dataBaccaratDetail.filter(
+          (i: BaccaratDetailDto) => i.status == StatusBaccarat.end
+        ),
+        ...state.dataBaccaratDetail,
+      ];
+    },
 
     updateListDataBaccaratCurrent: (state, action) => {
       // console.log('🚀 ~ action.payload.dataBaccaratDetail:', action.payload.dataBaccaratDetail);
       state.dataBaccaratDetailCurrent = action.payload.dataBaccaratDetail;
     },
-    // updateOrAddDataBaccaratDetail: (state, action: { payload: BaccaratDetailDto }) => {
-    //   // console.log('🚀 ~ action.payload:', action.payload);
-    //   if (action.payload.status == StatusBaccaratDetail.end) {
-    //     const checkExit = state.dataBaccaratDetail.findIndex(
-    //       (d) => d.gameBaccaratId === +action.payload.gameBaccaratId
-    //     );
-    //     if (checkExit) {
-    //       state.dataBaccaratDetail = state.dataBaccaratDetail.map((item) => {
-    //         if (item.BaccaratDetailId == action.payload.BaccaratDetailId)
-    //           return { ...item, ...action.payload };
-    //         else return item;
-    //       });
-    //     } else {
-    //       state.dataBaccaratDetail = [...state.dataBaccaratDetail, action.payload];
-    //     }
-    //   }
-    // },
+    updateOrAddDataBaccaratDetail: (state, action: { payload: BaccaratDetailDto }) => {
+      // console.log('🚀 ~ action.payload:', action.payload);
+      if (action.payload.status == StatusBaccarat.end) {
+        const checkExit = state.dataBaccaratDetail.findIndex(
+          (d) => d.gameBaccaratId === +action.payload.gameBaccaratId
+        );
+        if (checkExit) {
+          state.dataBaccaratDetail = state.dataBaccaratDetail.map((item) => {
+            if (item.baccaratDetailId == action.payload.baccaratDetailId)
+              return { ...item, ...action.payload };
+            else return item;
+          });
+        } else {
+          state.dataBaccaratDetail = [...state.dataBaccaratDetail, action.payload];
+        }
+      }
+    },
     updateOrAddDataBaccaratDetailCurrent: (state, action: { payload: BaccaratDetailDto }) => {
       const checkExit = state.dataBaccaratDetailCurrent.find(
         (d) => d.gameBaccaratId == action.payload.gameBaccaratId
@@ -106,8 +108,8 @@ const BaccaratDetailSlice = createSlice({
 });
 
 export const {
-  // updateOrAddDataBaccaratDetail,
-  // updateListDataBaccaratDetail,
+  updateOrAddDataBaccaratDetail,
+  updateListDataBaccaratDetail,
   setDataBaccaratInitiated,
   updateOrAddDataBaccaratDetailCurrent,
   updateListDataBaccaratCurrent,

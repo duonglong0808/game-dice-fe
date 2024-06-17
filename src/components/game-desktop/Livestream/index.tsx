@@ -19,19 +19,14 @@ import { SelectChipsAndChosesChip } from '../SelectChipsAndChosesChip';
 const cx = classNames.bind(styles);
 
 export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceId: number }) {
-  const indexChipsRedux = useAppSelector((state) => state.diceDetail.indexChips);
   const { gamePoint } = useAppSelector((state) => state.userCurrent);
   const gamePointRef = useRef(gamePoint);
-  // const totalPointBet = useRef(0);
-  const [indexChips, setIndexChips] = useState<number[]>(indexChipsRedux);
-  const [openListPhinh, setOpenListPhinh] = useState(false);
   const dispatch = useAppDispatch();
   const [dataBetConfirmOld, setDataBetConfirmOld] = useState<{ point: number; answer: number }[]>(
     []
   );
 
   // Ref
-  // const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 

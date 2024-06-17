@@ -29,10 +29,8 @@ const BaccaratGameSlice = createSlice({
   } as BaccaratGameSliceDto,
   reducers: {
     setDataBaccarat: (state, action) => {
-      console.log('🚀 ~ action:', action.payload);
       state.baccaratGame = action.payload?.data;
       state.isInitData = true;
-      console.log('🚀 ~ state:', state);
     },
     // setRefreshBaccarat: (state, action) => {
     //   state.isInitData = action.payload;

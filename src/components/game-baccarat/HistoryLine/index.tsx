@@ -41,7 +41,7 @@ export function HistoryLineBaccarat({
             <tr key={rowIndex} className={cx('table__tr')}>
               {Array.from({ length: col }, (v, k) => k + 1).map((colIndex) => (
                 <td
-                  key={`${rowIndex}${colIndex}`}
+                  key={`${rowIndex}${colIndex}${new Date().getTime()}`}
                   className={cx(
                     'relative bg-white border-b-[1px] border-r-[1px] border-[#e6e6e6] ',
                     'table__td'
