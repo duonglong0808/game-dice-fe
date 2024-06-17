@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/lib';
 import CountDownBetBaccarat from '@/components/game/CountDownBaccarat';
 import { StatusBaccarat } from '@/constants';
 import { resetDataBetDice } from '@/lib/redux/app/diceDetail.slice';
+import { ResultGameBaccarat } from '@/components/game-baccarat/ResultGameBaccarat';
 
 const cx = classNames.bind(styles);
 
@@ -18,8 +19,7 @@ export function ControllerBaccarat(): JSX.Element {
   const { dataBaccaratDetailCurrent, dataBetCurrent } = useAppSelector(
     (state) => state.baccaratDetail
   );
-  const { baccaratGame, gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
-  const gameBaccaratById = baccaratGame.find((baccarat) => baccarat.id === gameBaccaratId);
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   let dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
     (d) => d.gameBaccaratId == gameBaccaratId
   );
@@ -107,6 +107,7 @@ export function ControllerBaccarat(): JSX.Element {
         setDataBetConfirmOld={setDataBetConfirmOld}
         dataBetConfirmOld={dataBetConfirmOld}
       />
+      <ResultGameBaccarat />
       <div
         className={cx(
           'bg-[url(/Content/images/vn/json/desktopBJ.png)] absolute left-0 right-0 bottom-[130px] bg-no-repeat z-[1] overflow-hidden ',
