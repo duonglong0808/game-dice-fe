@@ -74,7 +74,7 @@ export const useHandleMessageBaccaratWsk = () => {
             // Con and con long bao
             if (pointPlayer > pointBanker) {
               arrBetActive.push('p_5');
-              if (pointPlayer - pointBanker > 4) {
+              if (pointPlayer - pointBanker >= 4) {
                 arrBetActive.push('p_2');
               }
             }
@@ -89,7 +89,7 @@ export const useHandleMessageBaccaratWsk = () => {
             // Cai and cai long bao
             if (pointBanker > pointPlayer) {
               arrBetActive.push('p_4');
-              if (pointPlayer - pointBanker > 4) {
+              if (pointPlayer - pointBanker >= 4) {
                 arrBetActive.push('p_8');
               }
             }

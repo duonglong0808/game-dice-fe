@@ -5,17 +5,52 @@
   &::after {
     content: '';
     position: absolute;
-    left: 0;
-    right: 0;
+    left: -6px;
+    right: 0px;
     top: -142%;
-    width: 100%;
+    width: 101.5%;
     height: 240%;
     background-color: transparent;
     border-top-left-radius: 100%;
     border-top-right-radius: 100%;
-    //   border-radius: 50%;
-    // border: 1px solid transparent;
     border-bottom: 0;
     transform: rotate(180deg);
+  }
+}
+
+.item-table {
+  &__active {
+    background-color: #5fa8df8e;
+    animation: flashAndHold 2s forwards; /* Apply the animation */
+
+    &--player::after {
+      background-color: #5fa8df8e;
+      animation: flashAndHold 2s forwards; /* Apply the animation */
+    }
+  }
+}
+
+@keyframes flashAndHold {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  25%,
+  75% {
+    background-color: #5fa8df8e;
+  }
+  50% {
+    background-color: transparent;
+  }
+  90% {
+    background-color: #5fa8df8e;
+  }
+  91%,
+  99% {
+    background-color: #5fa8df8e;
+  }
+  99.9%,
+  100% {
+    background-color: transparent;
   }
 }

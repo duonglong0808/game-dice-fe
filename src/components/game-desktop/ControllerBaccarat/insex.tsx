@@ -20,9 +20,10 @@ export function ControllerBaccarat(): JSX.Element {
     (state) => state.baccaratDetail
   );
   const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
-  let dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
+  const dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
     (d) => d.gameBaccaratId == gameBaccaratId
   );
+  console.log('🚀 ~ ControllerBaccarat ~ dataBaccaratDetailById:', dataBaccaratDetailById);
   const dataStatusBaccarat =
     typeof dataBaccaratDetailById?.status == 'string'
       ? dataBaccaratDetailById?.status?.split(':')
@@ -118,14 +119,47 @@ export function ControllerBaccarat(): JSX.Element {
         )}>
         <div className={cx('live_action')}>
           <div className={cx('absolute left-0 right-0 top-0 bottom-0 [&>div]:h-[34.3%]', 'd3')}>
-            <TableItemBaccarat className="basis-[24%]" />
-            <TableItemBaccarat className="basis-[26%]" />
-            <TableItemBaccarat className="basis-[26%]" />
-            <TableItemBaccarat className="basis-[24%]" />
-            <TableItemBaccarat className="basis-[24%]" />
-            <TableItemBaccarat className="basis-[52%]" />
-            <TableItemBaccarat className="basis-[24%]" />
-            <TableItemBaccarat isPlayer className="basis-[52%]" />
+            <TableItemBaccarat
+              className="basis-[24%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_1') || false}
+            />
+            <TableItemBaccarat
+              className="basis-[26%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_3') || false}
+            />
+            <TableItemBaccarat
+              className="basis-[26%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_6') || false}
+            />
+            <TableItemBaccarat
+              className="basis-[24%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_7') || false}
+            />
+            <TableItemBaccarat
+              className="basis-[24%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_2') || false}
+            />
+            <TableItemBaccarat
+              className="basis-[52%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_4') || false}
+            />
+            <TableItemBaccarat
+              className="basis-[24%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_8') || false}
+            />
+            <TableItemBaccarat
+              isPlayer
+              className="basis-[52%]"
+              statusBaccarat={statsBaccaratDetail}
+              isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_5') || false}
+            />
           </div>
         </div>
       </div>
