@@ -5,7 +5,7 @@ import { HistoryLineBaccarat } from '@/components/game-baccarat/HistoryLine';
 import { HistoryOX } from '@/components/game-baccarat/HistoryOX';
 import { HistoryRingBaccarat } from '@/components/game-baccarat/HistoryRing';
 import ChipsList from '@/components/game/ChipList/index.';
-import { dataListChipsStatistics } from '@/constants';
+import { StatusBaccarat, dataListChipsStatistics } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { setIndexChipsRedux } from '@/lib/redux/system/settingSys';
 import classNames from 'classnames';
@@ -14,10 +14,19 @@ import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 export function BaccaratDetailViewMobile(): JSX.Element {
-  const { id: gameBaccaratId } = useParams();
   const { baccaratGame } = useAppSelector((state) => state.baccaratGame);
-  const gameBaccaratById = baccaratGame.find((i) => i.id == +gameBaccaratId);
   const router = useRouter();
+  const { dataBaccaratDetailCurrent } = useAppSelector((state) => state.baccaratDetail);
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
+  const dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
+    (d) => d.gameBaccaratId == gameBaccaratId
+  );
+  const gameBaccaratById = baccaratGame.find((i) => i.id == gameBaccaratId);
+  const dataStatusBaccarat =
+    typeof dataBaccaratDetailById?.status == 'string'
+      ? dataBaccaratDetailById?.status?.split(':')
+      : [dataBaccaratDetailById?.status];
+  const statsBaccaratDetail = Number(dataStatusBaccarat[0]);
 
   useEffect(() => {
     if (!gameBaccaratById) {
@@ -158,10 +167,12 @@ export function BaccaratDetailViewMobile(): JSX.Element {
                 className={classNames(
                   'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_cancel.svg)] bg-no-repeat ml-2 pl-2 bg-[length:auto_65%]',
                   {
-                    'bg-[#929292] shadow-[0_0_0_4px_#929292]': false,
+                    'bg-[#929292] shadow-[0_0_0_4px_#929292]':
+                      statsBaccaratDetail !== StatusBaccarat.bet,
                   },
                   {
-                    'bg-[#ff9401] shadow-[0_0_0_4px_#ff9401]': false,
+                    'bg-[#ff9401] shadow-[0_0_0_4px_#ff9401]':
+                      statsBaccaratDetail == StatusBaccarat.bet,
                   }
                 )}
                 style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
@@ -171,7 +182,8 @@ export function BaccaratDetailViewMobile(): JSX.Element {
                 className={classNames(
                   'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_repeat.svg)] bg-no-repeat bg-[#1e8dde] shadow-[0_0_0_4px_#1e8dde] ml-3 pl-5 bg-[length:auto_65%]',
                   {
-                    'bg-[#929292] shadow-[0_0_0_4px_#929292]': false,
+                    'bg-[#929292] shadow-[0_0_0_4px_#929292]':
+                      statsBaccaratDetail !== StatusBaccarat.bet,
                   }
                 )}
                 style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>
@@ -182,7 +194,8 @@ export function BaccaratDetailViewMobile(): JSX.Element {
                 className={classNames(
                   'w-[24%] h-[67%] text-sm text-white rounded-sm border-[1px] border-[#fff] bg-[url(/Areas/Mobile/Images/btn_confirm.svg)] bg-no-repeat bg-[#0f9e4f] shadow-[0_0_0_4px_#0f9e4f] ml-3 pl-2 bg-[length:auto_65%]',
                   {
-                    'bg-[#929292] shadow-[0_0_0_4px_#929292]': false,
+                    'bg-[#929292] shadow-[0_0_0_4px_#929292]':
+                      statsBaccaratDetail !== StatusBaccarat.bet,
                   }
                 )}
                 style={{ backgroundPositionX: '13%', backgroundPositionY: 'center' }}>

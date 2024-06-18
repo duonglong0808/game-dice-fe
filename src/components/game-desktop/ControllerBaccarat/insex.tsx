@@ -16,14 +16,11 @@ export function ControllerBaccarat(): JSX.Element {
   const [typePlay, setTypePlay] = useState('old');
   const [totalBet, setTotalBet] = useState(0);
   const [curChip, setCurrChip] = useState(0);
-  const { dataBaccaratDetailCurrent, dataBetCurrent } = useAppSelector(
-    (state) => state.baccaratDetail
-  );
+  const { dataBaccaratDetailCurrent } = useAppSelector((state) => state.baccaratDetail);
   const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   const dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
     (d) => d.gameBaccaratId == gameBaccaratId
   );
-  console.log('🚀 ~ ControllerBaccarat ~ dataBaccaratDetailById:', dataBaccaratDetailById);
   const dataStatusBaccarat =
     typeof dataBaccaratDetailById?.status == 'string'
       ? dataBaccaratDetailById?.status?.split(':')

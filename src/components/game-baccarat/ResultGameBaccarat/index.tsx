@@ -55,7 +55,7 @@ export function ResultGameBaccarat(): JSX.Element {
                   {dataBaccaratDetailById?.pokerPlayer[1] ? (
                     <Image
                       alt="pocker"
-                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerPlayer[0]}.png`}
+                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerPlayer[1]}.png`}
                       width={40}
                       height={60}
                       className="ml-[2px]"
@@ -66,7 +66,7 @@ export function ResultGameBaccarat(): JSX.Element {
                   {dataBaccaratDetailById?.pokerPlayer[0] ? (
                     <Image
                       alt="pocker"
-                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerPlayer[1]}.png`}
+                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerPlayer[0]}.png`}
                       width={40}
                       height={60}
                       className="ml-1"
@@ -109,7 +109,7 @@ export function ResultGameBaccarat(): JSX.Element {
                   {dataBaccaratDetailById?.pokerBanker[1] ? (
                     <Image
                       alt="pocker"
-                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerBanker[0]}.png`}
+                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerBanker[1]}.png`}
                       width={40}
                       height={60}
                       className="ml-[2px]"
@@ -120,7 +120,7 @@ export function ResultGameBaccarat(): JSX.Element {
                   {dataBaccaratDetailById?.pokerBanker[0] ? (
                     <Image
                       alt="pocker"
-                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerBanker[1]}.png`}
+                      src={`/Content/images/poker/${dataBaccaratDetailById?.pokerBanker[0]}.png`}
                       width={40}
                       height={60}
                       className="ml-1"
