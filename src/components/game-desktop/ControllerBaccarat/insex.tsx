@@ -192,7 +192,7 @@ export function ControllerBaccarat(): JSX.Element {
             <span className="text-[#f9d901] font-semibold">{totalBet}</span>
           </div>
         </div>
-        <SelectChipsAndChosesChip curChip={curChip} setCurChip={setCurrChip} />
+        <SelectChipsAndChosesChip curChip={curChip} setCurChip={setCurrChip} game="mc-baccarat" />
       </div>
     </div>
   );

@@ -4,19 +4,31 @@ import { HistoryDotBaccarat } from '@/components/game-baccarat/HistoryDot';
 import { HistoryLineBaccarat } from '@/components/game-baccarat/HistoryLine';
 import { HistoryOX } from '@/components/game-baccarat/HistoryOX';
 import { HistoryRingBaccarat } from '@/components/game-baccarat/HistoryRing';
+import { ResultGameBaccarat } from '@/components/game-baccarat/ResultGameBaccarat';
 import ChipsList from '@/components/game/ChipList/index.';
+import CountDownBetBaccarat from '@/components/game/CountDownBaccarat';
+import { ShowMessageLive } from '@/components/game/ShowMessageLive';
 import { StatusBaccarat, dataListChipsStatistics } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/lib';
+import { resetDataBetBaccarat } from '@/lib/redux/app/baccaratDetail.slice';
+import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { setIndexChipsRedux } from '@/lib/redux/system/settingSys';
+import { betDiceAndBaccarat } from '@/ultils/api';
+import { useHandleMessageBaccaratWsk } from '@/ultils/handleDetailBaccarat';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 export function BaccaratDetailViewMobile(): JSX.Element {
+  // Initialize
+  const wsk = useHandleMessageBaccaratWsk();
+
   const { baccaratGame } = useAppSelector((state) => state.baccaratGame);
   const router = useRouter();
-  const { dataBaccaratDetailCurrent } = useAppSelector((state) => state.baccaratDetail);
+  const { dataBaccaratDetailCurrent, dataBetCurrent } = useAppSelector(
+    (state) => state.baccaratDetail
+  );
   const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   const dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
     (d) => d.gameBaccaratId == gameBaccaratId
@@ -42,13 +54,103 @@ export function BaccaratDetailViewMobile(): JSX.Element {
   const [indexChips, setIndexChips] = useState<number[]>(indexChipsRedux);
   const dispatch = useAppDispatch();
 
+  // Point user
+  const { gamePoint } = useAppSelector((state) => state.userCurrent);
+  const gamePointRef = useRef(gamePoint);
+
   // Bet
   const [totalPointBet, setTotalPointBet] = useState(0);
   const dataBetConfirmOld = useRef<{ point: number; answer: number }[]>([]);
   const [currentChip, setCurrentChip] = useState<number>();
+  const [optionBetActive, setOptionBetActive] = useState(0);
+
+  const handleConfirmBet = async () => {
+    const transaction = dataBaccaratDetailById?.transaction || 1;
+    const gameBaccaratId = dataBaccaratDetailById?.gameBaccaratId || 1;
+    const baccaratDetailId = dataBaccaratDetailById?.baccaratDetailId || 1;
+    const dataBetTg = [...dataBetCurrent];
+    if (
+      dataBetTg.length &&
+      transaction &&
+      gameBaccaratId &&
+      Number(statsBaccaratDetail) == StatusBaccarat.bet
+    ) {
+      dispatch(resetDataBetBaccarat());
+      const reqBets = await Promise.all(
+        dataBetTg.map(async (bet) => {
+          const data = {
+            transaction,
+            gameBaccaratId,
+            baccaratDetailId,
+            point: bet.point,
+            answer: bet.answer,
+            game: 'mc-baccarat',
+          };
+          const req = await betDiceAndBaccarat(data);
+
+          return {
+            answer: bet.answer,
+            point: req?.data ? bet.point : 0,
+          };
+        })
+      );
+
+      // const newDataBetConfirm = [...dataBetConfirmOld.current];
+      let totalBetSuc = 0;
+      reqBets.map((item) => {
+        totalBetSuc += item.point;
+        const checkExits = dataBetConfirmOld.current.find((i) => i.answer == item.answer);
+        if (checkExits) checkExits.point = item.point + checkExits.point;
+        dataBetConfirmOld.current.push(item);
+      });
+      setTotalPointBet((pre) => pre + totalBetSuc);
+      dispatch(updatePointUser({ gamePoint: -totalBetSuc }));
+    }
+  };
+
+  // Handle Message
+  const [message, setMessage] = useState('');
+  const statsBaccaratDetailRef = useRef(statsBaccaratDetail);
+  useEffect(() => {
+    if (statsBaccaratDetail != statsBaccaratDetailRef.current) {
+      statsBaccaratDetailRef.current = statsBaccaratDetail;
+      switch (statsBaccaratDetail) {
+        case StatusBaccarat.bet:
+          setMessage('Đã bắt đầu, vui lòng cược!');
+          break;
+        case StatusBaccarat.waitOpen:
+          dataBetConfirmOld.current = [];
+          dispatch(resetDataBetBaccarat());
+          setMessage('Đã kết thúc đặt cược, vui lòng chờ mở bài');
+          break;
+        case StatusBaccarat.end:
+          console.log(
+            '🚀 ~ LiveStream ~ gamePoint - gamePointRef.current:',
+            gamePoint,
+            gamePointRef.current
+          );
+          if (totalPointBet != 0) {
+            if (gamePoint > gamePointRef.current)
+              setMessage(String(`+${Math.ceil(gamePoint - gamePointRef.current + totalPointBet)}`));
+            else setMessage(String(gamePoint - gamePointRef.current));
+            gamePointRef.current = gamePoint;
+            setTotalPointBet(0);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [statsBaccaratDetail]);
 
   return (
     <div>
+      {message ? (
+        <ShowMessageLive message={message} statsGameDetail={statsBaccaratDetail} />
+      ) : (
+        <></>
+      )}
+      <CountDownBetBaccarat />
       <div className="fixed top-0 left-0 right-0 bottom-0 overflow-hidden bg-[#111]">
         <iframe
           allow="autoplay; encrypted-media"
@@ -61,7 +163,6 @@ export function BaccaratDetailViewMobile(): JSX.Element {
         <div className="absolute top-0 left-0 right-0 h-[calc(100svw*0.49)]"></div>
       </div>
       <div className="fixed bottom-0 left-0 right-0 z-[6] bg-black top-[calc(100svw*0.49)]">
-        {/* <div className=" bg-black top-[200px]"> */}
         <div
           className="flex flex-col h-full"
           //  style={{ height: 'calc(100svw*0.49)' }}
@@ -72,20 +173,117 @@ export function BaccaratDetailViewMobile(): JSX.Element {
               <span className="ml-1 text-[#ffd100] text-xl">{Math.floor(totalPointBet)}</span>
             </div>
             <div className="flex h-full">
-              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_Traditionl.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
+              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_switch.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
+              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_navNormal.svg)] bg-[length:auto_90%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/icon_verifyLive.png)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_gamePrompt.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
-              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/MT_chip_single_off.png)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
-              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_webLineGrey.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
+              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_limit.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
             </div>
           </div>
           <div
             className="flex-1 flex flex-col"
             style={{ height: 'calc(100svh - 100svw*0.49 - 30px)' }}>
             <div
-              className=" bg-white w-full flex justify-center p-[3px]"
+              className=" bg-white w-full flex justify-center p-[3px] relative"
               style={{ height: 'calc(100% - 10.45svh - 188px)' }}>
-              <div className="flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
+              <ResultGameBaccarat />
+              <div className="absolute left-0 top-0 bottom-0 h-fit bg-[#00000040] m-auto rounded-tr-[8px] rounded-br-[8px]">
+                <div className="w-[10px] h-[10px] my-5 cursor-pointer mx-2  border-t-[3px] border-l-[3px] rotate-[-45deg] border-[#fff]"></div>
+              </div>
+              <div className="absolute right-0 top-0 bottom-0 h-fit bg-[#00000040] m-auto rounded-tl-[8px] rounded-bl-[8px]">
+                <div className="w-[10px] h-[10px] my-5 cursor-pointer mx-2  border-t-[3px] border-l-[3px] rotate-[135deg] border-[#fff]"></div>
+              </div>
+              {optionBetActive == 0 ? (
+                <div className="flex-1 flex bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm">
+                  <div className="basis-1/5 h-[49.5%]">
+                    <div className="border-r-[1px] h-full text-[#666] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
+                      <span className="">Con</span>
+                      <span className="">Long Bảo</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        Max 1:30
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-1/5 h-[49.5%]">
+                    <div className="border-r-[1px] h-full border-b-[1px] border-[#bcbcbc] font-bold relative flex items-center text-center text-sm">
+                      <span className="block mx-auto text-[#666] text-base">Con Đôi</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        1:11
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-1/5 h-[49.5%]">
+                    <div className="border-r-[1px] h-full border-b-[1px] border-[#bcbcbc] font-bold relative flex items-center text-center text-sm">
+                      <span className="block mx-auto text-[#ff9c00] text-base">SUPER 6</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        1:12 / 1:20
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-1/5 h-[49.5%]">
+                    <div className="border-r-[1px] h-full border-b-[1px] border-[#bcbcbc] font-bold relative flex items-center text-center text-sm">
+                      <span className="block mx-auto text-[#666] text-base">Cái đôi</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        1:11
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-1/5 h-[49.5%]">
+                    <div className="border-r-[1px] h-full text-[#666] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
+                      <span className="">Cái</span>
+                      <span className="">Long Bảo</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        Max 1:30
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-full h-[1%] flex">
+                    <div className="w-[43%] bg-[#0036ff]"></div>
+                    <div className="flex-1 bg-[#fe0000]"></div>
+                  </div>
+                  <div className="basis-1/3 h-[49.5%]">
+                    <div className="h-full text-[#666] border-t-[1px] border-r-[1px] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
+                      <span className="text-[#0036ff] text-3xl">Con</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        1:1
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-1/3 h-[49.5%]">
+                    <div className="h-full text-[#666] border-t-[1px] border-r-[1px] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
+                      <span className="text-[#01ab48] text-3xl">Hòa</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        1:8
+                      </span>
+                    </div>
+                  </div>
+                  <div className="basis-1/3 h-[49.5%]">
+                    <div className="h-full text-[#666] border-t-[1px] border-r-[1px] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
+                      <span className="text-[#fe0000] text-3xl">Cái</span>
+                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
+                        1:0.95
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+              {optionBetActive == 1 ? (
+                <div className="flex-1 flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
+              ) : (
+                <></>
+              )}
+              {optionBetActive == 3 ? (
+                <div className="flex-1 flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
+              ) : (
+                <></>
+              )}
+              {optionBetActive == 4 ? (
+                <div className="flex-1 flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
+              ) : (
+                <></>
+              )}
             </div>
 
             <div className="bg-white flex items-center relative h-[5.9svh]">

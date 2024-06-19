@@ -1,24 +1,31 @@
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useEffect, useRef } from 'react';
-import { StatusDiceDetail } from '@/constants';
+import { StatusBaccarat, StatusDiceDetail } from '@/constants';
 
 const cx = classNames.bind(styles);
 
 export function ShowMessageLive({
   message,
-  statsDiceDetail,
+  statsGameDetail,
 }: {
   message: string;
-  statsDiceDetail?: number;
+  statsGameDetail?: number;
 }): JSX.Element {
   const messageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (
-      [StatusDiceDetail.bet, StatusDiceDetail.waitOpen, StatusDiceDetail.end].includes(
-        Number(statsDiceDetail)
-      )
+      [
+        // baccarat
+        StatusBaccarat.bet,
+        StatusBaccarat.end,
+        StatusBaccarat.waitOpen,
+        // dice
+        StatusDiceDetail.bet,
+        StatusDiceDetail.waitOpen,
+        StatusDiceDetail.end,
+      ].includes(Number(statsGameDetail))
     ) {
       if (messageRef.current) {
         messageRef.current.style.display = 'block';
@@ -32,7 +39,7 @@ export function ShowMessageLive({
         }, 3000);
       }
     }
-  }, [message, statsDiceDetail]);
+  }, [message, statsGameDetail]);
 
   return (
     <div className={cx('message__box')} ref={messageRef}>

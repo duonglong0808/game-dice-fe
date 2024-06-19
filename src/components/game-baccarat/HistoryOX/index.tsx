@@ -36,15 +36,6 @@ export function HistoryOX({
     23: {
       value: 6, // 6
     },
-    24: {
-      value: 5,
-    },
-    25: {
-      value: 5,
-    },
-    31: {
-      value: 6,
-    },
   });
 
   return (

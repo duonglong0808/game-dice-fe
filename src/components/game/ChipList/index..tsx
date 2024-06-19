@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useAppSelector } from '@/lib';
-import { StatusDiceDetail, dataListChipsStatistics } from '@/constants';
+import { StatusBaccarat, StatusDiceDetail, dataListChipsStatistics } from '@/constants';
 
 const cx = classNames.bind(styles);
 
@@ -13,19 +13,35 @@ export default function ChipsList({
   setChips,
   curChip,
   alwayActive = false,
+  game = 'dice',
 }: {
   curChip: number;
   setChips: (num: number) => void;
   alwayActive?: boolean;
+  game?: string;
 }) {
   const { indexChips } = useAppSelector((state) => state.settingApp);
   const { dataDiceDetailCurrent } = useAppSelector((state) => state.diceDetail);
   const { gameDiceId } = useAppSelector((state) => state.diceGame);
   let dataDiceDetailById = dataDiceDetailCurrent.find((d) => d.gameDiceId == gameDiceId);
-  const statusDice =
-    typeof dataDiceDetailById?.status == 'string'
-      ? dataDiceDetailById?.status?.split(':')[0]
-      : dataDiceDetailById?.status;
+
+  const { dataBaccaratDetailCurrent } = useAppSelector((state) => state.baccaratDetail);
+  const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
+  let dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
+    (d) => d.gameBaccaratId == gameBaccaratId
+  );
+  let statusGame;
+  if (game == 'dice') {
+    statusGame =
+      typeof dataDiceDetailById?.status == 'string'
+        ? dataDiceDetailById?.status?.split(':')[0]
+        : dataDiceDetailById?.status;
+  } else {
+    statusGame =
+      typeof dataBaccaratDetailById?.status == 'string'
+        ? dataBaccaratDetailById?.status?.split(':')[0]
+        : dataBaccaratDetailById?.status;
+  }
   const chips = dataListChipsStatistics.filter((chip, index) => indexChips.includes(index));
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(5);
@@ -79,7 +95,14 @@ export default function ChipsList({
               alt="chip"
               width={50}
               height={50}
-              src={alwayActive || statusDice == StatusDiceDetail.bet ? chip.on : chip.off}
+              src={
+                alwayActive ||
+                (game == 'dice'
+                  ? statusGame == StatusDiceDetail.bet
+                  : statusGame == StatusBaccarat.bet)
+                  ? chip.on
+                  : chip.off
+              }
               className={cx('chips-list__chip-item--image', 'hidden lg:block')}
               onClick={() => {
                 if (typeof chip.value == 'number') {

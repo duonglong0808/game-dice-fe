@@ -2,7 +2,8 @@
 
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useAppSelector } from '@/lib';
 
 const cx = classNames.bind(styles);
 
@@ -22,32 +23,53 @@ export function HistoryBPT({
   isLive?: boolean;
 }): JSX.Element {
   const [type, setType] = useState(initType);
-  const [dataPosition, setDataPosition] = useState<any>({
-    11: {
-      value: 'P',
-    },
-    12: {
-      value: 'P',
-    },
-    13: {
-      value: 'T',
-    },
-    14: {
-      value: 'T',
-    },
-    21: {
-      value: 'P',
-    },
-    22: {
-      value: 'P',
-    },
-    23: {
-      value: 'B',
-    },
-    24: {
-      value: 'B',
-    },
-  });
+  const dataRaw = useAppSelector((state) => state.baccaratDetail.dataBaccaratDetail);
+  const lengthDataRowOld = useRef(0);
+  const dataSort = [...dataRaw.filter((i) => i.gameBaccaratId == baccaratId && i.pokerBanker)]
+    .sort((a, b) => b.baccaratDetailId - a.baccaratDetailId)
+    .slice(0, row * (col - 1));
+
+  const [dataPosition, setDataPosition] = useState<any>({});
+
+  useEffect(() => {
+    if (lengthDataRowOld.current != dataSort.length) {
+      const dataPositionCalc: any = {};
+
+      let indexCurrent = 0;
+      let colCalc = 1;
+      let rowCalc = 1;
+      dataSort.forEach((item, index, arrThis) => {
+        if (colCalc < col) {
+          const position = `${colCalc}${rowCalc}`;
+          if (item.pointBanker > item.pointPlayer) {
+            dataPositionCalc[position] = {
+              value: 'B',
+              point: item.pointBanker,
+            };
+          } else if (item.pointBanker < item.pointPlayer) {
+            dataPositionCalc[position] = {
+              value: 'P',
+              point: item.pointPlayer,
+            };
+          } else {
+            dataPositionCalc[position] = {
+              value: 'T',
+              point: item.pointPlayer,
+            };
+          }
+          if (rowCalc < row) {
+            rowCalc++;
+          } else {
+            colCalc++;
+            rowCalc = 1;
+          }
+        }
+      });
+
+      lengthDataRowOld.current = dataSort.length;
+      setDataPosition(dataPositionCalc);
+    }
+  }, [dataSort]);
 
   return (
     <div className={cx('border-r-2 border-[#979797] bg-white', 'wrapper')}>
@@ -77,13 +99,42 @@ export function HistoryBPT({
                         'hover:bg-[#888]': isLive && dataPosition[`${colIndex}${rowIndex}`]?.value,
                       })}>
                       <div
-                        className={cx('w-full h-full text-xs text-white rounded-full text-center', {
-                          'ba_AT_box--live': isLive,
-                          'bg-[#0036ff]': dataPosition[`${colIndex}${rowIndex}`]?.value == 'P',
-                          'bg-[#dc0000]': dataPosition[`${colIndex}${rowIndex}`]?.value == 'B',
-                          'bg-[#3aaf00]': dataPosition[`${colIndex}${rowIndex}`]?.value == 'T',
-                        })}>
-                        {dataPosition[`${colIndex}${rowIndex}`]?.value || ''}
+                        className={cx(
+                          'text-xs w-full h-full flex items-center justify-center rounded-full text-center',
+                          {
+                            'ba_AT_box--live': isLive,
+                            'bg-[#0036ff] text-white':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == 'P' &&
+                              (type == 'string' ||
+                                (type == 'number' &&
+                                  dataPosition[`${colIndex}${rowIndex}`]?.point > 7)),
+                            'text-[#0036ff] border-[2px] border-[#0036ff]':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == 'P' &&
+                              type == 'number' &&
+                              dataPosition[`${colIndex}${rowIndex}`]?.point < 8,
+                            'bg-[#dc0000] text-white':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == 'B' &&
+                              (type == 'string' ||
+                                (type == 'number' &&
+                                  dataPosition[`${colIndex}${rowIndex}`]?.point > 7)),
+                            'text-[#dc0000] border-[2px] border-[#dc0000]':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == 'B' &&
+                              type == 'number' &&
+                              dataPosition[`${colIndex}${rowIndex}`]?.point < 8,
+                            'bg-[#3aaf00] text-white':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == 'T' &&
+                              (type == 'string' ||
+                                (type == 'number' &&
+                                  dataPosition[`${colIndex}${rowIndex}`]?.point > 7)),
+                            'text-[#3aaf00] border-[2px] border-[#3aaf00]':
+                              dataPosition[`${colIndex}${rowIndex}`]?.value == 'T' &&
+                              type == 'number' &&
+                              dataPosition[`${colIndex}${rowIndex}`]?.point < 8,
+                          }
+                        )}>
+                        {type == 'string'
+                          ? dataPosition[`${colIndex}${rowIndex}`]?.value
+                          : dataPosition[`${colIndex}${rowIndex}`]?.point}
                       </div>
                     </div>
                   )}

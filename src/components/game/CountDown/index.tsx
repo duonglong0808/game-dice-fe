@@ -79,6 +79,7 @@ export default function CountDownBet({
             diceDetailId,
             point: bet.point,
             answer: bet.answer,
+            game: 'dice',
           };
           const req = await betDiceAndBaccarat(data);
 

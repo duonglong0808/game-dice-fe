@@ -2,10 +2,13 @@
 
 import { useAppDispatch } from '@/lib';
 import { BaccaratItem } from '../BaccaratItem';
-import { useBaccaratGame } from '@/ultils/handleHomeBaccarat';
+import { useBaccaratGame, useInitData } from '@/ultils/handleHomeBaccarat';
 import { setGameBaccaratId } from '@/lib/redux/app/baccaratGame.slice';
+import { useHandleMessageBaccaratWsk } from '@/ultils/handleDetailBaccarat';
 
 export function BaccaratHome(): JSX.Element {
+  const initData = useInitData();
+  const wsk = useHandleMessageBaccaratWsk();
   const dispatch = useAppDispatch();
   const { data } = useBaccaratGame();
 
@@ -20,7 +23,11 @@ export function BaccaratHome(): JSX.Element {
               )
             }
             key={index}>
-            <BaccaratItem key={index} {...baccarat} />
+            <BaccaratItem
+              key={index}
+              {...baccarat}
+              id={index < 2 ? baccarat.id : data[index % 2 == 0 ? 0 : 1].id}
+            />
           </div>
         );
       })}

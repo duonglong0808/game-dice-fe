@@ -74,8 +74,9 @@ export function DetailDiceDetailMobile(): JSX.Element {
             diceDetailId,
             point: bet.point,
             answer: bet.answer,
+            game: 'dice',
           };
-          const req = await betDice(data);
+          const req = await betDiceAndBaccarat(data);
 
           return {
             answer: bet.answer,
@@ -155,7 +156,7 @@ export function DetailDiceDetailMobile(): JSX.Element {
 
   return (
     <div>
-      {message ? <ShowMessageLive message={message} statsDiceDetail={statsDiceDetail} /> : <></>}
+      {message ? <ShowMessageLive message={message} statsGameDetail={statsDiceDetail} /> : <></>}
       <div className="fixed top-0 left-0 right-0 bottom-0 overflow-hidden bg-[#111]">
         {totalRed && <ShowResultDice totalRed={totalRed} />}
         <CountDownBet />

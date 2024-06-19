@@ -1,8 +1,9 @@
 import { useAppDispatch, useAppSelector } from '@/lib';
 import { useEffect } from 'react';
 import { TypeGameBaccarat } from '@/constants';
-import { getAllGameBaccarat } from './api';
+import { getAllGameBaccarat, getHistoryBaccaratGame } from './api';
 import { setDataBaccarat } from '@/lib/redux/app/baccaratGame.slice';
+import { setDataBaccaratInitiated } from '@/lib/redux/app/baccaratDetail.slice';
 
 const generateBaccarat = () => {
   let number = 0;
@@ -65,4 +66,27 @@ export const useBaccaratGame = () => {
       };
     }),
   };
+};
+
+export const useInitData = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function fetchData() {
+      const dataDice = await getHistoryBaccaratGame();
+      // console.log('🚀 ~ dataDice?.data?.dataHistory:', dataDice?.data?.dataHistory);
+
+      const dataBaccaratDetail = dataDice?.data?.dataHistory?.map((item: any) => {
+        return {
+          ...item,
+          baccaratDetailId: item?.id,
+        };
+      });
+      dispatch(setDataBaccaratInitiated({ dataBaccaratDetail: dataBaccaratDetail || [] }));
+    }
+
+    fetchData();
+  }, []);
+
+  return true;
 };

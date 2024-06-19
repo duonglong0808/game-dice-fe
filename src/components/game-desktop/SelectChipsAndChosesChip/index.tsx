@@ -14,7 +14,9 @@ const cx = classNames.bind(styles);
 export function SelectChipsAndChosesChip({
   curChip,
   setCurChip,
+  game = 'dice',
 }: {
+  game?: string;
   curChip: number;
   setCurChip: React.Dispatch<React.SetStateAction<number>>;
 }): JSX.Element {
@@ -26,7 +28,7 @@ export function SelectChipsAndChosesChip({
   return (
     <div className={cx('live_action__control--right')}>
       <div className={cx('right__coins')}>
-        <ChipsList setChips={setCurChip} curChip={curChip} />
+        <ChipsList setChips={setCurChip} curChip={curChip} game={game} />
       </div>
       <div className={cx('right__action')}>
         <div
