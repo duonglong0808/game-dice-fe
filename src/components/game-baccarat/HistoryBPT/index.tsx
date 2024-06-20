@@ -26,7 +26,7 @@ export function HistoryBPT({
   const dataRaw = useAppSelector((state) => state.baccaratDetail.dataBaccaratDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [...dataRaw.filter((i) => i.gameBaccaratId == baccaratId && i.pokerBanker)]
-    .sort((a, b) => b.baccaratDetailId - a.baccaratDetailId)
+    .sort((a, b) => a.baccaratDetailId - b.baccaratDetailId)
     .slice(0, row * (col - 1));
 
   const [dataPosition, setDataPosition] = useState<any>({});

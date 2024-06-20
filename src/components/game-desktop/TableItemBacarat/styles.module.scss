@@ -30,6 +30,47 @@
   }
 }
 
+.total__point-bet {
+  position: absolute;
+  right: 110px;
+  top: -6px;
+  width: 59px;
+  height: 69px;
+  scale: 0.8;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(/Content/images/chips/ReChips.png) no-repeat;
+    background-position: -710px 0;
+  }
+
+  & span {
+    position: absolute;
+    top: 9px;
+    left: -2px;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  & .total__point-bet__long {
+    font-size: 14px;
+    top: 17px;
+  }
+}
+
 @keyframes flashAndHold {
   0%,
   100% {

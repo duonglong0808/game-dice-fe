@@ -7,8 +7,8 @@ import { SelectChipsAndChosesChip } from '../SelectChipsAndChosesChip';
 import { useAppDispatch, useAppSelector } from '@/lib';
 import CountDownBetBaccarat from '@/components/game/CountDownBaccarat';
 import { StatusBaccarat } from '@/constants';
-import { resetDataBetDice } from '@/lib/redux/app/diceDetail.slice';
 import { ResultGameBaccarat } from '@/components/game-baccarat/ResultGameBaccarat';
+import { resetDataBetBaccarat, updateDataBetBaccarat } from '@/lib/redux/app/baccaratDetail.slice';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +16,9 @@ export function ControllerBaccarat(): JSX.Element {
   const [typePlay, setTypePlay] = useState('old');
   const [totalBet, setTotalBet] = useState(0);
   const [curChip, setCurrChip] = useState(0);
-  const { dataBaccaratDetailCurrent } = useAppSelector((state) => state.baccaratDetail);
+  const { dataBaccaratDetailCurrent, dataBetCurrent } = useAppSelector(
+    (state) => state.baccaratDetail
+  );
   const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   const dataBaccaratDetailById = dataBaccaratDetailCurrent.find(
     (d) => d.gameBaccaratId == gameBaccaratId
@@ -36,6 +38,18 @@ export function ControllerBaccarat(): JSX.Element {
   const [dataBetConfirmOld, setDataBetConfirmOld] = useState<{ point: number; answer: number }[]>(
     []
   );
+  const onBetPosition = (positionAns: number) => {
+    if (curChip) {
+      const sumBet = dataBetCurrent.reduce((pre, item) => pre + item.point, 0);
+      if (sumBet < gamePoint)
+        dispatch(
+          updateDataBetBaccarat({
+            answer: positionAns,
+            point: Number(sumBet + curChip < gamePoint ? curChip : gamePoint - sumBet),
+          })
+        );
+    }
+  };
 
   // Handle Message
   const dispatch = useAppDispatch();
@@ -52,7 +66,7 @@ export function ControllerBaccarat(): JSX.Element {
           break;
         case StatusBaccarat.waitOpen:
           setDataBetConfirmOld([]);
-          dispatch(resetDataBetDice());
+          dispatch(resetDataBetBaccarat());
           setMessage('Đã kết thúc đặt cược, vui lòng chờ mở bài');
           break;
         case StatusBaccarat.end:
@@ -101,6 +115,7 @@ export function ControllerBaccarat(): JSX.Element {
         <></>
       )}
       <CountDownBetBaccarat
+        typePlay={typePlay}
         setTotalPointBet={setTotalBet}
         setDataBetConfirmOld={setDataBetConfirmOld}
         dataBetConfirmOld={dataBetConfirmOld}
@@ -117,41 +132,73 @@ export function ControllerBaccarat(): JSX.Element {
         <div className={cx('live_action')}>
           <div className={cx('absolute left-0 right-0 top-0 bottom-0 [&>div]:h-[34.3%]', 'd3')}>
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 1)?.point || 0}
+              positionAnswer={1}
+              curChip={curChip}
               className="basis-[24%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_1') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 3)?.point || 0}
+              positionAnswer={3}
+              curChip={curChip}
               className="basis-[26%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_3') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 6)?.point || 0}
+              positionAnswer={6}
+              curChip={curChip}
               className="basis-[26%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_6') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 7)?.point || 0}
+              positionAnswer={7}
+              curChip={curChip}
               className="basis-[24%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_7') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 2)?.point || 0}
+              positionAnswer={2}
+              curChip={curChip}
               className="basis-[24%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_2') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 4)?.point || 0}
+              positionAnswer={4}
+              curChip={curChip}
               className="basis-[52%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_4') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 8)?.point || 0}
+              positionAnswer={8}
+              curChip={curChip}
               className="basis-[24%]"
               statusBaccarat={statsBaccaratDetail}
               isHighlight={dataBaccaratDetailById?.arrBetActive?.includes('p_8') || false}
             />
             <TableItemBaccarat
+              onBetPosition={onBetPosition}
+              betConfirmOld={dataBetConfirmOld.find((i) => i.answer == 5)?.point || 0}
+              positionAnswer={5}
+              curChip={curChip}
               isPlayer
               className="basis-[52%]"
               statusBaccarat={statsBaccaratDetail}

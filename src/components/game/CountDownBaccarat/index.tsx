@@ -14,6 +14,7 @@ export default function CountDownBetBaccarat({
   setTotalPointBet,
   dataBetConfirmOld,
   setDataBetConfirmOld,
+  typePlay,
 }: {
   setTotalPointBet?: React.Dispatch<React.SetStateAction<number>>;
   setDataBetConfirmOld?: React.Dispatch<
@@ -24,6 +25,7 @@ export default function CountDownBetBaccarat({
       }[]
     >
   >;
+  typePlay?: string;
   dataBetConfirmOld?: {
     point: number;
     answer: number;
@@ -69,6 +71,7 @@ export default function CountDownBetBaccarat({
     const gameBaccaratId = dataBaccaratDetailById?.gameBaccaratId || 1;
     const baccaratDetailId = dataBaccaratDetailById?.baccaratDetailId || 1;
     const dataBetTg = [...dataBetCurrent];
+    console.log('🚀 ~ handleConfirmBet ~ dataBetTg:', dataBetTg);
     if (
       dataBetTg.length &&
       transaction &&
@@ -85,6 +88,7 @@ export default function CountDownBetBaccarat({
             point: bet.point,
             answer: bet.answer,
             game: 'mc-baccarat',
+            type: typePlay,
           };
           const req = await betDiceAndBaccarat(data);
 

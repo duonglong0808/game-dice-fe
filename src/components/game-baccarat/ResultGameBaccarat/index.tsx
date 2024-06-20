@@ -46,7 +46,8 @@ export function ResultGameBaccarat(): JSX.Element {
               {
                 'bg-[#ffd9804d] lg:bg-[#ffd9804d] border-[#fed700]':
                   pointPlayer > pointBanker && statsBaccaratDetail == StatusBaccarat.check,
-                'border-[transparent]': statsBaccaratDetail != StatusBaccarat.check,
+                'border-[transparent]':
+                  statsBaccaratDetail != StatusBaccarat.check || pointPlayer < pointBanker,
               }
             )}>
             <div className="text-center text-xl mb-1 font-semibold hidden lg:block">
@@ -150,7 +151,8 @@ export function ResultGameBaccarat(): JSX.Element {
                 'bg-[#ffd9804d] lg:bg-[#ffd9804d] border-[#fed700]':
                   pointPlayer < pointBanker && statsBaccaratDetail == StatusBaccarat.check,
 
-                'border-[transparent]': statsBaccaratDetail != StatusBaccarat.check,
+                'border-[transparent]':
+                  statsBaccaratDetail != StatusBaccarat.check || pointPlayer > pointBanker,
               }
             )}>
             <div className="text-center text-xl mb-1 font-semibold hidden lg:block">
