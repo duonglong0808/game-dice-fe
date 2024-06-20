@@ -1,4 +1,4 @@
-import { ChatLiveMobile } from '@/app/mobile/game/components/ChatLiveMobile';
+import { ChatLiveMobile } from '@/components/game-mobile/ChatLiveMobile';
 import { HistoryBPT } from '@/components/game-baccarat/HistoryBPT';
 import { HistoryDotBaccarat } from '@/components/game-baccarat/HistoryDot';
 import { HistoryLineBaccarat } from '@/components/game-baccarat/HistoryLine';
@@ -10,7 +10,7 @@ import CountDownBetBaccarat from '@/components/game/CountDownBaccarat';
 import { ShowMessageLive } from '@/components/game/ShowMessageLive';
 import { StatusBaccarat, dataListChipsStatistics } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/lib';
-import { resetDataBetBaccarat } from '@/lib/redux/app/baccaratDetail.slice';
+import { resetDataBetBaccarat, updateDataBetBaccarat } from '@/lib/redux/app/baccaratDetail.slice';
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { setIndexChipsRedux } from '@/lib/redux/system/settingSys';
 import { betDiceAndBaccarat } from '@/ultils/api';
@@ -19,10 +19,12 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { TableItemBaccaratMobile } from '../TableItemBaccaratMobile';
 
 export function BaccaratDetailViewMobile(): JSX.Element {
   // Initialize
   const wsk = useHandleMessageBaccaratWsk();
+  const [typePlay, setTypePlay] = useState('old');
 
   const { baccaratGame } = useAppSelector((state) => state.baccaratGame);
   const router = useRouter();
@@ -62,7 +64,19 @@ export function BaccaratDetailViewMobile(): JSX.Element {
   const [totalPointBet, setTotalPointBet] = useState(0);
   const dataBetConfirmOld = useRef<{ point: number; answer: number }[]>([]);
   const [currentChip, setCurrentChip] = useState<number>();
-  const [optionBetActive, setOptionBetActive] = useState(0);
+  const [optionBetActive, setOptionBetActive] = useState(1);
+  const onBetPosition = (positionAns: number) => {
+    if (currentChip) {
+      const sumBet = dataBetCurrent.reduce((pre, item) => pre + item.point, 0);
+      if (sumBet < gamePoint)
+        dispatch(
+          updateDataBetBaccarat({
+            answer: positionAns,
+            point: Number(sumBet + currentChip < gamePoint ? currentChip : gamePoint - sumBet),
+          })
+        );
+    }
+  };
 
   const handleConfirmBet = async () => {
     const transaction = dataBaccaratDetailById?.transaction || 1;
@@ -174,7 +188,15 @@ export function BaccaratDetailViewMobile(): JSX.Element {
             </div>
             <div className="flex h-full">
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_switch.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
-              <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_navNormal.svg)] bg-[length:auto_90%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
+              <button
+                onClick={() => setTypePlay((pre) => (pre == 'all' ? 'old' : 'all'))}
+                className={classNames(
+                  'w-10 h-full bg-[length:auto_90%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]',
+                  {
+                    'bg-[url(/Areas/Mobile/Images/VN/btn_navNormal.svg)]': typePlay == 'old',
+                    'bg-[url(/Areas/Mobile/Images/VN/btn_navMode.svg)]': typePlay == 'all',
+                  }
+                )}></button>
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/icon_verifyLive.png)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_gamePrompt.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
               <button className='w-10 h-full bg-[url(/Areas/Mobile/Images/VN/btn_limit.svg)] bg-[length:auto_65%] bg-no-repeat bg-center relative after:content-[""] after:absolute after:top-2 after:bottom-2 after:w-[1px] after:right-0 after:bg-[#333]'></button>
@@ -187,100 +209,178 @@ export function BaccaratDetailViewMobile(): JSX.Element {
               className=" bg-white w-full flex justify-center p-[3px] relative"
               style={{ height: 'calc(100% - 10.45svh - 188px)' }}>
               <ResultGameBaccarat />
-              <div className="absolute left-0 top-0 bottom-0 h-fit bg-[#00000040] m-auto rounded-tr-[8px] rounded-br-[8px]">
+              <div
+                onClick={() =>
+                  setOptionBetActive((pre) => {
+                    return pre - 1 < 0 ? 1 : pre - 1;
+                  })
+                }
+                className="absolute z-10 left-0 top-0 bottom-0 h-fit bg-[#00000040] m-auto rounded-tr-[8px] rounded-br-[8px]">
                 <div className="w-[10px] h-[10px] my-5 cursor-pointer mx-2  border-t-[3px] border-l-[3px] rotate-[-45deg] border-[#fff]"></div>
               </div>
-              <div className="absolute right-0 top-0 bottom-0 h-fit bg-[#00000040] m-auto rounded-tl-[8px] rounded-bl-[8px]">
+              <div
+                onClick={() =>
+                  setOptionBetActive((pre) => {
+                    return pre + 1 > 1 ? 0 : pre + 1;
+                  })
+                }
+                className="absolute z-10 right-0 top-0 bottom-0 h-fit bg-[#00000040] m-auto rounded-tl-[8px] rounded-bl-[8px]">
                 <div className="w-[10px] h-[10px] my-5 cursor-pointer mx-2  border-t-[3px] border-l-[3px] rotate-[135deg] border-[#fff]"></div>
               </div>
               {optionBetActive == 0 ? (
                 <div className="flex-1 flex bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm">
-                  <div className="basis-1/5 h-[49.5%]">
-                    <div className="border-r-[1px] h-full text-[#666] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
-                      <span className="">Con</span>
-                      <span className="">Long Bảo</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        Max 1:30
-                      </span>
+                  <TableItemBaccaratMobile
+                    className="basis-1/5 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={2}
+                    ratio="Max 1:30"
+                    textColor="text-[#666]"
+                    statusBaccarat={statsBaccaratDetail}>
+                    <div className="w-full text-[14px] flex flex-col">
+                      <p>Con</p>
+                      <p>Long Bảo</p>
                     </div>
-                  </div>
-                  <div className="basis-1/5 h-[49.5%]">
-                    <div className="border-r-[1px] h-full border-b-[1px] border-[#bcbcbc] font-bold relative flex items-center text-center text-sm">
-                      <span className="block mx-auto text-[#666] text-base">Con Đôi</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        1:11
-                      </span>
+                  </TableItemBaccaratMobile>
+                  <TableItemBaccaratMobile
+                    name="Con Đôi"
+                    className="basis-1/5 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={1}
+                    ratio="1:30"
+                    textColor="text-[#666]"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    name="SUPER 6"
+                    className="basis-1/5 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={6}
+                    ratio="1:12 / 1:20"
+                    textColor="text-[#ff9c00]"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    name="Cái Đôi"
+                    className="basis-1/5 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={7}
+                    ratio="1:30"
+                    textColor="text-[#666]"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    className="basis-1/5 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={8}
+                    ratio="Max 1:30"
+                    textColor="text-[#666]"
+                    statusBaccarat={statsBaccaratDetail}>
+                    <div className="w-full text-[14px] flex flex-col">
+                      <p>Cái</p>
+                      <p>Long Bảo</p>
                     </div>
-                  </div>
-                  <div className="basis-1/5 h-[49.5%]">
-                    <div className="border-r-[1px] h-full border-b-[1px] border-[#bcbcbc] font-bold relative flex items-center text-center text-sm">
-                      <span className="block mx-auto text-[#ff9c00] text-base">SUPER 6</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        1:12 / 1:20
-                      </span>
-                    </div>
-                  </div>
-                  <div className="basis-1/5 h-[49.5%]">
-                    <div className="border-r-[1px] h-full border-b-[1px] border-[#bcbcbc] font-bold relative flex items-center text-center text-sm">
-                      <span className="block mx-auto text-[#666] text-base">Cái đôi</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        1:11
-                      </span>
-                    </div>
-                  </div>
-                  <div className="basis-1/5 h-[49.5%]">
-                    <div className="border-r-[1px] h-full text-[#666] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
-                      <span className="">Cái</span>
-                      <span className="">Long Bảo</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        Max 1:30
-                      </span>
-                    </div>
-                  </div>
+                  </TableItemBaccaratMobile>
                   <div className="basis-full h-[1%] flex">
                     <div className="w-[43%] bg-[#0036ff]"></div>
                     <div className="flex-1 bg-[#fe0000]"></div>
                   </div>
-                  <div className="basis-1/3 h-[49.5%]">
-                    <div className="h-full text-[#666] border-t-[1px] border-r-[1px] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
-                      <span className="text-[#0036ff] text-3xl">Con</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        1:1
-                      </span>
-                    </div>
-                  </div>
-                  <div className="basis-1/3 h-[49.5%]">
-                    <div className="h-full text-[#666] border-t-[1px] border-r-[1px] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
-                      <span className="text-[#01ab48] text-3xl">Hòa</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        1:8
-                      </span>
-                    </div>
-                  </div>
-                  <div className="basis-1/3 h-[49.5%]">
-                    <div className="h-full text-[#666] border-t-[1px] border-r-[1px] border-b-[1px] border-[#bcbcbc] font-bold relative flex flex-col justify-center items-center text-center text-sm">
-                      <span className="text-[#fe0000] text-3xl">Cái</span>
-                      <span className="absolute bottom-3 left-0 right-0 block text-[#4c8bd080]">
-                        1:0.95
-                      </span>
-                    </div>
-                  </div>
+                  <TableItemBaccaratMobile
+                    name="Con"
+                    className="basis-1/3 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={5}
+                    ratio="1:1"
+                    textColor="text-[#0036ff]"
+                    fontSizeText="text-3xl"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    name="Hòa"
+                    className="basis-1/3 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={3}
+                    ratio="1:8"
+                    textColor="text-[#01ab48]"
+                    fontSizeText="text-3xl"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    name="Cái"
+                    className="basis-1/3 h-[49.5%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={4}
+                    ratio={typePlay == 'old' ? '1:0.95' : '1:1'}
+                    textColor="text-[#fe0000]"
+                    fontSizeText="text-3xl"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
                 </div>
               ) : (
                 <></>
               )}
               {optionBetActive == 1 ? (
-                <div className="flex-1 flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
-              ) : (
-                <></>
-              )}
-              {optionBetActive == 3 ? (
-                <div className="flex-1 flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
-              ) : (
-                <></>
-              )}
-              {optionBetActive == 4 ? (
-                <div className="flex-1 flex flex-col bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm"></div>
+                <div className="flex-1 flex bg-[#f3f3f3] flex-wrap w-full h-full border-t-[1px] border-l-[1px] border-[#bcbcbc] rounded-sm">
+                  <TableItemBaccaratMobile
+                    className="basis-1/2 h-[50%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={1}
+                    ratio="1:5"
+                    textColor="text-[#666]"
+                    name="Đôi bất kỳ"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    className="basis-1/2 h-[50%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={1}
+                    ratio="1:5"
+                    textColor="text-[#666]"
+                    name="Đôi hoàn mỹ"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    className="basis-1/2 h-[50%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={1}
+                    ratio="1:5"
+                    textColor="text-[#666]"
+                    name="Con bài chuẩn"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                  <TableItemBaccaratMobile
+                    className="basis-1/2 h-[50%]"
+                    betConfirmOld={0}
+                    isHighlight={false}
+                    onBetPosition={onBetPosition}
+                    positionAnswer={1}
+                    ratio="1:5"
+                    textColor="text-[#666]"
+                    name="Cái bài chuẩn"
+                    statusBaccarat={statsBaccaratDetail}
+                  />
+                </div>
               ) : (
                 <></>
               )}

@@ -4,7 +4,8 @@ import { HistoryOX } from '@/components/game-baccarat/HistoryOX';
 import { TypeGameBaccarat } from '@/constants';
 import { useAppDispatch } from '@/lib';
 import { setGameBaccaratId } from '@/lib/redux/app/baccaratGame.slice';
-import { useBaccaratGame } from '@/ultils/handleHomeBaccarat';
+import { useHandleMessageBaccaratWsk } from '@/ultils/handleDetailBaccarat';
+import { useBaccaratGame, useInitDataBaccarat } from '@/ultils/handleHomeBaccarat';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -13,6 +14,8 @@ export function BaccaratHomeMobile(): JSX.Element {
   const { data } = useBaccaratGame();
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const initData = useInitDataBaccarat();
+  const wsk = useHandleMessageBaccaratWsk();
 
   return (
     <>

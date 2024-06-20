@@ -1,7 +1,7 @@
 // pages/game/[id]/layout.tsx
 'use client';
 
-import { HeaderGameMobile } from '../components/Header';
+import { HeaderGameMobile } from '../../../../components/game-mobile/Header';
 
 export default function LayoutDetailGameMobile({
   children,

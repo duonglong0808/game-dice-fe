@@ -2,12 +2,12 @@
 
 import { useAppDispatch } from '@/lib';
 import { BaccaratItem } from '../BaccaratItem';
-import { useBaccaratGame, useInitData } from '@/ultils/handleHomeBaccarat';
+import { useBaccaratGame, useInitDataBaccarat } from '@/ultils/handleHomeBaccarat';
 import { setGameBaccaratId } from '@/lib/redux/app/baccaratGame.slice';
 import { useHandleMessageBaccaratWsk } from '@/ultils/handleDetailBaccarat';
 
 export function BaccaratHome(): JSX.Element {
-  const initData = useInitData();
+  const initData = useInitDataBaccarat();
   const wsk = useHandleMessageBaccaratWsk();
   const dispatch = useAppDispatch();
   const { data } = useBaccaratGame();

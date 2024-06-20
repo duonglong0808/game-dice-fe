@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import classNames from 'classnames';
 import { useState } from 'react';
-import { HeaderGameMobile } from './components/Header';
+import { HeaderGameMobile } from '../../../components/game-mobile/Header';
 import { DiceHomeMobile } from '@/components/game-mobile/DiceHome';
 import { BaccaratHomeMobile } from '@/components/game-mobile/BaccaratHome';
 

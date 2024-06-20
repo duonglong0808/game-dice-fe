@@ -68,7 +68,7 @@ export const useBaccaratGame = () => {
   };
 };
 
-export const useInitData = () => {
+export const useInitDataBaccarat = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

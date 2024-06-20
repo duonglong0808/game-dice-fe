@@ -18,8 +18,8 @@ import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { setIndexChipsRedux } from '@/lib/redux/system/settingSys';
 import { useHandleMessageDiceWsk } from '@/ultils/handleDetail';
 import { betDiceAndBaccarat } from '@/ultils/api';
-import { TableItemMobile } from '@/app/mobile/game/components/TableItem';
-import { ChatLiveMobile } from '@/app/mobile/game/components/ChatLiveMobile';
+import { ChatLiveMobile } from '@/components/game-mobile/ChatLiveMobile';
+import { TableItemMobile } from '../TableItemMobile';
 
 export function DetailDiceDetailMobile(): JSX.Element {
   // Initialize
