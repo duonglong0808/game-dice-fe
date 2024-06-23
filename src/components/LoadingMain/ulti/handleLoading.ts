@@ -17,16 +17,6 @@ export const handleLoginGame = async (
   const userInfo = await getUserInfo();
   if (userInfo) {
     const dataPoint = await getPointGameKuAndMain();
-    const dataDice = await getHistoryDiceGame();
-    // console.log('🚀 ~ dataDice?.data?.dataHistory:', dataDice?.data?.dataHistory);
-
-    const dataDiceDetail = dataDice?.data?.dataHistory?.map((item: any) => {
-      return {
-        ...item,
-        diceDetailId: item?.id,
-      };
-    });
-    dispatch(setDataDiceInitiated({ dataDiceDetail: dataDiceDetail || [] }));
     dispatch(setDataUserLogin({ ...userInfo?.data, ...dataPoint.data }));
     return true;
   } else {

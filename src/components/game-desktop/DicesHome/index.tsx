@@ -14,10 +14,12 @@ import {
 import { updatePointUser } from '@/lib/redux/app/userCurrent.slice';
 import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
 import { XocDiaItem } from '../DiceItemV1';
+import { useInitDataDice } from '@/ultils/handleHomeDice';
 
 export function DicesHome(): JSX.Element {
   const { data } = useDiceGame();
   const dispatch = useAppDispatch();
+  const initData = useInitDataDice();
 
   useEffect(() => {
     console.log('aaaa');
