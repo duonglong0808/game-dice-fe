@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/lib';
 import { setGameDiceId } from '@/lib/redux/app/diceGame.slice';
 import { useHandleMessageDiceWsk } from '@/ultils/handleDetail';
 import { useDiceGame } from '@/ultils/handleGame';
+import { useInitDataDice } from '@/ultils/handleHomeDice';
 import classNames from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -16,6 +17,7 @@ export function DiceHomeMobile(): JSX.Element {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const wsk = useHandleMessageDiceWsk();
+  const initData = useInitDataDice();
 
   return (
     <>

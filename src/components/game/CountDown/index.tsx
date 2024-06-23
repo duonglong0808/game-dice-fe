@@ -92,19 +92,19 @@ export default function CountDownBet({
 
       // const newDataBetConfirm = [...dataBetConfirmOld.current];
       let totalBetSuc = 0;
-      reqBets.map((item) => {
+      const newDataBetConfirmOld = dataBetConfirmOld ? [...dataBetConfirmOld] : [];
+      reqBets.forEach((item) => {
         totalBetSuc += item.point;
-        const newDataBetConfirmOld = dataBetConfirmOld ? [...dataBetConfirmOld] : [];
         const checkExits = newDataBetConfirmOld.find((i) => i.answer == item.answer);
         if (checkExits) checkExits.point = item.point + checkExits.point;
-        newDataBetConfirmOld.push(item);
+        else newDataBetConfirmOld.push(item);
         console.log(
           '🚀 ~ reqBets.map ~ dataBetConfirmOld:',
           dataBetConfirmOld,
           newDataBetConfirmOld
         );
-        setDataBetConfirmOld && setDataBetConfirmOld(newDataBetConfirmOld);
       });
+      setDataBetConfirmOld && setDataBetConfirmOld(newDataBetConfirmOld);
       setTotalPointBet && setTotalPointBet((pre) => pre + totalBetSuc);
       dispatch(updatePointUser({ gamePoint: -totalBetSuc }));
     }
