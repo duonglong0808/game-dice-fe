@@ -14,7 +14,8 @@ export default function GamePage(): JSX.Element {
   const { gameBaccaratId } = useAppSelector((state) => state.baccaratGame);
   console.log('🚀 ~ GamePage ~ gameBaccaratId:', gameBaccaratId);
   const searchParams = useSearchParams();
-  const game = searchParams.get('game') || 'dice';
+  const game = 'dice';
+  // const game = searchParams.get('game') || 'dice';
 
   return (
     <div className="w-full">

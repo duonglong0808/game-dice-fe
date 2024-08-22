@@ -21,6 +21,7 @@ import { HistoryDiceGameDetail } from '@/components/game/HistoryDiceGameDetail';
 import { EvenOddResultLive } from '@/components/game/EvenOddResultLive';
 import { DiceResultTXLive } from '@/components/game/DiceResultTXLive';
 import { ChatLive } from '../ChatLive';
+// import { addMessageGame } from '@/lib/redux/app/chat.slice';
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -40,7 +41,7 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
     wsk.joinRoom();
 
     wsk.listeningEvent(EventSocket.Data, (data: any) => {
-      console.log('🚀 ~ wsk.listeningEvent ~ data:', data);
+      // console.log('🚀 ~ wsk.listeningEvent ~ data:', data);
       const type = data?.typeEmit;
       switch (type) {
         case TypeEmitMessage.updateStatusDice:
@@ -81,7 +82,6 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
           dispatch(updateListDataDiceCurrent({ dataDiceDetail: data?.dataDiceDetail || [] }));
           break;
         case TypeEmitMessage.updatePoint:
-          console.log('Update point', data);
           switch (data.type) {
             case TypeUpdatePointUser.up:
               dispatch(
@@ -99,6 +99,10 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
               break;
           }
           break;
+        // case TypeEmitMessage.newMessage:
+        //   // console.log('🚀 ~ wsk.listeningEvent ~ data:11111111111', data);
+        //   dispatch(addMessageGame(data));
+        //   break;
         default:
           break;
       }
@@ -116,7 +120,7 @@ export default function XocDiaDetailsView({ gameDiceId }: Props) {
         <LiveStream src="https:live.vk169.net/hls/test1.m3u8" gameDiceId={gameDiceId} />
       </div>
       <div className={cx('result__list', 'flex')}>
-        <HistoryDiceGameDetail gameDiceId={gameDiceId} />
+        <HistoryDiceGameDetail gameDiceId={gameDiceId} initCol={7} />
         <HistoryDiceGame gameDiceId={gameDiceId} />
         <EvenOddResultLive gameDiceId={gameDiceId} />
         <DiceResultTXLive gameDiceId={gameDiceId} />

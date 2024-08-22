@@ -25,6 +25,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
   const [dataBetConfirmOld, setDataBetConfirmOld] = useState<{ point: number; answer: number }[]>(
     []
   );
+  console.log('🚀 ~ LiveStream ~ dataBetConfirmOld:', dataBetConfirmOld);
 
   // Ref
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -153,6 +154,7 @@ export default function LiveStream({ src, gameDiceId }: { src: string; gameDiceI
         _ngcontent-qpb-c33=""
         width="100%"
         height="855"
+        // src={'https://tkuwebxdl101.vnskuvideo.com/kugame/web/index.html?id=71101'}
         src={diceGameById?.idLive}
         className={cx('iframe_container')}
         ref={iframeRef}></iframe>

@@ -84,7 +84,7 @@ export function SliderBarGame(): JSX.Element {
           Xóc đĩa
         </li>
         <li
-          onClick={() => handleClickGame('mc-bacca')}
+          onClick={() => handleClickGame('other')}
           className={cx('item-game', 'item-game__mc', {
             'item-game__mc--active': game == 'mc-bacca',
           })}>
