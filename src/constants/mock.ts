@@ -4,51 +4,51 @@ export const dataDemoCL = [
       totalRed: '3',
       value: 'L',
     },
-    12: {
+    21: {
       totalRed: '2',
       value: 'C',
     },
-    13: {
+    31: {
       totalRed: '3',
       value: 'L',
     },
-    14: {
+    41: {
       totalRed: '2',
       value: 'C',
     },
-    24: {
+    42: {
       totalRed: '2',
       value: 'C',
     },
-    15: {
+    51: {
       totalRed: '3',
       value: 'L',
     },
-    25: {
+    52: {
       totalRed: '3',
       value: 'L',
     },
-    35: {
+    53: {
       totalRed: '3',
       value: 'L',
     },
-    16: {
+    61: {
       totalRed: '2',
       value: 'C',
     },
-    26: {
+    62: {
       totalRed: '2',
       value: 'C',
     },
-    36: {
+    63: {
       totalRed: '2',
       value: 'C',
     },
-    17: {
+    71: {
       totalRed: '3',
       value: 'L',
     },
-    18: {
+    81: {
       totalRed: '2',
       value: 'C',
     },
@@ -58,52 +58,52 @@ export const dataDemoCL = [
       totalRed: '2',
       value: 'C',
     },
-    12: {
+    21: {
       totalRed: '3',
       value: 'L',
     },
-    13: {
+    31: {
       totalRed: '2',
       value: 'C',
     },
-    23: {
+    32: {
       totalRed: '2',
       value: 'C',
     },
-    14: {
+    41: {
       totalRed: '3',
       value: 'L',
     },
-    15: {
+    51: {
       totalRed: '2',
       value: 'C',
     },
-    25: {
+    52: {
       totalRed: '2',
       value: 'C',
     },
-    35: {
+    53: {
       totalRed: '2',
       value: 'C',
     },
-    16: {
+    61: {
       totalRed: '1',
       value: 'L',
     },
 
-    17: {
+    71: {
       totalRed: '2',
       value: 'C',
     },
-    27: {
+    72: {
       totalRed: '2',
       value: 'C',
     },
-    37: {
+    73: {
       totalRed: '2',
       value: 'C',
     },
-    18: {
+    81: {
       totalRed: '3',
       value: 'L',
     },
@@ -113,39 +113,39 @@ export const dataDemoCL = [
       totalRed: '2',
       value: 'C',
     },
-    12: {
+    21: {
       totalRed: '3',
       value: 'L',
     },
-    13: {
+    31: {
       totalRed: '2',
       value: 'C',
     },
-    14: {
+    41: {
       totalRed: '3',
       value: 'L',
     },
-    15: {
+    51: {
       totalRed: '3',
       value: 'C',
     },
-    16: {
+    61: {
       totalRed: '3',
       value: 'L',
     },
-    26: {
+    62: {
       totalRed: '3',
       value: 'L',
     },
-    17: {
+    71: {
       totalRed: '2',
       value: 'C',
     },
-    27: {
+    72: {
       totalRed: '2',
       value: 'C',
     },
-    18: {
+    81: {
       totalRed: '3',
       value: 'L',
     },
@@ -157,34 +157,34 @@ export const dataDemoTX = [
     11: {
       value: 'T',
     },
-    12: {
+    21: {
       value: '2',
     },
-    13: {
+    31: {
       value: 'T',
     },
-    14: {
+    41: {
       value: 'X',
     },
-    24: {
+    42: {
       value: 'X',
     },
-    15: {
+    51: {
       value: 'T',
     },
-    16: {
+    61: {
       value: '2',
     },
-    26: {
+    62: {
       value: '2',
     },
-    36: {
+    63: {
       value: '2',
     },
     17: {
       value: 'T',
     },
-    18: {
+    81: {
       value: '2',
     },
   },
@@ -192,34 +192,34 @@ export const dataDemoTX = [
     11: {
       value: '2',
     },
-    21: {
-      value: '2',
-    },
     12: {
+      value: '2',
+    },
+    21: {
       value: 'X',
     },
-    13: {
+    31: {
       value: 'T',
     },
-    14: {
+    41: {
       value: '2',
     },
-    15: {
+    51: {
       value: 'X',
     },
-    16: {
+    61: {
       value: 'T',
     },
-    17: {
+    71: {
       value: '2',
     },
-    27: {
+    72: {
       value: '2',
     },
-    37: {
+    73: {
       value: '2',
     },
-    18: {
+    81: {
       value: 'X',
     },
   },
@@ -227,40 +227,40 @@ export const dataDemoTX = [
     11: {
       value: 'X',
     },
-    21: {
+    12: {
       value: 'X',
     },
-    12: {
+    21: {
       value: 'T',
     },
     22: {
       value: 'T',
     },
-    13: {
+    31: {
       value: '2',
     },
-    14: {
+    41: {
       value: 'x',
     },
-    15: {
+    51: {
       value: '2',
     },
-    16: {
+    61: {
       value: 'T',
     },
-    26: {
+    62: {
       value: 'T',
     },
-    17: {
+    71: {
       value: '2',
     },
-    27: {
+    72: {
       value: '2',
     },
-    37: {
+    73: {
       value: '2',
     },
-    18: {
+    81: {
       value: 'X',
     },
   },

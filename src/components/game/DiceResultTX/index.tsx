@@ -97,12 +97,11 @@ export function DiceResultTX({
 
       lengthDataRowOld.current = dataSort.length;
       setDataPosition(dataPositionCalc);
+    } else {
+      if (isDataDemo && typeof dataDemo == 'number') setDataPosition(dataDemoTX[dataDemo]);
     }
   }, [dataSort]);
 
-  if (isDataDemo && dataDemo) {
-    setDataPosition(dataDemoTX[dataDemo]);
-  }
   return (
     <div className={cx('wrapper')}>
       <table className={cx('CD_dataInput')}>

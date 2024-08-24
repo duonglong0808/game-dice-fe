@@ -239,7 +239,7 @@ export function EvenOddResult({
   // );
 
   useEffect(() => {
-    if (lengthDataRowOld.current != dataSort.length && !isDataDemo) {
+    if (lengthDataRowOld.current != dataSort.length) {
       const dataPositionCalc: any = {};
 
       let indexCurrent = 0;
@@ -303,12 +303,12 @@ export function EvenOddResult({
 
       lengthDataRowOld.current = dataSort.length;
       setDataPosition(dataPositionCalc);
+    } else {
+      if (isDataDemo && typeof dataDemo == 'number') {
+        setDataPosition(dataDemoCL[dataDemo]);
+      }
     }
   }, [dataSort]);
-
-  if (isDataDemo && dataDemo) {
-    setDataPosition(dataDemoCL[dataDemo]);
-  }
 
   return (
     <div className={cx('wrapper')}>
