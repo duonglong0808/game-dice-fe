@@ -5,10 +5,19 @@ import styles from './diceResultTX.module.scss';
 import { useAppSelector } from '@/lib';
 import { useEffect, useRef, useState } from 'react';
 import { DiceDetailDto } from '@/lib/redux/app/diceDetail.slice';
+import { dataDemoTX } from '@/constants/mock';
 
 const cx = classNames.bind(styles);
 
-export function DiceResultTX({ gameDiceId }: { gameDiceId: number }): JSX.Element {
+export function DiceResultTX({
+  gameDiceId,
+  dataDemo,
+  isDataDemo,
+}: {
+  gameDiceId: number;
+  dataDemo: number;
+  isDataDemo: boolean;
+}): JSX.Element {
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [
@@ -19,7 +28,7 @@ export function DiceResultTX({ gameDiceId }: { gameDiceId: number }): JSX.Elemen
   const [dataPosition, setDataPosition] = useState<any>({});
 
   useEffect(() => {
-    if (lengthDataRowOld.current != dataSort.length) {
+    if (lengthDataRowOld.current != dataSort.length && !isDataDemo) {
       const dataPositionCalc: any = {};
 
       let indexCurrent = 0;
@@ -90,6 +99,10 @@ export function DiceResultTX({ gameDiceId }: { gameDiceId: number }): JSX.Elemen
       setDataPosition(dataPositionCalc);
     }
   }, [dataSort]);
+
+  if (isDataDemo) {
+    setDataPosition(dataDemoTX[dataDemo]);
+  }
   return (
     <div className={cx('wrapper')}>
       <table className={cx('CD_dataInput')}>

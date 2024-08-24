@@ -5,6 +5,7 @@ import styles from './evenOdd.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from '@/lib';
 import { StatusDiceDetail } from '@/constants';
+import { dataDemoCL } from '@/constants/mock';
 
 const cx = classNames.bind(styles);
 
@@ -212,7 +213,15 @@ interface DiceDetailDto {
 //   },
 // ];
 
-export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Element {
+export function EvenOddResult({
+  gameDiceId,
+  dataDemo,
+  isDataDemo,
+}: {
+  gameDiceId: number;
+  dataDemo: number;
+  isDataDemo: boolean;
+}): JSX.Element {
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
   const dataSort = [
@@ -230,7 +239,7 @@ export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Eleme
   // );
 
   useEffect(() => {
-    if (lengthDataRowOld.current != dataSort.length) {
+    if (lengthDataRowOld.current != dataSort.length && !isDataDemo) {
       const dataPositionCalc: any = {};
 
       let indexCurrent = 0;
@@ -296,6 +305,10 @@ export function EvenOddResult({ gameDiceId }: { gameDiceId: number }): JSX.Eleme
       setDataPosition(dataPositionCalc);
     }
   }, [dataSort]);
+
+  if (isDataDemo) {
+    setDataPosition(dataDemoCL[dataDemo]);
+  }
 
   return (
     <div className={cx('wrapper')}>

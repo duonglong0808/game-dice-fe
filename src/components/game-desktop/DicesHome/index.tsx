@@ -104,7 +104,13 @@ export function DicesHome(): JSX.Element {
         <div
           onClick={() => dispatch(setGameDiceId({ id: index < 3 ? item.id : data[index % 3].id }))}
           key={index}>
-          <XocDiaItem key={index} {...item} id={index < 3 ? item.id : data[index % 3].id} />
+          <XocDiaItem
+            key={index}
+            {...item}
+            id={index < 3 ? item.id : data[index % 3].id}
+            isDataDemo={index >= 3}
+            dataDemo={index % 3}
+          />
         </div>
       ))}
     </>

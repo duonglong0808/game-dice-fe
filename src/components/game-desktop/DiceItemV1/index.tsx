@@ -18,6 +18,8 @@ export function XocDiaItem({
   valueL,
   valueC,
   id,
+  isDataDemo,
+  dataDemo,
 }: {
   id: number;
   name: string;
@@ -29,6 +31,8 @@ export function XocDiaItem({
   nameAuthor: string;
   valueL: number;
   valueC: number;
+  isDataDemo: boolean;
+  dataDemo: number;
 }): JSX.Element {
   let imageNational = '';
   switch (national?.toLowerCase()) {
@@ -88,9 +92,9 @@ export function XocDiaItem({
               //   width: '162px',
               //   height: '100%',
             }}>
-            <EvenOddResult gameDiceId={id} />
+            <EvenOddResult gameDiceId={id} isDataDemo={isDataDemo} dataDemo={dataDemo} />
           </div>
-          <DiceResultTX gameDiceId={id} />
+          <DiceResultTX gameDiceId={id} isDataDemo={isDataDemo} dataDemo={dataDemo} />
           {/* <EvenOddResult gameDiceId={id} /> */}
         </div>
       </div>
