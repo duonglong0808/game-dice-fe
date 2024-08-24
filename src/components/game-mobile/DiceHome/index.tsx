@@ -84,12 +84,20 @@ export function DiceHomeMobile(): JSX.Element {
               <div className="flex-1 flex ml-1 l">
                 <div className="basis-1/2">
                   <div className="border-r-[1px] border-[#979797]">
-                    <EvenOddResult gameDiceId={index < 3 ? item.id : data[index % 3].id} />
+                    <EvenOddResult
+                      gameDiceId={index < 3 ? item.id : data[index % 3].id}
+                      isDataDemo={index >= 3}
+                      dataDemo={index % 3}
+                    />
                   </div>
                 </div>
 
                 <div className="basis-1/2">
-                  <DiceResultTX gameDiceId={index < 3 ? item.id : data[index % 3].id} />
+                  <DiceResultTX
+                    gameDiceId={index < 3 ? item.id : data[index % 3].id}
+                    isDataDemo={index >= 3}
+                    dataDemo={index % 3}
+                  />
                 </div>
                 {/* <div className="basis-1/2">
                     <EvenOddResult gameDiceId={item.id} />
