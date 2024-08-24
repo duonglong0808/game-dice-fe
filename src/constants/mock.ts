@@ -44,7 +44,7 @@ export const dataDemoCL = [
       totalRed: '2',
       value: 'C',
     },
-    71: {
+    17: {
       totalRed: '3',
       value: 'L',
     },
@@ -255,9 +255,6 @@ export const dataDemoTX = [
       value: '2',
     },
     72: {
-      value: '2',
-    },
-    73: {
       value: '2',
     },
     81: {
