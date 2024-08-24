@@ -219,8 +219,8 @@ export function EvenOddResult({
   isDataDemo,
 }: {
   gameDiceId: number;
-  dataDemo: number;
-  isDataDemo: boolean;
+  dataDemo?: number;
+  isDataDemo?: boolean;
 }): JSX.Element {
   const dataRaw = useAppSelector((state) => state.diceDetail.dataDiceDetail);
   const lengthDataRowOld = useRef(0);
@@ -306,7 +306,7 @@ export function EvenOddResult({
     }
   }, [dataSort]);
 
-  if (isDataDemo) {
+  if (isDataDemo && dataDemo) {
     setDataPosition(dataDemoCL[dataDemo]);
   }
 
